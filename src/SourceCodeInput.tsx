@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MonacoEditor, { monaco as monacoEditor } from 'react-monaco-editor';
 
-export const SourceCodeInput = () => {
+export const SourceCodeInput: React.FC = () => {
   const [code, setCode] = useState<string>('// type your code');
   const options = {
     selectOnLineNumbers: true
