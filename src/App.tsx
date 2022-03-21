@@ -17,7 +17,7 @@ function App() {
     };
     const response = await fetch(generateAstUrl, requestOptions);
     const data = await response.json();
-    setAstNode(data);
+    setAstNode(data.node);
   }
 
   return (

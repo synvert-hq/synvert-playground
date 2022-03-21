@@ -1,9 +1,10 @@
+import ReactJson from 'react-json-view';
 interface AstOutputProps {
-  code: string;
+  code: object;
 }
 
 export const AstOutput: React.FC<AstOutputProps> = ({ code }) => {
   return (
-    <div>{JSON.stringify(code)}</div>
+    <ReactJson src={code} theme="twilight" displayDataTypes={false} />
   );
 }
