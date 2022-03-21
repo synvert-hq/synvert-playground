@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import { FC } from 'react';
 import MonacoEditor, { monaco as monacoEditor } from 'react-monaco-editor';
 
-export const SourceCodeInput: React.FC = () => {
-  const [code, setCode] = useState<string>('// type your code');
+interface SourceCodeInputProps {
+  code: string
+  setCode: (code: string) => void
+  generateAst: () => void
+}
+
+export const SourceCodeInput: FC<SourceCodeInputProps> = ({ code, setCode, generateAst }) => {
   const options = {
     selectOnLineNumbers: true
   };
@@ -13,19 +18,21 @@ export const SourceCodeInput: React.FC = () => {
 
   const editorDidMount = (editor: monacoEditor.editor.IStandaloneCodeEditor, monaco: typeof monacoEditor) => {
     editor.focus();
-    console.log(monaco.languages.getLanguages())
   }
 
   return (
-    <MonacoEditor
-      width="800"
-      height="600"
-      language="javascript"
-      theme="vs-dark"
-      value={code}
-      options={options}
-      onChange={onChange}
-      editorDidMount={editorDidMount}
-    />
+    <>
+      <MonacoEditor
+        width="800"
+        height="600"
+        language="javascript"
+        theme="vs-dark"
+        value={code}
+        options={options}
+        onChange={onChange}
+        editorDidMount={editorDidMount}
+      />
+      <button onClick={generateAst}>Generate</button>
+    </>
   );
 }
