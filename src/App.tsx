@@ -21,9 +21,16 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <SourceCodeInput code={sourceCode} setCode={setSourceCode} generateAst={generateAst} />
-      <AstOutput code={astNode} />
+    <div className="flex h-screen">
+      <div className="flex-none">
+        <SourceCodeInput code={sourceCode} setCode={setSourceCode} />
+      </div>
+      <div className="flex-none w-48 text-center pt-10">
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={generateAst}>Generate AST</button>
+      </div>
+      <div className="grow">
+        <AstOutput code={astNode} />
+      </div>
     </div>
   );
 }

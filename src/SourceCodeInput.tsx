@@ -4,10 +4,9 @@ import MonacoEditor, { monaco as monacoEditor } from 'react-monaco-editor';
 interface SourceCodeInputProps {
   code: string
   setCode: (code: string) => void
-  generateAst: () => void
 }
 
-export const SourceCodeInput: FC<SourceCodeInputProps> = ({ code, setCode, generateAst }) => {
+export const SourceCodeInput: FC<SourceCodeInputProps> = ({ code, setCode }) => {
   const options = {
     selectOnLineNumbers: true
   };
@@ -24,7 +23,6 @@ export const SourceCodeInput: FC<SourceCodeInputProps> = ({ code, setCode, gener
     <>
       <MonacoEditor
         width="800"
-        height="600"
         language="javascript"
         theme="vs-dark"
         value={code}
@@ -32,7 +30,6 @@ export const SourceCodeInput: FC<SourceCodeInputProps> = ({ code, setCode, gener
         onChange={onChange}
         editorDidMount={editorDidMount}
       />
-      <button onClick={generateAst}>Generate</button>
     </>
   );
 }
