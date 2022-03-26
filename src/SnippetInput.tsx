@@ -1,12 +1,12 @@
 import { FC } from 'react';
 import MonacoEditor, { monaco as monacoEditor } from 'react-monaco-editor';
 
-interface SourceCodeInputProps {
+interface SnippetInputProps {
   code: string
   setCode: (code: string) => void
 }
 
-export const SourceCodeInput: FC<SourceCodeInputProps> = ({ code, setCode }) => {
+export const SnippetInput: FC<SnippetInputProps> = ({ code, setCode }) => {
   const options = {
     selectOnLineNumbers: true
   };
