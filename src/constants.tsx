@@ -56,7 +56,7 @@ export const EXAMPLES: { [key: string]: Example } = {
           withNode(
             {
               type: "CallExpression",
-              callee: { type: "MemberExpression", object: { in: [/^\$/, /^jQuery/] }, property: { in: eventShorthandNames } },
+              callee: { type: "MemberExpression", object: { in: [/^\\$/, /^jQuery/] }, property: { in: eventShorthandNames } },
               arguments: { length: 1, first: { type: { in: ["FunctionExpression", "ArrowFunctionExpression"] } } },
             },
             () => {
@@ -71,7 +71,7 @@ export const EXAMPLES: { [key: string]: Example } = {
           withNode(
             {
               type: "CallExpression",
-              callee: { type: "MemberExpression", object: { in: [/^\$/, /^jQuery/] }, property: { in: eventShorthandNames } },
+              callee: { type: "MemberExpression", object: { in: [/^\\$/, /^jQuery/] }, property: { in: eventShorthandNames } },
               arguments: { length: 0 },
             },
             () => {
