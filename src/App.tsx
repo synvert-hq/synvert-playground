@@ -38,15 +38,15 @@ function App() {
 
   return (
     <div className="flex h-screen">
-      <div className="flex-none">
+      <div className="w-2/5 flex flex-col">
         <SourceCodeInput code={sourceCode} setCode={setSourceCode} />
         <SnippetInput code={snippetCode} setCode={setSnippetCode} />
       </div>
-      <div className="flex-none flex flex-col space-y-4 w-48 text-center p-4">
+      <div className="w-1/5 flex flex-col space-y-4 w-48 text-center p-4">
         <Button text="Generate AST" onClick={generateAst} />
         <Button text="Parse Snippet" onClick={parseSynvertSnippet} />
       </div>
-      <div className="grow">
+      <div className="w-2/5 flex flex-col">
         <AstOutput code={astNode} />
         <SourceCodeOutput code={output} />
       </div>

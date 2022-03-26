@@ -5,6 +5,14 @@ interface AstOutputProps {
 
 export const AstOutput: React.FC<AstOutputProps> = ({ code }) => {
   return (
-    <ReactJson src={code} theme="twilight" displayDataTypes={false} style={{ height: '50%', overflowY: 'scroll' }} />
+    <>
+      <span>AST Node:</span>
+      <ReactJson
+        src={code}
+        theme="twilight"
+        displayDataTypes={false}
+        style={{ width: '100%', height: '100%', overflowY: 'scroll' }}
+      />
+    </>
   );
 }

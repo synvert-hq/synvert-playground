@@ -12,9 +12,10 @@ export const SourceCodeOutput: FC<SourceCodeOutputProps> = ({ code }) => {
 
   return (
     <>
+      <span>Output:</span>
       <MonacoEditor
-        width="800"
-        height="50%"
+        width="100%"
+        height="100%"
         language="javascript"
         theme="vs-dark"
         value={code}

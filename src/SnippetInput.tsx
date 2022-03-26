@@ -15,21 +15,17 @@ export const SnippetInput: FC<SnippetInputProps> = ({ code, setCode }) => {
     setCode(value);
   }
 
-  const editorDidMount = (editor: monacoEditor.editor.IStandaloneCodeEditor, monaco: typeof monacoEditor) => {
-    editor.focus();
-  }
-
   return (
     <>
+      <span>Synvert Snippet:</span>
       <MonacoEditor
-        width="800"
-        height="50%"
+        width="100%"
+        height="100%"
         language="javascript"
         theme="vs-dark"
         value={code}
         options={options}
         onChange={onChange}
-        editorDidMount={editorDidMount}
       />
     </>
   );
