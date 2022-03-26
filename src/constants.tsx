@@ -50,6 +50,9 @@ export const EXAMPLES: { [key: string]: Example } = {
         ];
 
         withinFiles(Synvert.ALL_FILES, function () {
+          // $('#test').click(function(e) { });
+          // =>
+          // $('#test').on('click', function(e) { });
           withNode(
             {
               type: "CallExpression",
@@ -62,6 +65,9 @@ export const EXAMPLES: { [key: string]: Example } = {
             }
           );
 
+          // $form.submit();
+          // =>
+          // $form.trigger('submit');
           withNode(
             {
               type: "CallExpression",
