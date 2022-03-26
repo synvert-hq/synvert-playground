@@ -3,6 +3,7 @@ import { AstOutput } from './AstOutput';
 import { SnippetInput } from './SnippetInput';
 import { SourceCodeInput } from './SourceCodeInput';
 import { SourceCodeOutput } from './SourceCodeOutput';
+import { Button } from './Button';
 
 const GENERATE_AST_URL = process.env.REACT_APP_API_BASE_URL + "/generate-ast";
 const PARSE_SYNVERT_SNIPPET = process.env.REACT_APP_API_BASE_URL + "/parse-synvert-snippet";
@@ -42,8 +43,8 @@ function App() {
         <SnippetInput code={snippetCode} setCode={setSnippetCode} />
       </div>
       <div className="flex-none flex flex-col space-y-4 w-48 text-center p-4">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={generateAst}>Generate AST</button>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={parseSynvertSnippet}>Parse Snippet</button>
+        <Button text="Generate AST" onClick={generateAst} />
+        <Button text="Parse Snippet" onClick={parseSynvertSnippet} />
       </div>
       <div className="grow">
         <AstOutput code={astNode} />
