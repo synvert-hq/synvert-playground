@@ -30,7 +30,7 @@ function App() {
       };
       const response = await fetch(GENERATE_AST_URL, requestOptions);
       const data = await response.json();
-      setAstNode(data.node);
+      setAstNode(data.node || data.error);
     }
   }, [sourceCode]);
 
@@ -43,7 +43,7 @@ function App() {
       };
       const response = await fetch(PARSE_SYNVERT_SNIPPET_URL, requestOptions);
       const data = await response.json();
-      setOutput(data.output);
+      setOutput(data.output || data.error);
     }
   }, [sourceCode, snippetCode]);
 
