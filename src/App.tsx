@@ -8,9 +8,10 @@ import { Button } from './Button';
 import { GENERATE_AST_URL, PARSE_SYNVERT_SNIPPET_URL, EXAMPLES } from './constants';
 
 function App() {
-  const [example, setExample] = useState('');
-  const [sourceCode, setSourceCode] = useState<string>('');
-  const [snippetCode, setSnippetCode] = useState<string>('');
+  const firstExample = Object.keys(EXAMPLES)[0];
+  const [example, setExample] = useState(firstExample);
+  const [sourceCode, setSourceCode] = useState<string>(EXAMPLES[firstExample].sourceCode);
+  const [snippetCode, setSnippetCode] = useState<string>(EXAMPLES[firstExample].snippet);
   const [astNode, setAstNode] = useState<any>({});
   const [output, setOutput] = useState<string>('');
 
@@ -47,15 +48,11 @@ function App() {
   }, [sourceCode, snippetCode]);
 
   useEffect(() => {
-    handleExampleChanged(Object.keys(EXAMPLES)[0]);
-  }, [handleExampleChanged]);
-
-  useEffect(() => {
     const sendRequets = async () => {
       await Promise.all([generateAst(), parseSynvertSnippet()]);
     };
     sendRequets();
-  }, [example, generateAst, parseSynvertSnippet]);
+  }, [example]);
 
   return (
     <>
