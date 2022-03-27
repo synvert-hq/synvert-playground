@@ -5,7 +5,7 @@ import { SnippetInput } from './SnippetInput';
 import { SourceCodeInput } from './SourceCodeInput';
 import { SourceCodeOutput } from './SourceCodeOutput';
 import { Button } from './Button';
-import { DEFAULT_LANGUAGE, LANGUAGES, DEFAULT_EXAMPLE, EXAMPLES } from './constants';
+import { DEFAULT_LANGUAGE, LANGUAGES, DEFAULT_FILE_PATH, DEFAULT_EXAMPLE, EXAMPLES } from './constants';
 
 const requestUrl = (language: string, action: string): string => {
   if (process.env.NODE_ENV !== 'production') {
@@ -20,6 +20,7 @@ const requestUrl = (language: string, action: string): string => {
 
 function App() {
   const [language, setLanguage] = useState<string>(DEFAULT_LANGUAGE);
+  const [filePath, setFilePath] = useState<string>(DEFAULT_FILE_PATH[language]);
   const [example, setExample] = useState<string>(DEFAULT_EXAMPLE[language]);
   const [sourceCode, setSourceCode] = useState<string>(EXAMPLES[language][example].sourceCode);
   const [snippetCode, setSnippetCode] = useState<string>(EXAMPLES[language][example].snippet);
@@ -37,6 +38,9 @@ function App() {
   const handleExampleChanged = useCallback((example: string) => {
     setSourceCode(EXAMPLES[language][example].sourceCode);
     setSnippetCode(EXAMPLES[language][example].snippet);
+    if (EXAMPLES[language][example].filePath) {
+      setFilePath(EXAMPLES[language][example].filePath || '');
+    }
     setExample(example);
   }, [language]);
 
@@ -87,7 +91,7 @@ function App() {
       />
       <div className="flex h-screen mt-4">
         <div className="w-2/5 flex flex-col">
-          <SourceCodeInput code={sourceCode} setCode={setSourceCode} />
+          <SourceCodeInput filePath={filePath} setFilePath={setFilePath} code={sourceCode} setCode={setSourceCode} />
           <SnippetInput code={snippetCode} setCode={setSnippetCode} />
         </div>
         <div className="w-1/5 flex flex-col space-y-4 w-48 text-center p-4">

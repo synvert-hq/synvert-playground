@@ -4,7 +4,7 @@ interface Examples {
   [language: string]: {
     [name: string]: {
       sourceCode: string
-      path?: string
+      filePath?: string
       snippet: string
     }
   }
@@ -12,6 +12,10 @@ interface Examples {
 
 export const DEFAULT_LANGUAGE = 'javascript';
 export const LANGUAGES = ['javascript', 'ruby'];
+export const DEFAULT_FILE_PATH: { [language: string]: string } = {
+  'javascript': 'lib/code.js',
+  'ruby': 'app/code.rb'
+}
 export const DEFAULT_EXAMPLE: { [language: string]: string } = {
   'javascript': 'jquery/deprecate-event-shorthand',
   'ruby': 'rspec/be_close_to_be_within'
@@ -603,7 +607,7 @@ export const EXAMPLES: Examples = {
           end
         end
       `,
-      path: 'spec/models/post_spec.rb',
+      filePath: 'spec/models/post_spec.rb',
       snippet: dedent`
         Synvert::Rewriter.new('rspec', 'explicit_spec_type') do
           {
