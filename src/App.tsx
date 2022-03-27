@@ -5,21 +5,40 @@ import { SnippetInput } from './SnippetInput';
 import { SourceCodeInput } from './SourceCodeInput';
 import { SourceCodeOutput } from './SourceCodeOutput';
 import { Button } from './Button';
-import { GENERATE_AST_URL, PARSE_SYNVERT_SNIPPET_URL, EXAMPLES } from './constants';
+import { DEFAULT_LANGUAGE, LANGUAGES, DEFAULT_EXAMPLE, EXAMPLES } from './constants';
+
+const requestUrl = (language: string, action: string): string => {
+  if (process.env.NODE_ENV !== 'production') {
+    if (language === 'ruby') {
+      return ['http://localhost:4000', action].join("/")
+    } else {
+      return ['http://localhost:3000', action].join("/")
+    }
+  }
+  return [process.env.REACT_APP_API_BASE_URL, language, action].join("/");
+}
 
 function App() {
-  const firstExample = 'jquery/deprecate-event-shorthand';
-  const [example, setExample] = useState(firstExample);
-  const [sourceCode, setSourceCode] = useState<string>(EXAMPLES[firstExample].sourceCode);
-  const [snippetCode, setSnippetCode] = useState<string>(EXAMPLES[firstExample].snippet);
+  const [language, setLanguage] = useState<string>(DEFAULT_LANGUAGE);
+  const [example, setExample] = useState<string>(DEFAULT_EXAMPLE[language]);
+  const [sourceCode, setSourceCode] = useState<string>(EXAMPLES[language][example].sourceCode);
+  const [snippetCode, setSnippetCode] = useState<string>(EXAMPLES[language][example].snippet);
   const [astNode, setAstNode] = useState<any>({});
   const [output, setOutput] = useState<string>('');
 
-  const handleExampleChanged = useCallback((example: string) => {
-    setSourceCode(EXAMPLES[example].sourceCode);
-    setSnippetCode(EXAMPLES[example].snippet);
+  const handleLanguageChanged = useCallback((language: string) => {
+    const example = DEFAULT_EXAMPLE[language];
+    setSourceCode(EXAMPLES[language][example].sourceCode);
+    setSnippetCode(EXAMPLES[language][example].snippet);
     setExample(example);
+    setLanguage(language);
   }, []);
+
+  const handleExampleChanged = useCallback((example: string) => {
+    setSourceCode(EXAMPLES[language][example].sourceCode);
+    setSnippetCode(EXAMPLES[language][example].snippet);
+    setExample(example);
+  }, [language]);
 
   const generateAst = useCallback(async () => {
     if (sourceCode.length > 0) {
@@ -28,7 +47,8 @@ function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code: sourceCode })
       };
-      const response = await fetch(GENERATE_AST_URL, requestOptions);
+      const url = requestUrl(language, 'generate-ast');
+      const response = await fetch(url, requestOptions);
       const data = await response.json();
       setAstNode(data.node || data.error);
     }
@@ -41,7 +61,8 @@ function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code: sourceCode, snippet: snippetCode })
       };
-      const response = await fetch(PARSE_SYNVERT_SNIPPET_URL, requestOptions);
+      const url = requestUrl(language, 'parse-synvert-snippet');
+      const response = await fetch(url, requestOptions);
       const data = await response.json();
       setOutput(data.output || data.error);
     }
@@ -56,7 +77,14 @@ function App() {
 
   return (
     <>
-      <Header example={example} examples={Object.keys(EXAMPLES)} handleExampleChanged={handleExampleChanged} />
+      <Header
+        language={language}
+        languages={LANGUAGES}
+        handleLanguageChanged={handleLanguageChanged}
+        example={example}
+        examples={Object.keys(EXAMPLES[language])}
+        handleExampleChanged={handleExampleChanged}
+      />
       <div className="flex h-screen mt-4">
         <div className="w-2/5 flex flex-col">
           <SourceCodeInput code={sourceCode} setCode={setSourceCode} />
