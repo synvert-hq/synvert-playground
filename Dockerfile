@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 COPY . ./
-ENV REACT_APP_API_BASE_URL https://synvert-api.xinminlabs.com/javascript
+ENV REACT_APP_API_BASE_URL https://synvert-api.xinminlabs.com
 ENV GENERATE_SOURCEMAP false
 RUN npm run build
 
