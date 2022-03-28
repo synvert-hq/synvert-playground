@@ -95,7 +95,7 @@ function App() {
           <SnippetInput language={language} code={snippetCode} setCode={setSnippetCode} />
         </div>
         <div className="w-2/12 p-8">
-          <div className="w-48 mx-auto flex flex-col space-y-4">
+          <div className="mx-auto flex flex-col space-y-4">
             <Button text="Generate AST" onClick={generateAst} />
             <Button text="Parse Snippet" onClick={parseSynvertSnippet} />
           </div>
