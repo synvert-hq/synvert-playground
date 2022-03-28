@@ -664,7 +664,7 @@ export const EXAMPLES: Examples = {
             args.length.times do |i|
               rewritten_code << "#{'  ' * (args.length - 1 - i)}end"
             end
-            replace_with rewritten_code.join("\n")
+            replace_with rewritten_code.join("\\n")
           end
         end
       `
@@ -989,7 +989,7 @@ export const EXAMPLES: Examples = {
         #   do_something_surely_fail
         # end
         with_node type: 'block', caller: { type: 'send', receiver: nil, message: 'pending', arguments: { size: 0 } } do
-          replace_with "skip\n{{body}}"
+          replace_with "skip\\n{{body}}"
         end
 
         # it 'is skipped' do
