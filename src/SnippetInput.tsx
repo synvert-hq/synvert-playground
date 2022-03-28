@@ -1,11 +1,12 @@
 import MonacoEditor, { monaco as monacoEditor } from 'react-monaco-editor';
 
 interface SnippetInputProps {
+  language: string
   code: string
   setCode: (code: string) => void
 }
 
-export const SnippetInput: React.FC<SnippetInputProps> = ({ code, setCode }) => {
+export const SnippetInput: React.FC<SnippetInputProps> = ({ language, code, setCode }) => {
   const options = {
     selectOnLineNumbers: true
   };
@@ -18,9 +19,7 @@ export const SnippetInput: React.FC<SnippetInputProps> = ({ code, setCode }) => 
     <>
       <span>Synvert Snippet:</span>
       <MonacoEditor
-        width="100%"
-        height="100%"
-        language="javascript"
+        language={language}
         theme="vs-dark"
         value={code}
         options={options}

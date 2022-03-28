@@ -91,8 +91,8 @@ function App() {
       />
       <div className="flex h-screen mt-4">
         <div className="w-2/5 flex flex-col">
-          <SourceCodeInput filePath={filePath} setFilePath={setFilePath} code={sourceCode} setCode={setSourceCode} />
-          <SnippetInput code={snippetCode} setCode={setSnippetCode} />
+          <SourceCodeInput filePath={filePath} setFilePath={setFilePath} language={language} code={sourceCode} setCode={setSourceCode} />
+          <SnippetInput language={language} code={snippetCode} setCode={setSnippetCode} />
         </div>
         <div className="w-1/5 flex flex-col space-y-4 w-48 text-center p-4">
           <Button text="Generate AST" onClick={generateAst} />
@@ -100,7 +100,7 @@ function App() {
         </div>
         <div className="w-2/5 flex flex-col">
           <AstOutput code={astNode} />
-          <SourceCodeOutput code={output} />
+          <SourceCodeOutput language={language} code={output} />
         </div>
       </div>
     </>

@@ -2,10 +2,11 @@ import { FC } from 'react';
 import MonacoEditor from 'react-monaco-editor';
 
 interface SourceCodeOutputProps {
+  language: string
   code: string
 }
 
-export const SourceCodeOutput: FC<SourceCodeOutputProps> = ({ code }) => {
+export const SourceCodeOutput: FC<SourceCodeOutputProps> = ({ language, code }) => {
   const options = {
     readOnly: true,
     selectOnLineNumbers: true
@@ -15,9 +16,7 @@ export const SourceCodeOutput: FC<SourceCodeOutputProps> = ({ code }) => {
     <>
       <span>Output:</span>
       <MonacoEditor
-        width="100%"
-        height="100%"
-        language="javascript"
+        language={language}
         theme="vs-dark"
         value={code}
         options={options}

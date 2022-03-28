@@ -4,11 +4,12 @@ import MonacoEditor, { monaco as monacoEditor } from 'react-monaco-editor';
 interface SourceCodeInputProps {
   filePath: string
   setFilePath: (filePath: string) => void
+  language: string
   code: string
   setCode: (code: string) => void
 }
 
-export const SourceCodeInput: React.FC<SourceCodeInputProps> = ({ filePath, setFilePath, code, setCode }) => {
+export const SourceCodeInput: React.FC<SourceCodeInputProps> = ({ filePath, setFilePath, language, code, setCode }) => {
   const options = {
     selectOnLineNumbers: true
   };
@@ -40,9 +41,7 @@ export const SourceCodeInput: React.FC<SourceCodeInputProps> = ({ filePath, setF
         </div>
       </div>
       <MonacoEditor
-        width="100%"
-        height="100%"
-        language="javascript"
+        language={language}
         theme="vs-dark"
         value={code}
         options={options}
