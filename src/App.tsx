@@ -90,15 +90,17 @@ function App() {
         handleExampleChanged={handleExampleChanged}
       />
       <div className="flex h-screen mt-4">
-        <div className="w-2/5 flex flex-col">
+        <div className="w-5/12 flex flex-col px-4">
           <SourceCodeInput filePath={filePath} setFilePath={setFilePath} language={language} code={sourceCode} setCode={setSourceCode} />
           <SnippetInput language={language} code={snippetCode} setCode={setSnippetCode} />
         </div>
-        <div className="w-1/5 flex flex-col space-y-4 w-48 text-center p-4">
-          <Button text="Generate AST" onClick={generateAst} />
-          <Button text="Parse Snippet" onClick={parseSynvertSnippet} />
+        <div className="w-2/12 p-8">
+          <div className="w-48 mx-auto flex flex-col space-y-4">
+            <Button text="Generate AST" onClick={generateAst} />
+            <Button text="Parse Snippet" onClick={parseSynvertSnippet} />
+          </div>
         </div>
-        <div className="w-2/5 flex flex-col">
+        <div className="w-5/12 flex flex-col px-4">
           <AstOutput code={astNode} />
           <SourceCodeOutput language={language} code={output} />
         </div>
