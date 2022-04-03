@@ -49,28 +49,28 @@ function App() {
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: sourceCode })
+        body: JSON.stringify({ code: sourceCode, path: filePath })
       };
       const url = requestUrl(language, 'generate-ast');
       const response = await fetch(url, requestOptions);
       const data = await response.json();
       setAstNode(data.node || data.error);
     }
-  }, [sourceCode]);
+  }, [sourceCode, filePath]);
 
   const parseSynvertSnippet = useCallback(async () => {
     if (sourceCode.length > 0 && snippetCode.length > 0) {
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: sourceCode, snippet: snippetCode })
+        body: JSON.stringify({ code: sourceCode, path: filePath, snippet: snippetCode })
       };
       const url = requestUrl(language, 'parse-synvert-snippet');
       const response = await fetch(url, requestOptions);
       const data = await response.json();
       setOutput(data.output || data.error);
     }
-  }, [sourceCode, snippetCode]);
+  }, [sourceCode, filePath, snippetCode]);
 
   useEffect(() => {
     const sendRequets = async () => {
