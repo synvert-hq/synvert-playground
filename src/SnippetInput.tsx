@@ -8,7 +8,8 @@ interface SnippetInputProps {
 
 export const SnippetInput: React.FC<SnippetInputProps> = ({ language, code, setCode }) => {
   const options = {
-    selectOnLineNumbers: true
+    selectOnLineNumbers: true,
+    automaticLayout: true
   };
 
   const onChange = (value: string, event: monacoEditor.editor.IModelContentChangedEvent) => {

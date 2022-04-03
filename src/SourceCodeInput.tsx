@@ -11,7 +11,8 @@ interface SourceCodeInputProps {
 
 export const SourceCodeInput: React.FC<SourceCodeInputProps> = ({ filePath, setFilePath, language, code, setCode }) => {
   const options = {
-    selectOnLineNumbers: true
+    selectOnLineNumbers: true,
+    automaticLayout: true
   };
 
   const onFilePathChange = (event: React.ChangeEvent<HTMLInputElement>) => {

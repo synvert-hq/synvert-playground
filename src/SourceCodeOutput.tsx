@@ -9,7 +9,8 @@ interface SourceCodeOutputProps {
 export const SourceCodeOutput: FC<SourceCodeOutputProps> = ({ language, code }) => {
   const options = {
     readOnly: true,
-    selectOnLineNumbers: true
+    selectOnLineNumbers: true,
+    automaticLayout: true
   };
 
   return (
