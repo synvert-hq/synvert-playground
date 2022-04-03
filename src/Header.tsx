@@ -1,16 +1,16 @@
 import React from "react";
 import logo from "./logo.png";
+import { LANGUAGES } from "./constants";
 
 interface HeaderProps {
   language: string
-  languages: Array<string>
   handleLanguageChanged: (language: string) => void
   example: string
   examples: Array<string>
   handleExampleChanged: (example: string) => void
 }
 
-export const Header: React.FC<HeaderProps> = ({ language, languages, handleLanguageChanged, example, examples, handleExampleChanged }) => {
+export const Header: React.FC<HeaderProps> = ({ language, handleLanguageChanged, example, examples, handleExampleChanged }) => {
   const homeUrl = `https://synvert.xinminlabs.com/${language}/home`;
   const offliceSnippetsUrl = `https://synvert.xinminlabs.com/${language}/official_sippets/`;
 
@@ -39,7 +39,7 @@ export const Header: React.FC<HeaderProps> = ({ language, languages, handleLangu
               className="px-3 py-1.5 text-gray-700 border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:border-blue-600 focus:outline-none"
               onChange={handleLanguageChange}
             >
-              {languages.map((language) => (
+              {LANGUAGES.map((language) => (
                 <option key={language}>{language}</option>
               ))}
             </select>

@@ -5,7 +5,7 @@ import { SnippetInput } from './SnippetInput';
 import { SourceCodeInput } from './SourceCodeInput';
 import { SourceCodeOutput } from './SourceCodeOutput';
 import { Button } from './Button';
-import { DEFAULT_LANGUAGE, LANGUAGES, DEFAULT_FILE_PATH, DEFAULT_EXAMPLE, EXAMPLES } from './constants';
+import { DEFAULT_LANGUAGE, DEFAULT_FILE_PATH, DEFAULT_EXAMPLE, EXAMPLES } from './constants';
 
 const requestUrl = (language: string, action: string): string => {
   if (process.env.NODE_ENV !== 'production') {
@@ -83,7 +83,6 @@ function App() {
     <>
       <Header
         language={language}
-        languages={LANGUAGES}
         handleLanguageChanged={handleLanguageChanged}
         example={example}
         examples={Object.keys(EXAMPLES[language])}
