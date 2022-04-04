@@ -5,17 +5,10 @@ import { SnippetInput } from './SnippetInput';
 import { SourceCodeInput } from './SourceCodeInput';
 import { SourceCodeOutput } from './SourceCodeOutput';
 import { Button } from './Button';
-import { DEFAULT_LANGUAGE, DEFAULT_FILE_PATH, DEFAULT_EXAMPLE, EXAMPLES } from './constants';
+import { REQUEST_BASE_URL, DEFAULT_LANGUAGE, DEFAULT_FILE_PATH, DEFAULT_EXAMPLE, EXAMPLES } from './constants';
 
 const requestUrl = (language: string, action: string): string => {
-  if (process.env.NODE_ENV !== 'production') {
-    if (language === 'ruby') {
-      return ['http://localhost:4000', action].join("/")
-    } else {
-      return ['http://localhost:3000', action].join("/")
-    }
-  }
-  return [process.env.REACT_APP_API_BASE_URL, language, action].join("/");
+  return [REQUEST_BASE_URL[language], action].join("/");
 }
 
 function App() {
