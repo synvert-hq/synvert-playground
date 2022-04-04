@@ -26,6 +26,8 @@ function App() {
   const [snippetCode, setSnippetCode] = useState<string>(EXAMPLES[language][example].snippet);
   const [astNode, setAstNode] = useState<any>({});
   const [output, setOutput] = useState<string>('');
+  const [generateAstDisabled, setGenerateAstDisabled] = useState<boolean>(false);
+  const [parseSynvertSnippetDisabled, setParseSynvertSnippetDisabled] = useState<boolean>(false);
 
   const handleLanguageChanged = useCallback((language: string) => {
     const example = DEFAULT_EXAMPLE[language];
@@ -46,29 +48,41 @@ function App() {
 
   const generateAst = useCallback(async () => {
     if (sourceCode.length > 0) {
+      setGenerateAstDisabled(true);
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code: sourceCode, path: filePath })
       };
-      const url = requestUrl(language, 'generate-ast');
-      const response = await fetch(url, requestOptions);
-      const data = await response.json();
-      setAstNode(data.node || data.error);
+      try {
+        const url = requestUrl(language, 'generate-ast');
+        const response = await fetch(url, requestOptions);
+        const data = await response.json();
+        setAstNode(data.node || data.error);
+        setGenerateAstDisabled(false);
+      } catch (e) {
+        setGenerateAstDisabled(false);
+      }
     }
   }, [sourceCode, filePath]);
 
   const parseSynvertSnippet = useCallback(async () => {
     if (sourceCode.length > 0 && snippetCode.length > 0) {
+      setParseSynvertSnippetDisabled(true);
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code: sourceCode, path: filePath, snippet: snippetCode })
       };
-      const url = requestUrl(language, 'parse-synvert-snippet');
-      const response = await fetch(url, requestOptions);
-      const data = await response.json();
-      setOutput(data.output || data.error);
+      try {
+        const url = requestUrl(language, 'parse-synvert-snippet');
+        const response = await fetch(url, requestOptions);
+        const data = await response.json();
+        setOutput(data.output || data.error);
+        setParseSynvertSnippetDisabled(false);
+      } catch (e) {
+        setParseSynvertSnippetDisabled(false);
+      }
     }
   }, [sourceCode, filePath, snippetCode]);
 
@@ -95,8 +109,8 @@ function App() {
         </div>
         <div className="w-2/12 p-8">
           <div className="mx-auto flex flex-col space-y-4">
-            <Button text="Generate AST" onClick={generateAst} />
-            <Button text="Parse Snippet" onClick={parseSynvertSnippet} />
+            <Button text="Generate AST" onClick={generateAst} disabled={generateAstDisabled} />
+            <Button text="Parse Snippet" onClick={parseSynvertSnippet} disabled={parseSynvertSnippetDisabled} />
           </div>
         </div>
         <div className="w-5/12 flex flex-col px-4">
