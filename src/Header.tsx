@@ -12,7 +12,7 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ language, handleLanguageChanged, example, examples, handleExampleChanged }) => {
   const homeUrl = `https://synvert.xinminlabs.com/${language}/home`;
-  const offliceSnippetsUrl = `https://synvert.xinminlabs.com/${language}/official_sippets/`;
+  const offliceSnippetsUrl = `https://synvert.xinminlabs.com/${language}/official_snippets/`;
 
   const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const language = event.target.value;
