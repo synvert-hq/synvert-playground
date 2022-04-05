@@ -10,7 +10,6 @@ interface Examples {
   }
 }
 
-export const DEFAULT_LANGUAGE = 'javascript';
 export const LANGUAGES = ['javascript', 'ruby'];
 export const REQUEST_BASE_URL: { [language: string]: string } = {
   javascript: process.env.REACT_APP_JAVASCRIPT_BASE_URL || 'http://localhost:3000',

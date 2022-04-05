@@ -4,19 +4,18 @@ import { LANGUAGES } from "./constants";
 
 interface HeaderProps {
   language: string
-  handleLanguageChanged: (language: string) => void
   example: string
   examples: Array<string>
   handleExampleChanged: (example: string) => void
 }
 
-export const Header: React.FC<HeaderProps> = ({ language, handleLanguageChanged, example, examples, handleExampleChanged }) => {
+export const Header: React.FC<HeaderProps> = ({ language, example, examples, handleExampleChanged }) => {
   const homeUrl = `https://synvert.xinminlabs.com/${language}/home`;
   const offliceSnippetsUrl = `https://synvert.xinminlabs.com/${language}/official_snippets/`;
 
   const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const language = event.target.value;
-    handleLanguageChanged(language);
+    window.location.href = `/${language}`;
   }
 
   const handleExampleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

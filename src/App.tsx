@@ -6,14 +6,14 @@ import { SnippetInput } from './SnippetInput';
 import { SourceCodeInput } from './SourceCodeInput';
 import { SourceCodeOutput } from './SourceCodeOutput';
 import { Button } from './Button';
-import { REQUEST_BASE_URL, DEFAULT_LANGUAGE, DEFAULT_FILE_PATH, DEFAULT_EXAMPLE, EXAMPLES } from './constants';
+import { REQUEST_BASE_URL, DEFAULT_FILE_PATH, DEFAULT_EXAMPLE, EXAMPLES } from './constants';
 
 const requestUrl = (language: string, action: string): string => {
   return [REQUEST_BASE_URL[language], action].join("/");
 }
 
 function App() {
-  const [language, setLanguage] = useState<string>(DEFAULT_LANGUAGE);
+  const language = window.location.pathname === '/ruby' ? 'ruby' : 'javascript';
   const [filePath, setFilePath] = useState<string>(DEFAULT_FILE_PATH[language]);
   const [example, setExample] = useState<string>(DEFAULT_EXAMPLE[language]);
   const [sourceCode, setSourceCode] = useState<string>(EXAMPLES[language][example].sourceCode);
@@ -22,14 +22,6 @@ function App() {
   const [output, setOutput] = useState<string>('');
   const [generateAstDisabled, setGenerateAstDisabled] = useState<boolean>(false);
   const [parseSynvertSnippetDisabled, setParseSynvertSnippetDisabled] = useState<boolean>(false);
-
-  const handleLanguageChanged = useCallback((language: string) => {
-    const example = DEFAULT_EXAMPLE[language];
-    setSourceCode(EXAMPLES[language][example].sourceCode);
-    setSnippetCode(EXAMPLES[language][example].snippet);
-    setExample(example);
-    setLanguage(language);
-  }, []);
 
   const handleExampleChanged = useCallback((example: string) => {
     setSourceCode(EXAMPLES[language][example].sourceCode);
@@ -58,7 +50,7 @@ function App() {
         setGenerateAstDisabled(false);
       }
     }
-  }, [sourceCode, filePath]);
+  }, [language, sourceCode, filePath]);
 
   const parseSynvertSnippet = useCallback(async () => {
     if (sourceCode.length > 0 && snippetCode.length > 0) {
@@ -78,7 +70,7 @@ function App() {
         setParseSynvertSnippetDisabled(false);
       }
     }
-  }, [sourceCode, filePath, snippetCode]);
+  }, [language, sourceCode, filePath, snippetCode]);
 
   useEffect(() => {
     const sendRequets = async () => {
@@ -91,7 +83,6 @@ function App() {
     <>
       <Header
         language={language}
-        handleLanguageChanged={handleLanguageChanged}
         example={example}
         examples={Object.keys(EXAMPLES[language])}
         handleExampleChanged={handleExampleChanged}
