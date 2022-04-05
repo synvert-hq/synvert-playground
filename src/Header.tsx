@@ -15,7 +15,7 @@ export const Header: React.FC<HeaderProps> = ({ language, example, examples, han
 
   const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const language = event.target.value;
-    window.location.href = `/${language}`;
+    window.location.href = `?language=${language}`;
   }
 
   const handleExampleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

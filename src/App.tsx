@@ -13,7 +13,7 @@ const requestUrl = (language: string, action: string): string => {
 }
 
 function App() {
-  const language = window.location.pathname === '/ruby' ? 'ruby' : 'javascript';
+  const language = window.location.search === '?language=ruby' ? 'ruby' : 'javascript';
   const [filePath, setFilePath] = useState<string>(DEFAULT_FILE_PATH[language]);
   const [example, setExample] = useState<string>(DEFAULT_EXAMPLE[language]);
   const [sourceCode, setSourceCode] = useState<string>(EXAMPLES[language][example].sourceCode);
