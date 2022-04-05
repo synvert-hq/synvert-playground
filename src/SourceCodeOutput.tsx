@@ -15,7 +15,7 @@ export const SourceCodeOutput: FC<SourceCodeOutputProps> = ({ language, code }) 
 
   return (
     <>
-      <span>Output:</span>
+      <div className="h-32 font-bold flex items-center">Output:</div>
       <MonacoEditor
         language={language}
         theme="vs-dark"

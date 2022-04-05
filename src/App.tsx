@@ -100,7 +100,7 @@ function App() {
           <SourceCodeInput filePath={filePath} setFilePath={setFilePath} language={language} code={sourceCode} setCode={setSourceCode} />
           <SnippetInput language={language} code={snippetCode} setCode={setSnippetCode} />
         </div>
-        <div className="w-2/12 p-8">
+        <div className="w-2/12 px-2 py-14">
           <div className="mx-auto flex flex-col space-y-4">
             <Button text="Generate AST" onClick={generateAst} disabled={generateAstDisabled} />
             <Button text="Parse Snippet" onClick={parseSynvertSnippet} disabled={parseSynvertSnippetDisabled} />

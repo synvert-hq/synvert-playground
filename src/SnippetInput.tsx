@@ -18,7 +18,7 @@ export const SnippetInput: React.FC<SnippetInputProps> = ({ language, code, setC
 
   return (
     <>
-      <span>Synvert Snippet:</span>
+      <div className="h-32 font-bold flex items-center">Synvert Snippet:</div>
       <MonacoEditor
         language={language}
         theme="vs-dark"

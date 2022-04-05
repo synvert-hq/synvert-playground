@@ -6,7 +6,7 @@ interface AstOutputProps {
 export const AstOutput: React.FC<AstOutputProps> = ({ code }) => {
   return (
     <>
-      <span>AST Node:</span>
+      <div className="h-32 font-bold flex items-center">AST Node:</div>
       <ReactJson
         src={code}
         theme="twilight"
