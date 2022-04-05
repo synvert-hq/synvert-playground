@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Header } from './Header';
+import { Footer } from './Footer';
 import { AstOutput } from './AstOutput';
 import { SnippetInput } from './SnippetInput';
 import { SourceCodeInput } from './SourceCodeInput';
@@ -111,6 +112,7 @@ function App() {
           <SourceCodeOutput language={language} code={output} />
         </div>
       </div>
+      <Footer />
     </>
   );
 }
