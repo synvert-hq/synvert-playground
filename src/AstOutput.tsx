@@ -1,4 +1,4 @@
-import ReactJson from 'react-json-view';
+import ReactJson from "react-json-view";
 interface AstOutputProps {
   code: object;
 }
@@ -11,8 +11,8 @@ export const AstOutput: React.FC<AstOutputProps> = ({ code }) => {
         src={code}
         theme="twilight"
         displayDataTypes={false}
-        style={{ width: '100%', height: '100%', overflowY: 'scroll' }}
+        style={{ width: "100%", height: "100%", overflowY: "scroll" }}
       />
     </>
   );
-}
+};
