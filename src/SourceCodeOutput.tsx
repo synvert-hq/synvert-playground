@@ -1,16 +1,19 @@
-import { FC } from 'react';
-import MonacoEditor from 'react-monaco-editor';
+import { FC } from "react";
+import MonacoEditor from "react-monaco-editor";
 
 interface SourceCodeOutputProps {
-  language: string
-  code: string
+  language: string;
+  code: string;
 }
 
-export const SourceCodeOutput: FC<SourceCodeOutputProps> = ({ language, code }) => {
+export const SourceCodeOutput: FC<SourceCodeOutputProps> = ({
+  language,
+  code,
+}) => {
   const options = {
     readOnly: true,
     selectOnLineNumbers: true,
-    automaticLayout: true
+    automaticLayout: true,
   };
 
   return (
@@ -24,4 +27,4 @@ export const SourceCodeOutput: FC<SourceCodeOutputProps> = ({ language, code }) 
       />
     </>
   );
-}
+};

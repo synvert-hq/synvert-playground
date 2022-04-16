@@ -1,7 +1,7 @@
 interface ButtonProps {
-  text: string
-  disabled: boolean
-  onClick: () => void
+  text: string;
+  disabled: boolean;
+  onClick: () => void;
 }
 
 export const Button: React.FC<ButtonProps> = ({ text, disabled, onClick }) => {
@@ -11,7 +11,7 @@ export const Button: React.FC<ButtonProps> = ({ text, disabled, onClick }) => {
       onClick={onClick}
       disabled={disabled}
     >
-      {disabled ? 'Loading...' : text}
+      {disabled ? "Loading..." : text}
     </button>
-  )
-}
+  );
+};
