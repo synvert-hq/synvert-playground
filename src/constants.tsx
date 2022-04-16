@@ -1,31 +1,32 @@
-import dedent from 'ts-dedent';
+import dedent from "ts-dedent";
 
 interface Examples {
   [language: string]: {
     [name: string]: {
-      sourceCode: string
-      filePath?: string
-      snippet: string
-    }
-  }
+      sourceCode: string;
+      filePath?: string;
+      snippet: string;
+    };
+  };
 }
 
-export const LANGUAGES = ['javascript', 'ruby'];
+export const LANGUAGES = ["javascript", "ruby"];
 export const REQUEST_BASE_URL: { [language: string]: string } = {
-  javascript: process.env.REACT_APP_JAVASCRIPT_BASE_URL || 'http://localhost:3000',
-  ruby: process.env.REACT_APP_RUBY_BASE_URL || 'http://localhost:9292',
-}
+  javascript:
+    process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:3000",
+  ruby: process.env.REACT_APP_RUBY_BASE_URL || "http://localhost:9292",
+};
 export const DEFAULT_FILE_PATH: { [language: string]: string } = {
-  'javascript': 'lib/code.js',
-  'ruby': 'app/code.rb'
-}
+  javascript: "lib/code.js",
+  ruby: "app/code.rb",
+};
 export const DEFAULT_EXAMPLE: { [language: string]: string } = {
-  'javascript': 'jquery/deprecate-event-shorthand',
-  'ruby': 'rspec/be_close_to_be_within'
+  javascript: "jquery/deprecate-event-shorthand",
+  ruby: "rspec/be_close_to_be_within",
 };
 export const EXAMPLES: Examples = {
-  'javascript': {
-    'jquery/deprecate-andself': {
+  javascript: {
+    "jquery/deprecate-andself": {
       sourceCode: dedent`
         $(e.target).parents("#userMenu").andSelf()
       `,
@@ -40,9 +41,9 @@ export const EXAMPLES: Examples = {
             replace("callee.property", { with: "addBack" });
           }
         );
-      `
+      `,
     },
-    'jquery/deprecate-bind-and-delegate': {
+    "jquery/deprecate-bind-and-delegate": {
       sourceCode: dedent`
         $(this).bind("click", function () { console.log('bind') });
         $(this).unbind("click");
@@ -124,9 +125,9 @@ export const EXAMPLES: Examples = {
             replace("arguments.1", { with: "{{arguments.0}}" });
           }
         );
-      `
+      `,
     },
-    'jquery/deprecate-error': {
+    "jquery/deprecate-error": {
       sourceCode: dedent`
         $(this).error(function () { console.log('error') });
       `,
@@ -142,9 +143,9 @@ export const EXAMPLES: Examples = {
             insert("'{{callee.property}}', ", { to: "arguments.0", at: "beginning" });
           }
         );
-      `
+      `,
     },
-    'jquery/deprecate-event-shorthand': {
+    "jquery/deprecate-event-shorthand": {
       sourceCode: dedent`
         $('#test').click(function(e) {
           foo();
@@ -210,9 +211,9 @@ export const EXAMPLES: Examples = {
             replace(["callee.property", "arguments"], { with: "trigger('{{callee.property}}')" });
           }
         );
-      `
+      `,
     },
-    'jquery/deprecate-hover': {
+    "jquery/deprecate-hover": {
       sourceCode: dedent`
         $this.hover(fn1, fn2)
       `,
@@ -227,9 +228,9 @@ export const EXAMPLES: Examples = {
             replaceWith(\`{{callee.object}}.on("mouseenter", {{arguments.0}}).on("mouseover", {{arguments.1}})\`);
           }
         );
-      `
+      `,
     },
-    'jquery/deprecate-isarray': {
+    "jquery/deprecate-isarray": {
       sourceCode: dedent`
         $.isArray(arr)
       `,
@@ -243,9 +244,9 @@ export const EXAMPLES: Examples = {
             replace("callee.object", { with: "Array" });
           }
         );
-      `
+      `,
     },
-    'jquery/deprecate-jqxhr-success-error-and-complete': {
+    "jquery/deprecate-jqxhr-success-error-and-complete": {
       sourceCode: dedent`
         $.ajax({
           url: 'URL',
@@ -276,9 +277,9 @@ export const EXAMPLES: Examples = {
             );
           }
         );
-      `
+      `,
     },
-    'jquery/deprecate-load-unload': {
+    "jquery/deprecate-load-unload": {
       sourceCode: dedent`
         $(this).load(function () { console.log('load') });
         $(this).unload(function () { console.log('unload') });
@@ -295,9 +296,9 @@ export const EXAMPLES: Examples = {
             insert("'{{callee.property}}', ", { to: "arguments.0", at: "beginning" });
           }
         );
-      `
+      `,
     },
-    'jquery/deprecate-parsejson': {
+    "jquery/deprecate-parsejson": {
       sourceCode: dedent`
         $.parseJSON(str)
       `,
@@ -312,9 +313,9 @@ export const EXAMPLES: Examples = {
             replace("callee.property", { with: "parse" });
           }
         );
-      `
+      `,
     },
-    'jquery/deprecate-ready-event': {
+    "jquery/deprecate-ready-event": {
       sourceCode: dedent`
         $(document).on("ready", fn)
         $(document).ready(fn)
@@ -364,9 +365,9 @@ export const EXAMPLES: Examples = {
             deleteNode(["callee.object.arguments", "callee.property"]);
           }
         );
-      `
+      `,
     },
-    'jquery/deprecate-removeattr-boolean-properties': {
+    "jquery/deprecate-removeattr-boolean-properties": {
       sourceCode: dedent`
         $this.removeAttr('checked');
         $this.removeAttr('disabled');
@@ -387,9 +388,9 @@ export const EXAMPLES: Examples = {
             insert(", false", { to: "arguments.0", at: "end" });
           }
         );
-      `
+      `,
     },
-    'jquery/deprecate-size': {
+    "jquery/deprecate-size": {
       sourceCode: dedent`
         $('.active').size()
       `,
@@ -404,9 +405,9 @@ export const EXAMPLES: Examples = {
             replace(["callee.property", "arguments"], { with: "length" });
           }
         );
-      `
+      `,
     },
-    'jquery/deprecate-unique': {
+    "jquery/deprecate-unique": {
       sourceCode: dedent`
         $.unique(array)
       `,
@@ -421,9 +422,9 @@ export const EXAMPLES: Examples = {
             replace("callee.property", { with: "uniqueSort" });
           }
         );
-      `
+      `,
     },
-    'jquery/use-camelcased-data-name': {
+    "jquery/use-camelcased-data-name": {
       sourceCode: dedent`
         $this.data('my-data');
         $this.data('my-data', 'value');
@@ -451,9 +452,9 @@ export const EXAMPLES: Examples = {
             }
           }
         );
-      `
+      `,
     },
-    'jquery/use-expr-pseudos': {
+    "jquery/use-expr-pseudos": {
       sourceCode: dedent`
         $.expr[':']
         $.expr.filters
@@ -486,11 +487,11 @@ export const EXAMPLES: Examples = {
             replace("property", { with: "pseudos" });
           }
         );
-      `
-    }
+      `,
+    },
   },
-  'ruby': {
-    'rspec/be_close_to_be_within': {
+  ruby: {
+    "rspec/be_close_to_be_within": {
       sourceCode: dedent`
         describe Post do
           it 'test' do
@@ -502,9 +503,9 @@ export const EXAMPLES: Examples = {
         with_node type: 'send', message: 'to', arguments: { first: { type: 'send', message: 'be_close' } } do
           replace :arguments, with: "be_within({{arguments.first.arguments.last}}).of({{arguments.first.arguments.first}})"
         end
-      `
+      `,
     },
-    'rspec/block_to_expect': {
+    "rspec/block_to_expect": {
       sourceCode: dedent`
         describe Post do
           it 'test' do
@@ -520,9 +521,9 @@ export const EXAMPLES: Examples = {
             replace_with "expect { {{receiver.body}} }.#{new_message} {{arguments}}"
           end
         end
-      `
+      `,
     },
-    'rspec/boolean_matcher': {
+    "rspec/boolean_matcher": {
       sourceCode: dedent`
         describe Post do
           it 'case' do
@@ -537,9 +538,9 @@ export const EXAMPLES: Examples = {
             replace_with new_matcher
           end
         end
-      `
+      `,
     },
-    'rspec/collection_matcher': {
+    "rspec/collection_matcher": {
       sourceCode: dedent`
         describe Post do
           it 'test' do
@@ -579,9 +580,9 @@ export const EXAMPLES: Examples = {
             end
           end
         end
-      `
+      `,
     },
-    'rspec/custom_matcher_new_syntax': {
+    "rspec/custom_matcher_new_syntax": {
       sourceCode: dedent`
         RSpec::Matchers.define :be_awesome do
           match_for_should { }
@@ -601,16 +602,16 @@ export const EXAMPLES: Examples = {
             replace :caller, with: new_message
           end
         end
-      `
+      `,
     },
-    'rspec/explicit_spec_type': {
+    "rspec/explicit_spec_type": {
       sourceCode: dedent`
         describe Post do
           describe '#save' do
           end
         end
       `,
-      filePath: 'spec/models/post_spec.rb',
+      filePath: "spec/models/post_spec.rb",
       snippet: dedent`
         Synvert::Rewriter.new('rspec', 'explicit_spec_type') do
           {
@@ -636,9 +637,9 @@ export const EXAMPLES: Examples = {
             end
           end
         end
-      `
+      `,
     },
-    'rspec/its_to_it': {
+    "rspec/its_to_it": {
       sourceCode: dedent`
         describe Post do
           describe 'example' do
@@ -670,9 +671,9 @@ export const EXAMPLES: Examples = {
             replace_with rewritten_code.join("\\n")
           end
         end
-      `
+      `,
     },
-    'rspec/message_expectation': {
+    "rspec/message_expectation": {
       sourceCode: dedent`
         describe Post do
           it 'test' do
@@ -744,9 +745,9 @@ export const EXAMPLES: Examples = {
                   } do
           replace_with '{{receiver}}.to {{arguments.first.receiver}}'
         end
-      `
+      `,
     },
-    'rspec/method_stub': {
+    "rspec/method_stub": {
       sourceCode: dedent`
         describe Post do
           it 'case' do
@@ -846,9 +847,9 @@ export const EXAMPLES: Examples = {
                   } do
           replace_with '{{receiver}}.to {{arguments.first.receiver}}'
         end
-      `
+      `,
     },
-    'rspec/negative_error_expectation': {
+    "rspec/negative_error_expectation": {
       sourceCode: dedent`
         describe Post do
           it 'test' do
@@ -864,9 +865,9 @@ export const EXAMPLES: Examples = {
             replace_with 'raise_error'
           end
         end
-      `
+      `,
     },
-    'rspec/new_hook_scope': {
+    "rspec/new_hook_scope": {
       sourceCode: dedent`
         describe 'example' do
           before { do_something }
@@ -884,9 +885,9 @@ export const EXAMPLES: Examples = {
             replace :arguments, with: ':example'
           end
         end
-      `
+      `,
     },
-    'rspec/one_liner_expectation': {
+    "rspec/one_liner_expectation": {
       sourceCode: dedent`
         describe Post do
           it { should matcher }
@@ -955,9 +956,9 @@ export const EXAMPLES: Examples = {
             end
           end
         end
-      `
+      `,
     },
-    'rspec/pending_to_skip': {
+    "rspec/pending_to_skip": {
       sourceCode: dedent`
         describe 'example' do
           it 'is skipped', :pending => true do
@@ -1031,9 +1032,9 @@ export const EXAMPLES: Examples = {
             replace 'arguments.last', with: node.arguments.last.to_source.sub('pending', 'skip')
           end
         end
-      `
+      `,
     },
-    'rspec/remove_monkey_patches': {
+    "rspec/remove_monkey_patches": {
       sourceCode: dedent`
         describe Post do
           describe '.active' do
@@ -1047,9 +1048,9 @@ export const EXAMPLES: Examples = {
             insert 'RSpec.', at: 'beginning'
           end
         end
-      `
+      `,
     },
-    'rspec/should_to_expect': {
+    "rspec/should_to_expect": {
       sourceCode: dedent`
         describe Post do
           it 'test' do
@@ -1102,9 +1103,9 @@ export const EXAMPLES: Examples = {
             end
           end
         end
-      `
+      `,
     },
-    'rspec/stub_and_mock_to_double': {
+    "rspec/stub_and_mock_to_double": {
       sourceCode: dedent`
         describe Post do
           it 'test' do
@@ -1117,7 +1118,7 @@ export const EXAMPLES: Examples = {
         with_node type: 'send', receiver: nil, message: { in: ['stub', 'mock'] } do
           replace :message, with: 'double'
         end
-      `
-    }
-  }
-}
+      `,
+    },
+  },
+};

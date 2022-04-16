@@ -3,31 +3,43 @@ import logo from "./logo.png";
 import { LANGUAGES } from "./constants";
 
 interface HeaderProps {
-  language: string
-  example: string
-  examples: Array<string>
-  handleExampleChanged: (example: string) => void
+  language: string;
+  example: string;
+  examples: Array<string>;
+  handleExampleChanged: (example: string) => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ language, example, examples, handleExampleChanged }) => {
+export const Header: React.FC<HeaderProps> = ({
+  language,
+  example,
+  examples,
+  handleExampleChanged,
+}) => {
   const homeUrl = `https://synvert.xinminlabs.com/${language}/home`;
   const offliceSnippetsUrl = `https://synvert.xinminlabs.com/${language}/official_snippets/`;
 
-  const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleLanguageChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const language = event.target.value;
     window.location.href = `?language=${language}`;
-  }
+  };
 
   const handleExampleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const example = event.target.value;
     handleExampleChanged(example);
-  }
+  };
 
   return (
     <nav className="bg-neutral-800 text-white shadow">
       <div className="px-5 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <a className="flex items-center" href={homeUrl} target="_blank" rel="noreferrer">
+          <a
+            className="flex items-center"
+            href={homeUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
             <img className="w-8 h-8 mr-2" src={logo} alt="Logo" />
             <span>Home</span>
           </a>
@@ -52,10 +64,17 @@ export const Header: React.FC<HeaderProps> = ({ language, example, examples, han
                 <option key={example}>{example}</option>
               ))}
             </select>
-            <a className="ml-5" href={offliceSnippetsUrl} target="_blank" rel="noreferrer">More Snippets</a>
+            <a
+              className="ml-5"
+              href={offliceSnippetsUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              More Snippets
+            </a>
           </div>
         </div>
       </div>
     </nav>
-  )
-}
+  );
+};

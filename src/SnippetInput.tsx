@@ -1,20 +1,27 @@
-import MonacoEditor, { monaco as monacoEditor } from 'react-monaco-editor';
+import MonacoEditor, { monaco as monacoEditor } from "react-monaco-editor";
 
 interface SnippetInputProps {
-  language: string
-  code: string
-  setCode: (code: string) => void
+  language: string;
+  code: string;
+  setCode: (code: string) => void;
 }
 
-export const SnippetInput: React.FC<SnippetInputProps> = ({ language, code, setCode }) => {
+export const SnippetInput: React.FC<SnippetInputProps> = ({
+  language,
+  code,
+  setCode,
+}) => {
   const options = {
     selectOnLineNumbers: true,
-    automaticLayout: true
+    automaticLayout: true,
   };
 
-  const onChange = (value: string, event: monacoEditor.editor.IModelContentChangedEvent) => {
+  const onChange = (
+    value: string,
+    event: monacoEditor.editor.IModelContentChangedEvent
+  ) => {
     setCode(value);
-  }
+  };
 
   return (
     <>
@@ -28,4 +35,4 @@ export const SnippetInput: React.FC<SnippetInputProps> = ({ language, code, setC
       />
     </>
   );
-}
+};
