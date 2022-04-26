@@ -22,7 +22,7 @@ export const Header: React.FC<HeaderProps> = ({
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const language = event.target.value;
-    window.location.href = `?language=${language}`;
+    window.location.href = `/${language}`;
   };
 
   const handleExampleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
