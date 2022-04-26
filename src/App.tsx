@@ -2,13 +2,10 @@ import { useCallback, useEffect, useState } from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { AstOutput } from "./AstOutput";
-import { SnippetInput } from "./SnippetInput";
-import { SourceCodeInput } from "./SourceCodeInput";
-import { SourceCodeOutput } from "./SourceCodeOutput";
+import { CodeEditor } from "./CodeEditor";
 import { Button } from "./Button";
 import {
   REQUEST_BASE_URL,
-  DEFAULT_FILE_PATH,
   DEFAULT_EXAMPLE,
   EXAMPLES,
 } from "./constants";
@@ -20,7 +17,6 @@ const requestUrl = (language: string, action: string): string => {
 function App() {
   const language =
     window.location.search === "?language=ruby" ? "ruby" : "javascript";
-  const [filePath, setFilePath] = useState<string>(DEFAULT_FILE_PATH[language]);
   const [example, setExample] = useState<string>(DEFAULT_EXAMPLE[language]);
   const [sourceCode, setSourceCode] = useState<string>(
     EXAMPLES[language][example].sourceCode
@@ -39,9 +35,6 @@ function App() {
     (example: string) => {
       setSourceCode(EXAMPLES[language][example].sourceCode);
       setSnippetCode(EXAMPLES[language][example].snippet);
-      if (EXAMPLES[language][example].filePath) {
-        setFilePath(EXAMPLES[language][example].filePath || "");
-      }
       setExample(example);
     },
     [language]
@@ -53,7 +46,7 @@ function App() {
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: sourceCode, path: filePath }),
+        body: JSON.stringify({ code: sourceCode }),
       };
       try {
         const url = requestUrl(language, "generate-ast");
@@ -65,7 +58,7 @@ function App() {
         setGenerateAstDisabled(false);
       }
     }
-  }, [language, sourceCode, filePath]);
+  }, [language, sourceCode]);
 
   const parseSynvertSnippet = useCallback(async () => {
     if (sourceCode.length > 0 && snippetCode.length > 0) {
@@ -75,7 +68,6 @@ function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           code: sourceCode,
-          path: filePath,
           snippet: snippetCode,
         }),
       };
@@ -89,7 +81,7 @@ function App() {
         setParseSynvertSnippetDisabled(false);
       }
     }
-  }, [language, sourceCode, filePath, snippetCode]);
+  }, [language, sourceCode, snippetCode]);
 
   useEffect(() => {
     const sendRequets = async () => {
@@ -108,14 +100,14 @@ function App() {
       />
       <div className="flex h-screen mt-4">
         <div className="w-5/12 flex flex-col px-4">
-          <SourceCodeInput
-            filePath={filePath}
-            setFilePath={setFilePath}
+          <div className="font-bold flex items-center">Source Code:</div>
+          <CodeEditor
             language={language}
             code={sourceCode}
             setCode={setSourceCode}
           />
-          <SnippetInput
+          <div className="font-bold flex items-center">Synvert Snippet:</div>
+          <CodeEditor
             language={language}
             code={snippetCode}
             setCode={setSnippetCode}
@@ -137,7 +129,8 @@ function App() {
         </div>
         <div className="w-5/12 flex flex-col px-4">
           <AstOutput code={astNode} />
-          <SourceCodeOutput language={language} code={output} />
+          <div className="font-bold flex items-center">Source Code:</div>
+          <CodeEditor language={language} code={output} readOnly />
         </div>
       </div>
       <Footer />

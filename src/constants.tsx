@@ -16,10 +16,6 @@ export const REQUEST_BASE_URL: { [language: string]: string } = {
     process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:3000",
   ruby: process.env.REACT_APP_RUBY_BASE_URL || "http://localhost:9292",
 };
-export const DEFAULT_FILE_PATH: { [language: string]: string } = {
-  javascript: "lib/code.js",
-  ruby: "app/code.rb",
-};
 export const DEFAULT_EXAMPLE: { [language: string]: string } = {
   javascript: "jquery/deprecate-event-shorthand",
   ruby: "rspec/be_close_to_be_within",
