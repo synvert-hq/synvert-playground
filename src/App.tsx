@@ -4,11 +4,7 @@ import { Footer } from "./Footer";
 import { AstOutput } from "./AstOutput";
 import { CodeEditor } from "./CodeEditor";
 import { Button } from "./Button";
-import {
-  REQUEST_BASE_URL,
-  DEFAULT_EXAMPLE,
-  EXAMPLES,
-} from "./constants";
+import { REQUEST_BASE_URL, DEFAULT_EXAMPLE, EXAMPLES } from "./constants";
 
 const requestUrl = (language: string, action: string): string => {
   return [REQUEST_BASE_URL[language], action].join("/");
