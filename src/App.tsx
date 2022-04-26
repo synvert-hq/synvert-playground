@@ -93,7 +93,7 @@ function App() {
         examples={Object.keys(EXAMPLES[language])}
         handleExampleChanged={handleExampleChanged}
       />
-      <div className="flex h-screen mt-4">
+      <div className="flex mt-4">
         <div className="w-5/12 flex flex-col px-4">
           <div className="font-bold flex items-center">Source Code:</div>
           <CodeEditor
