@@ -22,9 +22,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "PORT=8000 react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
+    "start": "PORT=8000 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -47,9 +47,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.4",
-    "monaco-editor-webpack-plugin": "^7.0.1",
     "postcss": "^8.4.12",
-    "react-app-rewired": "^2.2.1",
     "tailwindcss": "^3.0.23"
   }
 }
