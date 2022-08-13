@@ -96,7 +96,7 @@ function App() {
       />
       <div className="flex mt-4">
         <div className="w-5/12 flex flex-col px-4">
-          <div className="font-bold flex items-center">Source Code:</div>
+          <div className="font-bold flex items-center">Input Source Code:</div>
           <CodeEditor
             language={language}
             code={sourceCode}
@@ -125,7 +125,7 @@ function App() {
         </div>
         <div className="w-5/12 flex flex-col px-4">
           <AstOutput code={astNode} />
-          <div className="font-bold flex items-center">Source Code:</div>
+          <div className="font-bold flex items-center">Output Source Code:</div>
           <CodeEditor language={language} code={output} readOnly />
         </div>
       </div>
