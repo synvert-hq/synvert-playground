@@ -18,7 +18,6 @@ ReactDOM.render(
         </Route>
       </Routes>
     </BrowserRouter>
-    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );
