@@ -3,17 +3,19 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App";
+import ParseSnippet from "./parse-snippet";
 import reportWebVitals from "./reportWebVitals";
+import GenerateAst from "./generate-ast";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/">
-          <Route path=":language">
-            <Route path="parse-snippet" element={<App />} />
+          <Route path=":language" element={<App />}>
+            <Route path="parse-snippet" element={<ParseSnippet />} />
             <Route path="generate-snippet" />
-            <Route path="generate-ast" />
+            <Route path="generate-ast" element={<GenerateAst />} />
           </Route>
         </Route>
       </Routes>

@@ -9,6 +9,7 @@ interface CodeEditorProps {
   code: string;
   setCode?: (code: string) => void;
   readOnly?: boolean;
+  height: string;
 }
 
 export const CodeEditor: React.FC<CodeEditorProps> = ({
@@ -16,15 +17,16 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   code,
   setCode,
   readOnly,
+  height,
 }) => {
   const editor = useRef() as React.MutableRefObject<HTMLInputElement>;
   const { setContainer } = useCodeMirror({
     container: editor.current,
     extensions:
-      language === "javascript"
+      language === "javascript" || language === "typescript"
         ? [javascript({ jsx: true })]
         : [StreamLanguage.define(ruby)],
-    height: "400px",
+    height,
     theme: "dark",
     value: code,
     onChange: setCode,
