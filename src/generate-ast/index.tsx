@@ -5,8 +5,9 @@ import { CodeEditor } from "../shared/CodeEditor";
 import { Button } from "../shared/Button";
 import { ExtensionSelect } from "../shared/ExtensionSelect";
 import { DEFAULT_EXAMPLE, EXAMPLES } from "../constants";
-import { requestUrl } from "../utils";
+import { getFileName, getScriptKind, requestUrl } from "../utils";
 import useFileType from "../shared/useFileType";
+import { createSourceFile, ScriptTarget } from "typescript";
 
 function GenerateAst() {
   const { language } = useParams() as { language: string};
@@ -19,8 +20,18 @@ function GenerateAst() {
   const [generating, setGenerating] = useState<boolean>(false);
 
   const generateAst = useCallback(async () => {
-    if (sourceCode.length > 0) {
-      setGenerating(true);
+    if (sourceCode.length === 0) {
+      return;
+    }
+
+    setGenerating(true);
+    if (["typescript", "javascript"].includes(language)) {
+      const fileName = getFileName(extension);
+      const scriptKind = getScriptKind(extension);
+      const node = createSourceFile(fileName, sourceCode, ScriptTarget.Latest, false, scriptKind);
+      setAstNode(node);
+      setGenerating(false);
+    } else {
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -31,12 +42,11 @@ function GenerateAst() {
         const response = await fetch(url, requestOptions);
         const data = await response.json();
         setAstNode(data.node || data.error);
-        setGenerating(false);
-      } catch (e) {
+      } finally {
         setGenerating(false);
       }
     }
-  }, [language, sourceCode]);
+  }, [language, extension, sourceCode]);
 
   useEffect(() => {
     const example = DEFAULT_EXAMPLE[language];
@@ -74,7 +84,7 @@ function GenerateAst() {
           </div>
         </div>
         <div className="w-5/12 flex flex-col px-4">
-          <AstOutput code={astNode} />
+          <AstOutput node={astNode} />
         </div>
       </div>
     </>
