@@ -3,14 +3,17 @@ import { useParams } from "react-router-dom";
 import { AstOutput } from "../shared/AstOutput";
 import { CodeEditor } from "../shared/CodeEditor";
 import { Button } from "../shared/Button";
+import { ExtensionSelect } from "../shared/ExtensionSelect";
 import { DEFAULT_EXAMPLE, EXAMPLES } from "../constants";
 import { requestUrl } from "../utils";
+import useFileType from "../shared/useFileType";
 
 function GenerateAst() {
   const { language } = useParams() as { language: string};
   const example = DEFAULT_EXAMPLE[language];
   const defaultSourceCode = EXAMPLES[language][example].sourceCode;
 
+  const [extension, setExtension] = useFileType(language);
   const [sourceCode, setSourceCode] = useState<string>(defaultSourceCode);
   const [astNode, setAstNode] = useState<any>({});
   const [generating, setGenerating] = useState<boolean>(false);
@@ -50,7 +53,8 @@ function GenerateAst() {
 
   return (
     <>
-      <div className="flex mt-4">
+      <ExtensionSelect extension={extension} handleExtensionChanged={setExtension} />
+      <div className="flex">
         <div className="w-5/12 flex flex-col px-4">
           <div className="font-bold">Source Code:</div>
           <CodeEditor

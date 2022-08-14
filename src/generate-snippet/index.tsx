@@ -3,16 +3,12 @@ import { useParams } from "react-router-dom";
 import { requestUrl } from "../utils";
 import { Button } from "../shared/Button";
 import { CodeEditor } from "../shared/CodeEditor";
-
-const CODE_EXTENSIONS = {
-  js: "Javascript",
-  jsx: "Javascript + JSX",
-  ts: "Typescript",
-  tsx: "Typescript + JSX",
-}
+import { ExtensionSelect } from "../shared/ExtensionSelect";
+import useFileType from "../shared/useFileType";
 
 function GenerateSnippet() {
   const { language } = useParams() as { language: string};
+  const [extension, setExtension] = useFileType(language);
   const [inputs, setInputs] = useState<string[]>([""]);
   const [outputs, setOutputs] = useState<string[]>([""]);
   const [generating, setGenerating] = useState<boolean>(false);
@@ -52,6 +48,7 @@ function GenerateSnippet() {
 
   return (
     <>
+      <ExtensionSelect extension={extension} handleExtensionChanged={setExtension} />
       <div className="flex">
         <div className="w-1/2 px-4">
           <div className="font-bold">Inputs</div>

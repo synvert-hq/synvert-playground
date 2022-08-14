@@ -20,7 +20,7 @@ export const ExampleSelect: React.FC<ExampleSelectProps> = ({ example, handleExa
   return (
     <div className="flex items-center justify-end h-12 mr-6">
       <div>
-        <span className="font-bold mr-2">Examples:</span>
+        <span className="font-bold mr-2">Example:</span>
         <select
           value={example}
           className="px-3 py-1.5 text-gray-700 border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:border-blue-600 focus:outline-none"
