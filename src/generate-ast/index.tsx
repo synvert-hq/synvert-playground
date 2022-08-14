@@ -3,11 +3,8 @@ import { useParams } from "react-router-dom";
 import { AstOutput } from "../shared/AstOutput";
 import { CodeEditor } from "../shared/CodeEditor";
 import { Button } from "../shared/Button";
-import { REQUEST_BASE_URL, DEFAULT_EXAMPLE, EXAMPLES } from "../constants";
-
-const requestUrl = (language: string, action: string): string => {
-  return [REQUEST_BASE_URL[language], action].join("/");
-};
+import { DEFAULT_EXAMPLE, EXAMPLES } from "../constants";
+import { requestUrl } from "../utils";
 
 function GenerateAst() {
   const { language } = useParams() as { language: string};

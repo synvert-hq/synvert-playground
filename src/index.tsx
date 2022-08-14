@@ -6,6 +6,7 @@ import App from "./App";
 import ParseSnippet from "./parse-snippet";
 import reportWebVitals from "./reportWebVitals";
 import GenerateAst from "./generate-ast";
+import GenerateSnippet from "./generate-snippet";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,7 +15,7 @@ ReactDOM.render(
         <Route path="/">
           <Route path=":language" element={<App />}>
             <Route path="parse-snippet" element={<ParseSnippet />} />
-            <Route path="generate-snippet" />
+            <Route path="generate-snippet" element={<GenerateSnippet />} />
             <Route path="generate-ast" element={<GenerateAst />} />
           </Route>
         </Route>
