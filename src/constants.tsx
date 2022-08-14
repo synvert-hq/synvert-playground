@@ -10,17 +10,70 @@ interface Examples {
   };
 }
 
-export const LANGUAGES = ["javascript", "ruby"];
+interface Extensions {
+  [language: string]: {
+    [name: string]: string
+  }
+}
+
+export const LANGUAGES = ["typescript", "javascript", "ruby"];
+
 export const REQUEST_BASE_URL: { [language: string]: string } = {
+  typescript:
+    process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:3000",
   javascript:
     process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:3000",
   ruby: process.env.REACT_APP_RUBY_BASE_URL || "http://localhost:9292",
 };
+
+export const CODE_EXTENSIONS: Extensions = {
+  typescript: {
+    ts: "Typescript",
+    tsx: "Typescript + JSX",
+  },
+  javascript: {
+    js: "Javascript",
+    jsx: "Javascript + JSX",
+  },
+  ruby: {
+    rb: "Ruby",
+    erb: "Ruby + ERB",
+  }
+}
+
 export const DEFAULT_EXAMPLE: { [language: string]: string } = {
+  typescript: "typescript/array-type",
   javascript: "jquery/deprecate-event-shorthand",
   ruby: "rspec/be_close_to_be_within",
 };
+
 export const EXAMPLES: Examples = {
+  typescript: {
+    "typescript/array-type": {
+      sourceCode: dedent`
+        const x: Array<string> = ['a', 'b'];
+        const y: ReadonlyArray<string> = ['a', 'b'];
+        const z: Array<string | number> = ['a', 'b'];
+      `,
+      snippet: dedent`
+        findNode(".TypeReference[typeName.escapedText=Array][typeArguments.0=.UnionType]", () => {
+          replaceWith("({{typeArguments}})[]");
+        });
+
+        findNode(".TypeReference[typeName.escapedText=Array][typeArguments.0!=.UnionType]", () => {
+          replaceWith("{{typeArguments}}[]");
+        });
+
+        findNode(".TypeReference[typeName.escapedText=ReadonlyArray][typeArguments.0=.UnionType]", () => {
+          replaceWith("readonly ({{typeArguments}})[]");
+        });
+
+        findNode(".TypeReference[typeName.escapedText=ReadonlyArray][typeArguments.0!=.UnionType]", () => {
+          replaceWith("readonly {{typeArguments}}[]");
+        });
+      `,
+    },
+  },
   javascript: {
     "jquery/deprecate-andself": {
       sourceCode: dedent`
