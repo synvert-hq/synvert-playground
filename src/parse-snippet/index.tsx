@@ -9,7 +9,7 @@ import { ExtensionSelect } from "../shared/ExtensionSelect";
 import useFileType from "../shared/useFileType";
 
 function ParseSnippet() {
-  const { language } = useParams() as { language: string};
+  const { language } = useParams() as { language: string };
   const [extension, setExtension] = useFileType(language);
   const [example, setExample] = useState<string>("");
   const [sourceCode, setSourceCode] = useState<string>("");
@@ -52,7 +52,7 @@ function ParseSnippet() {
   }, [language, extension, sourceCode, snippetCode]);
 
   useEffect(() => {
-    const example = DEFAULT_EXAMPLE[language]
+    const example = DEFAULT_EXAMPLE[language];
     setExample(example);
     setSourceCode(EXAMPLES[language][example].sourceCode);
     setSnippetCode(EXAMPLES[language][example].snippet);
@@ -65,8 +65,14 @@ function ParseSnippet() {
   return (
     <>
       <div className="flex justify-between px-4">
-        <ExampleSelect example={example} handleExampleChanged={handleExampleChanged} />
-        <ExtensionSelect extension={extension} handleExtensionChanged={setExtension} />
+        <ExampleSelect
+          example={example}
+          handleExampleChanged={handleExampleChanged}
+        />
+        <ExtensionSelect
+          extension={extension}
+          handleExtensionChanged={setExtension}
+        />
       </div>
       <div className="flex mt-4">
         <div className="w-5/12 flex flex-col px-4">
@@ -96,7 +102,12 @@ function ParseSnippet() {
             height="400px"
           />
           <div className="font-bold">Output Source Code:</div>
-          <CodeEditor language={language} code={output} readOnly height="400px" />
+          <CodeEditor
+            language={language}
+            code={output}
+            readOnly
+            height="400px"
+          />
         </div>
       </div>
     </>
