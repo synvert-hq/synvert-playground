@@ -70,12 +70,12 @@ export const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
   const src = node ? getRootObject(language, node) : {};
   return (
     <>
-      <div className="font-bold flex items-center my-2">AST Node:</div>
+      <div className="font-bold">AST Node:</div>
       <ReactJson
         src={src}
         theme="twilight"
         displayDataTypes={false}
-        style={{ width: "100%", height: "824px", overflowY: "scroll" }}
+        style={{ width: "100%", height: "800px", overflowY: "scroll" }}
       />
     </>
   );

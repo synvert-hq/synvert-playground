@@ -68,36 +68,34 @@ function ParseSnippet() {
         <ExampleSelect example={example} handleExampleChanged={handleExampleChanged} />
         <ExtensionSelect extension={extension} handleExtensionChanged={setExtension} />
       </div>
-      <div className="flex mt-4">
-        <div className="w-5/12 flex flex-col px-4">
-          <div className="font-bold">Synvert Snippet:</div>
-          <CodeEditor
-            language={language}
-            code={snippetCode}
-            setCode={setSnippetCode}
-            height="825px"
-          />
-        </div>
-        <div className="w-2/12 px-2 py-14">
-          <div className="mx-auto flex flex-col space-y-4">
-            <Button
-              text="Parse Snippet"
-              onClick={parseSynvertSnippet}
-              disabled={parseSynvertSnippetDisabled}
-            />
-          </div>
-        </div>
-        <div className="w-5/12 flex flex-col px-4">
-          <div className="font-bold">Input Source Code:</div>
-          <CodeEditor
-            language={language}
-            code={sourceCode}
-            setCode={setSourceCode}
-            height="400px"
-          />
-          <div className="font-bold">Output Source Code:</div>
-          <CodeEditor language={language} code={output} readOnly height="400px" />
-        </div>
+      <div className="px-4">
+        <div className="font-bold">Input Source Code:</div>
+        <CodeEditor
+          language={language}
+          code={sourceCode}
+          setCode={setSourceCode}
+          height="200px"
+        />
+      </div>
+      <div className="px-4">
+        <div className="font-bold">Synvert Snippet:</div>
+        <CodeEditor
+          language={language}
+          code={snippetCode}
+          setCode={setSnippetCode}
+          height="400px"
+        />
+      </div>
+      <div className="flex justify-center py-4">
+        <Button
+          text="Parse Snippet"
+          onClick={parseSynvertSnippet}
+          disabled={parseSynvertSnippetDisabled}
+        />
+      </div>
+      <div className="px-4">
+        <div className="font-bold">Output Source Code:</div>
+        <CodeEditor language={language} code={output} readOnly height="200px" />
       </div>
     </>
   );
