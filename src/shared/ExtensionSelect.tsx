@@ -26,7 +26,7 @@ export const ExtensionSelect: React.FC<ExtensionSelectProps> = ({ extension, han
           onChange={handleExtensionChange}
         >
           {Object.keys(codeExtensions).map((name) => (
-            <option key={name}>{codeExtensions[name]}</option>
+            <option key={name} value={name}>{codeExtensions[name]}</option>
           ))}
         </select>
       </div>

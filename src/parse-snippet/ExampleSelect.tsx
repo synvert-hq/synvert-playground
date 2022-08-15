@@ -27,7 +27,7 @@ export const ExampleSelect: React.FC<ExampleSelectProps> = ({ example, handleExa
           onChange={handleExampleChange}
         >
           {examples.map((example) => (
-            <option key={example}>{example}</option>
+            <option key={example} value={example}>{example}</option>
           ))}
         </select>
       </div>

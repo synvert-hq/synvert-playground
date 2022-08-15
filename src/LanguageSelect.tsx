@@ -23,7 +23,7 @@ export const LanguageSelect: React.FC = () => {
         onChange={handleLanguageChange}
       >
         {LANGUAGES.map((language) => (
-          <option key={language}>{language}</option>
+          <option key={language} value={language}>{language}</option>
         ))}
       </select>
     </div>
