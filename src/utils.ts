@@ -7,7 +7,7 @@ export const requestUrl = (language: string, action: string): string => {
 
 export const getFileName = (extension: string): string => {
   return `code.${extension}`;
-}
+};
 
 export const getScriptKind = (extension: string): ScriptKind => {
   switch (extension) {
@@ -19,7 +19,7 @@ export const getScriptKind = (extension: string): ScriptKind => {
       return ScriptKind.JS;
     case "jsx":
       return ScriptKind.JSX;
-      default:
-        return ScriptKind.Unknown;
+    default:
+      return ScriptKind.Unknown;
   }
-}
+};
