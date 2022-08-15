@@ -34,7 +34,7 @@ function GenerateSnippet() {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ inputs, outputs }),
+      body: JSON.stringify({ extension, inputs, outputs }),
     };
     try {
       const url = requestUrl(language, "generate-snippet");
@@ -44,7 +44,7 @@ function GenerateSnippet() {
     } finally {
       setGenerating(false);
     }
-  }, [language, inputs, outputs]);
+  }, [language, extension, inputs, outputs]);
 
   return (
     <>
