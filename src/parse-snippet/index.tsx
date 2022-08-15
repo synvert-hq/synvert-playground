@@ -5,9 +5,12 @@ import { Button } from "../shared/Button";
 import { DEFAULT_EXAMPLE, EXAMPLES } from "../constants";
 import { ExampleSelect } from "./ExampleSelect";
 import { requestUrl } from "../utils";
+import { ExtensionSelect } from "../shared/ExtensionSelect";
+import useFileType from "../shared/useFileType";
 
 function ParseSnippet() {
   const { language } = useParams() as { language: string};
+  const [extension, setExtension] = useFileType(language);
   const [example, setExample] = useState<string>(DEFAULT_EXAMPLE[language]);
   const [sourceCode, setSourceCode] = useState<string>(
     EXAMPLES[language][example].sourceCode
@@ -35,6 +38,7 @@ function ParseSnippet() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          extension,
           code: sourceCode,
           snippet: snippetCode,
         }),
@@ -49,7 +53,7 @@ function ParseSnippet() {
         setParseSynvertSnippetDisabled(false);
       }
     }
-  }, [language, sourceCode, snippetCode]);
+  }, [language, extension, sourceCode, snippetCode]);
 
   useEffect(() => {
     parseSynvertSnippet();
@@ -57,7 +61,10 @@ function ParseSnippet() {
 
   return (
     <>
-      <ExampleSelect example={example} handleExampleChanged={handleExampleChanged} />
+      <div className="flex justify-between px-4">
+        <ExampleSelect example={example} handleExampleChanged={handleExampleChanged} />
+        <ExtensionSelect extension={extension} handleExtensionChanged={setExtension} />
+      </div>
       <div className="flex mt-4">
         <div className="w-5/12 flex flex-col px-4">
           <div className="font-bold">Synvert Snippet:</div>
