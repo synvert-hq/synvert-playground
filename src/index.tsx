@@ -17,7 +17,10 @@ ReactDOM.render(
           <Route path="generate-snippet" element={<GenerateSnippet />} />
           <Route path="generate-ast" element={<GenerateAst />} />
         </Route>
-        <Route path="*" element={<Navigate to="/typescript/parse-snippet" replace />} />
+        <Route
+          path="*"
+          element={<Navigate to="/typescript/parse-snippet" replace />}
+        />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

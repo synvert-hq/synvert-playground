@@ -6,11 +6,15 @@ interface TextFieldProps {
   handleValueChanged: (value: string) => void;
 }
 
-export const TextField: React.FC<TextFieldProps> = ({ value, placeholder, handleValueChanged }) => {
+export const TextField: React.FC<TextFieldProps> = ({
+  value,
+  placeholder,
+  handleValueChanged,
+}) => {
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     handleValueChanged(value);
-  }
+  };
 
   return (
     <input

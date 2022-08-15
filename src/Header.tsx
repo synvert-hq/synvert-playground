@@ -23,9 +23,18 @@ const Header: React.FC = () => {
                 <img className="w-8 h-8 mr-2" src={logo} alt="Logo" />
                 <span className="mr-8">Home</span>
               </a>
-              <NavTab link={`/${language}/parse-snippet`} text="Parse Snippet"></NavTab>
-              <NavTab link={`/${language}/generate-snippet`} text="Generate Snippet"></NavTab>
-              <NavTab link={`/${language}/generate-ast`} text="Generate AST"></NavTab>
+              <NavTab
+                link={`/${language}/parse-snippet`}
+                text="Parse Snippet"
+              ></NavTab>
+              <NavTab
+                link={`/${language}/generate-snippet`}
+                text="Generate Snippet"
+              ></NavTab>
+              <NavTab
+                link={`/${language}/generate-ast`}
+                text="Generate AST"
+              ></NavTab>
             </div>
             <LanguageSelect />
           </div>

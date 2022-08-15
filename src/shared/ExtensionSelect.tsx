@@ -7,11 +7,16 @@ interface ExtensionSelectProps {
   handleExtensionChanged: (extension: string) => void;
 }
 
-export const ExtensionSelect: React.FC<ExtensionSelectProps> = ({ extension, handleExtensionChanged }) => {
+export const ExtensionSelect: React.FC<ExtensionSelectProps> = ({
+  extension,
+  handleExtensionChanged,
+}) => {
   const { language } = useParams() as { language: string };
   const codeExtensions = CODE_EXTENSIONS[language];
 
-  const handleExtensionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleExtensionChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const extension = event.target.value;
     handleExtensionChanged(extension);
   };
@@ -26,10 +31,12 @@ export const ExtensionSelect: React.FC<ExtensionSelectProps> = ({ extension, han
           onChange={handleExtensionChange}
         >
           {Object.keys(codeExtensions).map((name) => (
-            <option key={name} value={name}>{codeExtensions[name]}</option>
+            <option key={name} value={name}>
+              {codeExtensions[name]}
+            </option>
           ))}
         </select>
       </div>
     </div>
-  )
-}
+  );
+};

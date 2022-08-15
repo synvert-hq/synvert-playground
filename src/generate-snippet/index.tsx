@@ -8,7 +8,7 @@ import useFileType from "../shared/useFileType";
 import { TextField } from "../shared/TextField";
 
 function GenerateSnippet() {
-  const { language } = useParams() as { language: string};
+  const { language } = useParams() as { language: string };
   const [extension, setExtension] = useFileType(language);
   const [filePattern, setFilePattern] = useState<string>("");
   const [rubyVersion, setRubyVersion] = useState<string>("");
@@ -24,17 +24,17 @@ function GenerateSnippet() {
   const setInputSourceCode = (code: string, index: number) => {
     inputs[index] = code;
     setInputs(inputs);
-  }
+  };
 
   const setOutputSourceCode = (code: string, index: number) => {
     outputs[index] = code;
     setOutputs(outputs);
-  }
+  };
 
   const addMoreInputOutput = () => {
     setInputs([...inputs, ""]);
     setOutputs([...outputs, ""]);
-  }
+  };
 
   const generateSnippet = useCallback(async () => {
     setGenerating(true);
@@ -71,7 +71,7 @@ function GenerateSnippet() {
       return;
     }
     if (["typescript", "javascript"].includes(language)) {
-      let snippet = `const Synvert = require("synvert-core");\n\n`
+      let snippet = `const Synvert = require("synvert-core");\n\n`;
       snippet += `Synvert.Rewriter.execute(() => {\n`;
       snippet += `  configure({ parser: "typescript" });\n`;
       if (nodeVersion) {
@@ -114,11 +114,22 @@ function GenerateSnippet() {
       snippet += "end";
       setSnippet(snippet);
     }
-  }, [language, filePattern, rubyVersion, gemVersion, nodeVersion, npmVersion, generatedSnippet]);
+  }, [
+    language,
+    filePattern,
+    rubyVersion,
+    gemVersion,
+    nodeVersion,
+    npmVersion,
+    generatedSnippet,
+  ]);
 
   return (
     <>
-      <ExtensionSelect extension={extension} handleExtensionChanged={setExtension} />
+      <ExtensionSelect
+        extension={extension}
+        handleExtensionChanged={setExtension}
+      />
       <div className="px-4 pb-4">
         <div className="font-bold">File Pattern:</div>
         <TextField value={filePattern} handleValueChanged={setFilePattern} />
@@ -127,11 +138,19 @@ function GenerateSnippet() {
         <div className="flex">
           <div className="w-1/2 px-4 pb-4">
             <div className="font-bold">Minimum Ruby Version:</div>
-            <TextField value={rubyVersion} placeholder="e.g. 3.1.2" handleValueChanged={setRubyVersion} />
+            <TextField
+              value={rubyVersion}
+              placeholder="e.g. 3.1.2"
+              handleValueChanged={setRubyVersion}
+            />
           </div>
           <div className="w-1/2 px-4 pb-4">
             <div className="font-bold">Gem Version:</div>
-            <TextField value={gemVersion} placeholder="e.g.rails ~> 7.0.3" handleValueChanged={setGemVersion} />
+            <TextField
+              value={gemVersion}
+              placeholder="e.g.rails ~> 7.0.3"
+              handleValueChanged={setGemVersion}
+            />
           </div>
         </div>
       )}
@@ -139,11 +158,19 @@ function GenerateSnippet() {
         <div className="flex">
           <div className="w-1/2 px-4 pb-4">
             <div className="font-bold">Minimum Node Version:</div>
-            <TextField value={nodeVersion} placeholder="e.g. 18.7.0" handleValueChanged={setNodeVersion} />
+            <TextField
+              value={nodeVersion}
+              placeholder="e.g. 18.7.0"
+              handleValueChanged={setNodeVersion}
+            />
           </div>
           <div className="w-1/2 px-4 pb-4">
             <div className="font-bold">Npm Version:</div>
-            <TextField value={npmVersion} placeholder="e.g.express ^4.18.1" handleValueChanged={setNpmVersion} />
+            <TextField
+              value={npmVersion}
+              placeholder="e.g.express ^4.18.1"
+              handleValueChanged={setNpmVersion}
+            />
           </div>
         </div>
       )}
@@ -155,7 +182,9 @@ function GenerateSnippet() {
               <CodeEditor
                 language={language}
                 code={input}
-                setCode={(code) => { setInputSourceCode(code, index) }}
+                setCode={(code) => {
+                  setInputSourceCode(code, index);
+                }}
                 height="200px"
               />
             </div>
@@ -168,7 +197,9 @@ function GenerateSnippet() {
               <CodeEditor
                 language={language}
                 code={output}
-                setCode={(code) => { setOutputSourceCode(code, index) }}
+                setCode={(code) => {
+                  setOutputSourceCode(code, index);
+                }}
                 height="200px"
               />
             </div>
@@ -192,7 +223,7 @@ function GenerateSnippet() {
         />
       </div>
     </>
-  )
+  );
 }
 
 export default GenerateSnippet;
