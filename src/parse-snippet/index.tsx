@@ -11,13 +11,9 @@ import useFileType from "../shared/useFileType";
 function ParseSnippet() {
   const { language } = useParams() as { language: string};
   const [extension, setExtension] = useFileType(language);
-  const [example, setExample] = useState<string>(DEFAULT_EXAMPLE[language]);
-  const [sourceCode, setSourceCode] = useState<string>(
-    EXAMPLES[language][example].sourceCode
-  );
-  const [snippetCode, setSnippetCode] = useState<string>(
-    EXAMPLES[language][example].snippet
-  );
+  const [example, setExample] = useState<string>("");
+  const [sourceCode, setSourceCode] = useState<string>("");
+  const [snippetCode, setSnippetCode] = useState<string>("");
   const [output, setOutput] = useState<string>("");
   const [parseSynvertSnippetDisabled, setParseSynvertSnippetDisabled] =
     useState<boolean>(false);
@@ -54,6 +50,13 @@ function ParseSnippet() {
       }
     }
   }, [language, extension, sourceCode, snippetCode]);
+
+  useEffect(() => {
+    const example = DEFAULT_EXAMPLE[language]
+    setExample(example);
+    setSourceCode(EXAMPLES[language][example].sourceCode);
+    setSnippetCode(EXAMPLES[language][example].snippet);
+  }, [language]);
 
   useEffect(() => {
     parseSynvertSnippet();
