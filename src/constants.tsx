@@ -12,8 +12,8 @@ interface Examples {
 
 interface Extensions {
   [language: string]: {
-    [name: string]: string
-  }
+    [name: string]: string;
+  };
 }
 
 export const LANGUAGES = ["typescript", "javascript", "ruby"];
@@ -38,8 +38,8 @@ export const CODE_EXTENSIONS: Extensions = {
   ruby: {
     rb: "Ruby",
     erb: "Ruby + ERB",
-  }
-}
+  },
+};
 
 export const DEFAULT_EXAMPLE: { [language: string]: string } = {
   typescript: "typescript/array-type",

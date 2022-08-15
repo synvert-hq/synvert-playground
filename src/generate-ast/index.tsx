@@ -10,7 +10,7 @@ import useFileType from "../shared/useFileType";
 import { createSourceFile, ScriptTarget } from "typescript";
 
 function GenerateAst() {
-  const { language } = useParams() as { language: string};
+  const { language } = useParams() as { language: string };
   const example = DEFAULT_EXAMPLE[language];
   const defaultSourceCode = EXAMPLES[language][example].sourceCode;
 
@@ -28,7 +28,13 @@ function GenerateAst() {
     if (["typescript", "javascript"].includes(language)) {
       const fileName = getFileName(extension);
       const scriptKind = getScriptKind(extension);
-      const node = createSourceFile(fileName, sourceCode, ScriptTarget.Latest, false, scriptKind);
+      const node = createSourceFile(
+        fileName,
+        sourceCode,
+        ScriptTarget.Latest,
+        false,
+        scriptKind
+      );
       setAstNode(node);
       setGenerating(false);
     } else {
@@ -63,7 +69,10 @@ function GenerateAst() {
 
   return (
     <>
-      <ExtensionSelect extension={extension} handleExtensionChanged={setExtension} />
+      <ExtensionSelect
+        extension={extension}
+        handleExtensionChanged={setExtension}
+      />
       <div className="flex">
         <div className="w-5/12 flex flex-col px-4">
           <div className="font-bold">Source Code:</div>

@@ -7,7 +7,10 @@ interface ExampleSelectProps {
   handleExampleChanged: (example: string) => void;
 }
 
-export const ExampleSelect: React.FC<ExampleSelectProps> = ({ example, handleExampleChanged }) => {
+export const ExampleSelect: React.FC<ExampleSelectProps> = ({
+  example,
+  handleExampleChanged,
+}) => {
   const { language } = useParams() as { language: string };
   const offliceSnippetsUrl = `https://synvert.xinminlabs.com/${language}/official_snippets/`;
   const examples = Object.keys(EXAMPLES[language]);
@@ -27,7 +30,9 @@ export const ExampleSelect: React.FC<ExampleSelectProps> = ({ example, handleExa
           onChange={handleExampleChange}
         >
           {examples.map((example) => (
-            <option key={example} value={example}>{example}</option>
+            <option key={example} value={example}>
+              {example}
+            </option>
           ))}
         </select>
       </div>
@@ -40,5 +45,5 @@ export const ExampleSelect: React.FC<ExampleSelectProps> = ({ example, handleExa
         More Examples
       </a>
     </div>
-  )
-}
+  );
+};
