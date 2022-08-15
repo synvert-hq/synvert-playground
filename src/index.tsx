@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import ParseSnippet from "./parse-snippet";
@@ -12,13 +12,12 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/">
-          <Route path=":language" element={<App />}>
-            <Route path="parse-snippet" element={<ParseSnippet />} />
-            <Route path="generate-snippet" element={<GenerateSnippet />} />
-            <Route path="generate-ast" element={<GenerateAst />} />
-          </Route>
+        <Route path="/:language" element={<App />}>
+          <Route path="parse-snippet" element={<ParseSnippet />} />
+          <Route path="generate-snippet" element={<GenerateSnippet />} />
+          <Route path="generate-ast" element={<GenerateAst />} />
         </Route>
+        <Route path="*" element={<Navigate to="/typescript/parse-snippet" replace />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
