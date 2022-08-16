@@ -68,9 +68,9 @@ export const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
       <div className="font-bold">AST Node:</div>
       <ReactJson
         src={src}
-        theme="twilight"
+        theme="flat"
         displayDataTypes={false}
-        style={{ width: "100%", height: "800px", overflowY: "scroll" }}
+        style={{ width: "100%", height: "820px", overflowY: "scroll" }}
       />
     </>
   );

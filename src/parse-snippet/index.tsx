@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { CodeEditor } from "../shared/CodeEditor";
 import { Button } from "../shared/Button";
 import { DEFAULT_EXAMPLE, EXAMPLES } from "../constants";
 import { ExampleSelect } from "./ExampleSelect";
 import { requestUrl } from "../utils";
 import { ExtensionSelect } from "../shared/ExtensionSelect";
+import { TextAreaField } from "../shared/TextAreaField";
 import useFileType from "../shared/useFileType";
 
 function ParseSnippet() {
@@ -76,20 +76,18 @@ function ParseSnippet() {
       </div>
       <div className="px-4">
         <div className="font-bold">Input Source Code:</div>
-        <CodeEditor
-          language={language}
+        <TextAreaField
           code={sourceCode}
           setCode={setSourceCode}
-          height="200px"
+          rows={10}
         />
       </div>
       <div className="px-4">
         <div className="font-bold">Synvert Snippet:</div>
-        <CodeEditor
-          language={language}
+        <TextAreaField
           code={snippetCode}
           setCode={setSnippetCode}
-          height="400px"
+          rows={20}
         />
       </div>
       <div className="flex justify-center py-4">
@@ -101,7 +99,7 @@ function ParseSnippet() {
       </div>
       <div className="px-4">
         <div className="font-bold">Output Source Code:</div>
-        <CodeEditor language={language} code={output} readOnly height="200px" />
+        <TextAreaField code={output} readOnly rows={10} />
       </div>
     </>
   );

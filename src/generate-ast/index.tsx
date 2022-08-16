@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AstOutput } from "../shared/AstOutput";
-import { CodeEditor } from "../shared/CodeEditor";
+import { TextAreaField } from "../shared/TextAreaField";
 import { Button } from "../shared/Button";
 import { ExtensionSelect } from "../shared/ExtensionSelect";
 import { DEFAULT_EXAMPLE, EXAMPLES } from "../constants";
@@ -76,11 +76,10 @@ function GenerateAst() {
       <div className="flex">
         <div className="w-5/12 flex flex-col px-4">
           <div className="font-bold">Source Code:</div>
-          <CodeEditor
-            language={language}
+          <TextAreaField
             code={sourceCode}
             setCode={setSourceCode}
-            height="800px"
+            rows={40}
           />
         </div>
         <div className="w-2/12 px-2 py-14">

@@ -2,10 +2,10 @@ import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { requestUrl } from "../utils";
 import { Button } from "../shared/Button";
-import { CodeEditor } from "../shared/CodeEditor";
 import { ExtensionSelect } from "../shared/ExtensionSelect";
 import useFileType from "../shared/useFileType";
 import { TextField } from "../shared/TextField";
+import { TextAreaField } from "../shared/TextAreaField";
 
 function GenerateSnippet() {
   const { language } = useParams() as { language: string };
@@ -179,13 +179,12 @@ function GenerateSnippet() {
           <div className="font-bold">Inputs</div>
           {inputs.map((input, index) => (
             <div className="mb-2" key={index}>
-              <CodeEditor
-                language={language}
+              <TextAreaField
                 code={input}
-                setCode={(code) => {
+                setCode={(code: string) => {
                   setInputSourceCode(code, index);
                 }}
-                height="200px"
+                rows={10}
               />
             </div>
           ))}
@@ -194,13 +193,12 @@ function GenerateSnippet() {
           <div className="font-bold">Outputs</div>
           {outputs.map((output, index) => (
             <div className="mb-2" key={index}>
-              <CodeEditor
-                language={language}
+              <TextAreaField
                 code={output}
-                setCode={(code) => {
+                setCode={(code: string) => {
                   setOutputSourceCode(code, index);
                 }}
-                height="200px"
+                rows={10}
               />
             </div>
           ))}
@@ -215,11 +213,10 @@ function GenerateSnippet() {
         />
       </div>
       <div className="px-4">
-        <CodeEditor
-          language={language}
+        <TextAreaField
           code={snippet}
           readOnly
-          height="400px"
+          rows={20}
         />
       </div>
     </>
