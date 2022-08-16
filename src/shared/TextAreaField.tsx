@@ -13,15 +13,14 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
   readOnly,
   rows,
 }) => {
-  const [value, setValue] = useState<string>(code)
+  const [value, setValue] = useState<string>(code);
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setValue(event.target.value);
-  }
+  };
 
   useEffect(() => {
     setValue(code);
   }, [code]);
-
 
   useEffect(() => {
     if (setCode) {
@@ -36,6 +35,8 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
       readOnly={readOnly}
       onChange={onChange}
       rows={rows}
-    >{code}</textarea>
+    >
+      {code}
+    </textarea>
   );
 };

@@ -76,19 +76,11 @@ function ParseSnippet() {
       </div>
       <div className="px-4">
         <div className="font-bold">Input Source Code:</div>
-        <TextAreaField
-          code={sourceCode}
-          setCode={setSourceCode}
-          rows={10}
-        />
+        <TextAreaField code={sourceCode} setCode={setSourceCode} rows={10} />
       </div>
       <div className="px-4">
         <div className="font-bold">Synvert Snippet:</div>
-        <TextAreaField
-          code={snippetCode}
-          setCode={setSnippetCode}
-          rows={20}
-        />
+        <TextAreaField code={snippetCode} setCode={setSnippetCode} rows={20} />
       </div>
       <div className="flex justify-center py-4">
         <Button

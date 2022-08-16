@@ -76,11 +76,7 @@ function GenerateAst() {
       <div className="flex">
         <div className="w-5/12 flex flex-col px-4">
           <div className="font-bold">Source Code:</div>
-          <TextAreaField
-            code={sourceCode}
-            setCode={setSourceCode}
-            rows={40}
-          />
+          <TextAreaField code={sourceCode} setCode={setSourceCode} rows={40} />
         </div>
         <div className="w-2/12 px-2 py-14">
           <div className="mx-auto flex flex-col space-y-4">

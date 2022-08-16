@@ -213,11 +213,7 @@ function GenerateSnippet() {
         />
       </div>
       <div className="px-4">
-        <TextAreaField
-          code={snippet}
-          readOnly
-          rows={20}
-        />
+        <TextAreaField code={snippet} readOnly rows={20} />
       </div>
     </>
   );
