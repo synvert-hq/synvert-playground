@@ -6,6 +6,7 @@ import { CodeEditor } from "../shared/CodeEditor";
 import { ExtensionSelect } from "../shared/ExtensionSelect";
 import useFileType from "../shared/useFileType";
 import { TextField } from "../shared/TextField";
+import { RadioField } from "../shared/RadioField";
 
 function GenerateSnippet() {
   const { language } = useParams() as { language: string };
@@ -15,6 +16,7 @@ function GenerateSnippet() {
   const [gemVersion, setGemVersion] = useState<string>("");
   const [nodeVersion, setNodeVersion] = useState<string>("");
   const [npmVersion, setNpmVersion] = useState<string>("");
+  const [nqlOrRules, setNqlOrRules] = useState<string>("nql");
   const [inputs, setInputs] = useState<string[]>([""]);
   const [outputs, setOutputs] = useState<string[]>([""]);
   const [generating, setGenerating] = useState<boolean>(false);
@@ -41,7 +43,7 @@ function GenerateSnippet() {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ extension, inputs, outputs }),
+      body: JSON.stringify({ extension, inputs, outputs, nql_or_rules: nqlOrRules }),
     };
     try {
       const url = requestUrl(language, "generate-snippet");
@@ -51,7 +53,7 @@ function GenerateSnippet() {
     } finally {
       setGenerating(false);
     }
-  }, [language, extension, inputs, outputs]);
+  }, [language, extension, inputs, outputs, nqlOrRules]);
 
   useEffect(() => {
     setFilePattern(`**/*.${extension}`);
@@ -207,12 +209,23 @@ function GenerateSnippet() {
         </div>
       </div>
       <div className="flex justify-between p-4">
-        <button onClick={addMoreInputOutput}>Add More Input/Output</button>
-        <Button
-          text="Generate Snippet"
-          onClick={generateSnippet}
-          disabled={generating}
-        />
+        <div className="flex items-center">
+          <button onClick={addMoreInputOutput}>Add More Input/Output</button>
+          <button onClick={removeLastInputOutput}>Remove Last Input/Output</button>
+        </div>
+        <div className="flex items-center">
+          <RadioField
+            value={nqlOrRules}
+            values={["nql", "rules"]}
+            labels={["Node Query Language", "Node Rules"]}
+            handleValueChanged={setNqlOrRules}
+          />
+          <Button
+            text="Generate Snippet"
+            onClick={generateSnippet}
+            disabled={generating}
+          />
+        </div>
       </div>
       <div className="px-4">
         <CodeEditor
