@@ -1,6 +1,6 @@
 interface ButtonProps {
   text: string;
-  disabled: boolean;
+  disabled?: boolean;
   onClick: () => void;
 }
 

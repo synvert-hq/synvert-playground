@@ -33,10 +33,15 @@ function GenerateSnippet() {
     setOutputs(outputs);
   };
 
-  const addMoreInputOutput = () => {
+  const addMoreInputOutput = useCallback(() => {
     setInputs([...inputs, ""]);
     setOutputs([...outputs, ""]);
-  };
+  }, [inputs, outputs]);
+
+  const removeLastInputOutput = useCallback(() => {
+    setInputs(inputs.slice(0, -1));
+    setOutputs(outputs.slice(0, -1));
+  }, [inputs, outputs]);
 
   const generateSnippet = useCallback(async () => {
     setGenerating(true);
@@ -210,8 +215,12 @@ function GenerateSnippet() {
       </div>
       <div className="flex justify-between p-4">
         <div className="flex items-center">
-          <button onClick={addMoreInputOutput}>Add More Input/Output</button>
-          <button onClick={removeLastInputOutput}>Remove Last Input/Output</button>
+          <Button onClick={addMoreInputOutput} text="Add More Input/Output" />
+          {inputs.length > 1 && (
+            <div className="ml-4">
+              <Button onClick={removeLastInputOutput} text="Remove Last Input/Output" />
+            </div>
+          )}
         </div>
         <div className="flex items-center">
           <RadioField
