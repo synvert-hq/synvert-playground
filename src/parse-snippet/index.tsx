@@ -7,9 +7,11 @@ import { ExampleSelect } from "./ExampleSelect";
 import { requestUrl } from "../utils";
 import { ExtensionSelect } from "../shared/ExtensionSelect";
 import useFileType from "../shared/useFileType";
+import useAlertContext from "../shared/useAlertContext";
 
 function ParseSnippet() {
   const { language } = useParams() as { language: string };
+  const { setAlert } = useAlertContext();
   const [extension, setExtension] = useFileType(language);
   const [example, setExample] = useState<string>("");
   const [sourceCode, setSourceCode] = useState<string>("");
@@ -43,9 +45,14 @@ function ParseSnippet() {
         const url = requestUrl(language, "parse-synvert-snippet");
         const response = await fetch(url, requestOptions);
         const data = await response.json();
-        setOutput(data.output || data.error);
-        setParseSynvertSnippetDisabled(false);
-      } catch (e) {
+        if (data.error) {
+          setAlert(data.error);
+          setOutput("");
+        } else {
+          setAlert("");
+          setOutput(data.output);
+        }
+      } finally {
         setParseSynvertSnippetDisabled(false);
       }
     }

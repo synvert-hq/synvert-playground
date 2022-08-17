@@ -7,6 +7,7 @@ import { ExtensionSelect } from "../shared/ExtensionSelect";
 import { DEFAULT_EXAMPLE, EXAMPLES } from "../constants";
 import { getFileName, getScriptKind, requestUrl } from "../utils";
 import useFileType from "../shared/useFileType";
+import useAlertContext from "../shared/useAlertContext";
 import { createSourceFile, ScriptTarget } from "typescript";
 
 function GenerateAst() {
@@ -18,6 +19,7 @@ function GenerateAst() {
   const [sourceCode, setSourceCode] = useState<string>(defaultSourceCode);
   const [astNode, setAstNode] = useState<any>({});
   const [generating, setGenerating] = useState<boolean>(false);
+  const { setAlert } = useAlertContext();
 
   const generateAst = useCallback(async () => {
     if (sourceCode.length === 0) {
@@ -47,7 +49,13 @@ function GenerateAst() {
         const url = requestUrl(language, "generate-ast");
         const response = await fetch(url, requestOptions);
         const data = await response.json();
-        setAstNode(data.node || data.error);
+        if (data.error) {
+          setAlert(data.error);
+          setAstNode({});
+        } else {
+          setAlert("");
+          setAstNode(data.node);
+        }
       } finally {
         setGenerating(false);
       }
