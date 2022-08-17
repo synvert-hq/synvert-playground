@@ -50,7 +50,12 @@ function GenerateSnippet() {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ extension, inputs, outputs, nql_or_rules: nqlOrRules }),
+      body: JSON.stringify({
+        extension,
+        inputs,
+        outputs,
+        nql_or_rules: nqlOrRules,
+      }),
     };
     try {
       const url = requestUrl(language, "generate-snippet");
@@ -226,7 +231,10 @@ function GenerateSnippet() {
           <Button onClick={addMoreInputOutput} text="Add More Input/Output" />
           {inputs.length > 1 && (
             <div className="ml-4">
-              <Button onClick={removeLastInputOutput} text="Remove Last Input/Output" />
+              <Button
+                onClick={removeLastInputOutput}
+                text="Remove Last Input/Output"
+              />
             </div>
           )}
         </div>
