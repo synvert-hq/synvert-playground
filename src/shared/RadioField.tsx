@@ -21,7 +21,7 @@ export const RadioField: React.FC<RadioFieldProps> = ({
   return (
     <>
       {values.map((v, index) => (
-        <div className="flex items-center">
+        <div className="flex items-center" key={`radio-${index}`}>
           <input
             id={`radio-${index}`}
             type="radio"

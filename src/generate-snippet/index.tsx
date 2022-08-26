@@ -75,12 +75,6 @@ function GenerateSnippet() {
 
   useEffect(() => {
     setFilePattern(`**/*.${extension}`);
-    setRubyVersion("");
-    setGemVersion("");
-    setNodeVersion("");
-    setNpmVersion("");
-    setInputs([""]);
-    setOutputs([""]);
     setGeneratedSnippet("");
     setSnippet("");
   }, [language, extension]);
