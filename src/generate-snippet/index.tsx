@@ -250,7 +250,6 @@ function GenerateSnippet() {
         <CodeEditor
           language={language}
           code={snippet}
-          readOnly
           height="400px"
         />
       </div>
