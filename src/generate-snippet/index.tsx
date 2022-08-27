@@ -86,7 +86,7 @@ function GenerateSnippet() {
     }
     if (["typescript", "javascript"].includes(language)) {
       let snippet = `const Synvert = require("synvert-core");\n\n`;
-      snippet += `Synvert.Rewriter.execute(() => {\n`;
+      snippet += `new Synvert.Rewriter("group", "name", () => {\n`;
       snippet += `  configure({ parser: "typescript" });\n`;
       if (nodeVersion) {
         snippet += `  ifNode("${nodeVersion}");\n`;
