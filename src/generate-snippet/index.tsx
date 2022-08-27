@@ -247,11 +247,7 @@ function GenerateSnippet() {
         </div>
       </div>
       <div className="px-4">
-        <CodeEditor
-          language={language}
-          code={snippet}
-          height="400px"
-        />
+        <CodeEditor language={language} code={snippet} height="400px" />
       </div>
     </>
   );
