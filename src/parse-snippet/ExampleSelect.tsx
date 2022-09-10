@@ -12,7 +12,7 @@ export const ExampleSelect: React.FC<ExampleSelectProps> = ({
   handleExampleChanged,
 }) => {
   const { language } = useParams() as { language: string };
-  const offliceSnippetsUrl = `https://synvert.xinminlabs.com/${language}/official_snippets/`;
+  const offliceSnippetsUrl = `https://synvert.net/${language}/official_snippets/`;
   const examples = Object.keys(EXAMPLES[language]);
 
   const handleExampleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

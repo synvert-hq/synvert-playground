@@ -6,7 +6,7 @@ import { LanguageSelect } from "./LanguageSelect";
 
 const Header: React.FC = () => {
   const { language } = useParams() as { language: string };
-  const homeUrl = `https://synvert.xinminlabs.com/${language}/home`;
+  const homeUrl = `https://synvert.net/${language}/home`;
 
   return (
     <>
