@@ -11,13 +11,22 @@ import { Snippet } from "../types";
 
 function ParseSnippet() {
   const { language } = useParams() as { language: string };
-  const { setAlert, sourceCode, setSourceCode, snippetCode, setSnippetCode, output, setOutput } = useAppContext();
+  const {
+    setAlert,
+    sourceCode,
+    setSourceCode,
+    snippetCode,
+    setSnippetCode,
+    output,
+    setOutput,
+  } = useAppContext();
   const [extension, setExtension] = useFileType(language);
   const [parseSynvertSnippetDisabled, setParseSynvertSnippetDisabled] =
     useState<boolean>(false);
 
   const handleSnippetChanged = useCallback(
-    (snippet: Snippet) => setSnippetCode(snippet.source_code), [setSnippetCode]
+    (snippet: Snippet) => setSnippetCode(snippet.source_code),
+    [setSnippetCode]
   );
 
   const parseSynvertSnippet = useCallback(async () => {
@@ -52,9 +61,7 @@ function ParseSnippet() {
   return (
     <>
       <div className="flex justify-between px-4">
-        <SnippetSelect
-          handleSnippetChanged={handleSnippetChanged}
-        />
+        <SnippetSelect handleSnippetChanged={handleSnippetChanged} />
         <ExtensionSelect
           extension={extension}
           handleExtensionChanged={setExtension}

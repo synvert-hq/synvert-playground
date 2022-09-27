@@ -12,7 +12,8 @@ import { createSourceFile, ScriptTarget } from "typescript";
 function GenerateAst() {
   const { language } = useParams() as { language: string };
 
-  const { setAlert, astSourceCode, setAstSourceCode, astNode, setAstNode } = useAppContext();
+  const { setAlert, astSourceCode, setAstSourceCode, astNode, setAstNode } =
+    useAppContext();
   const [extension, setExtension] = useFileType(language);
   const [generating, setGenerating] = useState<boolean>(false);
 
