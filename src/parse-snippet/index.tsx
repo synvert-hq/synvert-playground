@@ -19,12 +19,9 @@ function ParseSnippet() {
   const [parseSynvertSnippetDisabled, setParseSynvertSnippetDisabled] =
     useState<boolean>(false);
 
-  const handleSnippetChanged = useCallback(
-    (snippet: Snippet) => {
-      setSnippetCode(snippet.source_code)
-    },
-    []
-  );
+  const handleSnippetChanged = useCallback((snippet: Snippet) => {
+    setSnippetCode(snippet.source_code);
+  }, []);
 
   const parseSynvertSnippet = useCallback(async () => {
     if (sourceCode.length > 0 && snippetCode.length > 0) {
@@ -58,9 +55,7 @@ function ParseSnippet() {
   return (
     <>
       <div className="flex justify-between px-4">
-        <SnippetSelect
-          handleSnippetChanged={handleSnippetChanged}
-        />
+        <SnippetSelect handleSnippetChanged={handleSnippetChanged} />
         <ExtensionSelect
           extension={extension}
           handleExtensionChanged={setExtension}
