@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AstOutput } from "../shared/AstOutput";
 import { CodeEditor } from "../shared/CodeEditor";
@@ -12,14 +12,12 @@ import { createSourceFile, ScriptTarget } from "typescript";
 function GenerateAst() {
   const { language } = useParams() as { language: string };
 
+  const { setAlert, astSourceCode, setAstSourceCode, astNode, setAstNode } = useAppContext();
   const [extension, setExtension] = useFileType(language);
-  const [sourceCode, setSourceCode] = useState<string>("");
-  const [astNode, setAstNode] = useState<any>({});
   const [generating, setGenerating] = useState<boolean>(false);
-  const { setAlert } = useAppContext();
 
   const generateAst = useCallback(async () => {
-    if (sourceCode.length === 0) {
+    if (astSourceCode.length === 0) {
       return;
     }
 
@@ -29,7 +27,7 @@ function GenerateAst() {
       const scriptKind = getScriptKind(extension);
       const node = createSourceFile(
         fileName,
-        sourceCode,
+        astSourceCode,
         ScriptTarget.Latest,
         false,
         scriptKind
@@ -40,7 +38,7 @@ function GenerateAst() {
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: sourceCode }),
+        body: JSON.stringify({ code: astSourceCode }),
       };
       try {
         const url = requestUrl(language, "generate-ast");
@@ -57,12 +55,7 @@ function GenerateAst() {
         setGenerating(false);
       }
     }
-  }, [language, extension, sourceCode]);
-
-  useEffect(() => {
-    setSourceCode("");
-    setAstNode({});
-  }, [language]);
+  }, [language, extension, astSourceCode]);
 
   return (
     <>
@@ -75,8 +68,8 @@ function GenerateAst() {
           <div className="font-bold">Source Code:</div>
           <CodeEditor
             language={language}
-            code={sourceCode}
-            setCode={setSourceCode}
+            code={astSourceCode}
+            setCode={setAstSourceCode}
             height="800px"
           />
         </div>

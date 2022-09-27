@@ -7,8 +7,10 @@ import Footer from "./Footer";
 
 const App = () => {
   const [alert, setAlert] = useState("");
+  const [astSourceCode, setAstSourceCode] = useState("");
+  const [astNode, setAstNode] = useState({});
   return (
-    <AppContext.Provider value={{ alert, setAlert }}>
+    <AppContext.Provider value={{ alert, setAlert, astSourceCode, setAstSourceCode, astNode, setAstNode }}>
       <Header />
       <Alert />
       <Outlet />
