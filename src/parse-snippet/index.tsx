@@ -2,31 +2,28 @@ import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CodeEditor } from "../shared/CodeEditor";
 import { Button } from "../shared/Button";
-import { DEFAULT_EXAMPLE, EXAMPLES } from "../constants";
-import { ExampleSelect } from "./ExampleSelect";
+import { SnippetSelect } from "./SnippetSelect";
 import { requestUrl } from "../utils";
 import { ExtensionSelect } from "../shared/ExtensionSelect";
 import useFileType from "../shared/useFileType";
 import useAlertContext from "../shared/useAlertContext";
+import { Snippet } from "../types";
 
 function ParseSnippet() {
   const { language } = useParams() as { language: string };
   const { setAlert } = useAlertContext();
   const [extension, setExtension] = useFileType(language);
-  const [example, setExample] = useState<string>("");
   const [sourceCode, setSourceCode] = useState<string>("");
   const [snippetCode, setSnippetCode] = useState<string>("");
   const [output, setOutput] = useState<string>("");
   const [parseSynvertSnippetDisabled, setParseSynvertSnippetDisabled] =
     useState<boolean>(false);
 
-  const handleExampleChanged = useCallback(
-    (example: string) => {
-      setSourceCode(EXAMPLES[language][example].sourceCode);
-      setSnippetCode(EXAMPLES[language][example].snippet);
-      setExample(example);
+  const handleSnippetChanged = useCallback(
+    (snippet: Snippet) => {
+      setSnippetCode(snippet.source_code)
     },
-    [language]
+    []
   );
 
   const parseSynvertSnippet = useCallback(async () => {
@@ -58,23 +55,11 @@ function ParseSnippet() {
     }
   }, [language, extension, sourceCode, snippetCode]);
 
-  useEffect(() => {
-    const example = DEFAULT_EXAMPLE[language];
-    setExample(example);
-    setSourceCode(EXAMPLES[language][example].sourceCode);
-    setSnippetCode(EXAMPLES[language][example].snippet);
-  }, [language]);
-
-  useEffect(() => {
-    parseSynvertSnippet();
-  }, [example]);
-
   return (
     <>
       <div className="flex justify-between px-4">
-        <ExampleSelect
-          example={example}
-          handleExampleChanged={handleExampleChanged}
+        <SnippetSelect
+          handleSnippetChanged={handleSnippetChanged}
         />
         <ExtensionSelect
           extension={extension}

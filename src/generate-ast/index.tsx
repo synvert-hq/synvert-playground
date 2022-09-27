@@ -4,7 +4,6 @@ import { AstOutput } from "../shared/AstOutput";
 import { CodeEditor } from "../shared/CodeEditor";
 import { Button } from "../shared/Button";
 import { ExtensionSelect } from "../shared/ExtensionSelect";
-import { DEFAULT_EXAMPLE, EXAMPLES } from "../constants";
 import { getFileName, getScriptKind, requestUrl } from "../utils";
 import useFileType from "../shared/useFileType";
 import useAlertContext from "../shared/useAlertContext";
@@ -12,11 +11,9 @@ import { createSourceFile, ScriptTarget } from "typescript";
 
 function GenerateAst() {
   const { language } = useParams() as { language: string };
-  const example = DEFAULT_EXAMPLE[language];
-  const defaultSourceCode = EXAMPLES[language][example].sourceCode;
 
   const [extension, setExtension] = useFileType(language);
-  const [sourceCode, setSourceCode] = useState<string>(defaultSourceCode);
+  const [sourceCode, setSourceCode] = useState<string>("");
   const [astNode, setAstNode] = useState<any>({});
   const [generating, setGenerating] = useState<boolean>(false);
   const { setAlert } = useAlertContext();
@@ -63,17 +60,9 @@ function GenerateAst() {
   }, [language, extension, sourceCode]);
 
   useEffect(() => {
-    const example = DEFAULT_EXAMPLE[language];
-    const sourceCode = EXAMPLES[language][example].sourceCode;
-    setSourceCode(sourceCode);
+    setSourceCode("");
     setAstNode({});
   }, [language]);
-
-  useEffect(() => {
-    if (sourceCode.length > 0 && Object.keys(astNode).length === 0) {
-      generateAst();
-    }
-  }, [sourceCode, astNode]);
 
   return (
     <>
