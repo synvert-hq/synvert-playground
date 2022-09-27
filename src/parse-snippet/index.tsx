@@ -11,19 +11,13 @@ import { Snippet } from "../types";
 
 function ParseSnippet() {
   const { language } = useParams() as { language: string };
-  const { setAlert } = useAppContext();
+  const { setAlert, sourceCode, setSourceCode, snippetCode, setSnippetCode, output, setOutput } = useAppContext();
   const [extension, setExtension] = useFileType(language);
-  const [sourceCode, setSourceCode] = useState<string>("");
-  const [snippetCode, setSnippetCode] = useState<string>("");
-  const [output, setOutput] = useState<string>("");
   const [parseSynvertSnippetDisabled, setParseSynvertSnippetDisabled] =
     useState<boolean>(false);
 
   const handleSnippetChanged = useCallback(
-    (snippet: Snippet) => {
-      setSnippetCode(snippet.source_code)
-    },
-    []
+    (snippet: Snippet) => setSnippetCode(snippet.source_code), [setSnippetCode]
   );
 
   const parseSynvertSnippet = useCallback(async () => {

@@ -9,8 +9,11 @@ const App = () => {
   const [alert, setAlert] = useState("");
   const [astSourceCode, setAstSourceCode] = useState("");
   const [astNode, setAstNode] = useState({});
+  const [sourceCode, setSourceCode] = useState("");
+  const [snippetCode, setSnippetCode] = useState("");
+  const [output, setOutput] = useState("");
   return (
-    <AppContext.Provider value={{ alert, setAlert, astSourceCode, setAstSourceCode, astNode, setAstNode }}>
+    <AppContext.Provider value={{ alert, setAlert, astSourceCode, setAstSourceCode, astNode, setAstNode, sourceCode, setSourceCode, snippetCode, setSnippetCode, output, setOutput }}>
       <Header />
       <Alert />
       <Outlet />
