@@ -6,7 +6,7 @@ import { Button } from "../shared/Button";
 import { ExtensionSelect } from "../shared/ExtensionSelect";
 import { getFileName, getScriptKind, requestUrl } from "../utils";
 import useFileType from "../shared/useFileType";
-import useAlertContext from "../shared/useAlertContext";
+import useAppContext from "../shared/useAppContext";
 import { createSourceFile, ScriptTarget } from "typescript";
 
 function GenerateAst() {
@@ -16,7 +16,7 @@ function GenerateAst() {
   const [sourceCode, setSourceCode] = useState<string>("");
   const [astNode, setAstNode] = useState<any>({});
   const [generating, setGenerating] = useState<boolean>(false);
-  const { setAlert } = useAlertContext();
+  const { setAlert } = useAppContext();
 
   const generateAst = useCallback(async () => {
     if (sourceCode.length === 0) {

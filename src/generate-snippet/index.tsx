@@ -5,7 +5,7 @@ import { Button } from "../shared/Button";
 import { CodeEditor } from "../shared/CodeEditor";
 import { ExtensionSelect } from "../shared/ExtensionSelect";
 import useFileType from "../shared/useFileType";
-import useAlertContext from "../shared/useAlertContext";
+import useAppContext from "../shared/useAppContext";
 import { TextField } from "../shared/TextField";
 import { RadioField } from "../shared/RadioField";
 
@@ -23,7 +23,7 @@ function GenerateSnippet() {
   const [generating, setGenerating] = useState<boolean>(false);
   const [generatedSnippet, setGeneratedSnippet] = useState<string>("");
   const [snippet, setSnippet] = useState<string>("");
-  const { setAlert } = useAlertContext();
+  const { setAlert } = useAppContext();
 
   const setInputSourceCode = (code: string, index: number) => {
     inputs[index] = code;

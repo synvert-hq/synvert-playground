@@ -1,7 +1,7 @@
-import useAlertContext from "./shared/useAlertContext";
+import useAppContext from "./shared/useAppContext";
 
 const Alert: React.FC = () => {
-  const { alert, setAlert } = useAlertContext();
+  const { alert, setAlert } = useAppContext();
 
   if (alert.length === 0) {
     return null;

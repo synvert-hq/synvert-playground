@@ -6,12 +6,12 @@ import { SnippetSelect } from "./SnippetSelect";
 import { requestUrl } from "../utils";
 import { ExtensionSelect } from "../shared/ExtensionSelect";
 import useFileType from "../shared/useFileType";
-import useAlertContext from "../shared/useAlertContext";
+import useAppContext from "../shared/useAppContext";
 import { Snippet } from "../types";
 
 function ParseSnippet() {
   const { language } = useParams() as { language: string };
-  const { setAlert } = useAlertContext();
+  const { setAlert } = useAppContext();
   const [extension, setExtension] = useFileType(language);
   const [sourceCode, setSourceCode] = useState<string>("");
   const [snippetCode, setSnippetCode] = useState<string>("");
