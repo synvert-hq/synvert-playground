@@ -1,6 +1,6 @@
 import React from "react";
-import { SingleValue } from 'react-select'
-import AsyncSelect from 'react-select/async';
+import { SingleValue } from "react-select";
+import AsyncSelect from "react-select/async";
 import { useParams } from "react-router-dom";
 import { requestUrl } from "../utils";
 import { Snippet } from "../types";
@@ -11,8 +11,8 @@ interface SnippetSelectProps {
 }
 
 interface Option {
-  readonly value: Snippet
-  readonly label: string
+  readonly value: Snippet;
+  readonly label: string;
 }
 
 export const SnippetSelect: React.FC<SnippetSelectProps> = ({
@@ -22,17 +22,24 @@ export const SnippetSelect: React.FC<SnippetSelectProps> = ({
   const offliceSnippetsUrl = `https://synvert.net/${language}/official_snippets/`;
 
   const promiseOptions = (query: string): Promise<Option[]> => {
-    const url = requestUrl(language, 'query-snippets');
+    const url = requestUrl(language, "query-snippets");
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query }),
     };
-    return fetch(url, options).then(response => response.json())
-      .then((data: { snippets: Snippet[]}) => data.snippets.map((snippet) => (
-        { value: snippet, label: `${snippet['group']}/${snippet['name']}` } as Option
-      )));
-  }
+    return fetch(url, options)
+      .then((response) => response.json())
+      .then((data: { snippets: Snippet[] }) =>
+        data.snippets.map(
+          (snippet) =>
+            ({
+              value: snippet,
+              label: `${snippet["group"]}/${snippet["name"]}`,
+            } as Option)
+        )
+      );
+  };
   const onChange = (option: SingleValue<Option>) => {
     if (option) {
       handleSnippetChanged(option.value);

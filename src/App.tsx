@@ -13,7 +13,22 @@ const App = () => {
   const [snippetCode, setSnippetCode] = useState("");
   const [output, setOutput] = useState("");
   return (
-    <AppContext.Provider value={{ alert, setAlert, astSourceCode, setAstSourceCode, astNode, setAstNode, sourceCode, setSourceCode, snippetCode, setSnippetCode, output, setOutput }}>
+    <AppContext.Provider
+      value={{
+        alert,
+        setAlert,
+        astSourceCode,
+        setAstSourceCode,
+        astNode,
+        setAstNode,
+        sourceCode,
+        setSourceCode,
+        snippetCode,
+        setSnippetCode,
+        output,
+        setOutput,
+      }}
+    >
       <Header />
       <Alert />
       <Outlet />
