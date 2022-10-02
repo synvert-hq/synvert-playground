@@ -108,7 +108,7 @@ function GenerateSnippet() {
       setSnippet(snippet);
     }
     if (language === "ruby") {
-      let snippet = "Synvert::Rewriter.execute do\n";
+      let snippet = "Synvert::Rewriter.new 'group', 'name' do\n";
       if (rubyVersion) {
         snippet += `  if_ruby '${rubyVersion}'\n`;
       }
