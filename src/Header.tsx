@@ -7,7 +7,7 @@ import { LanguageSelect } from "./LanguageSelect";
 const Header: React.FC = () => {
   const { language } = useParams() as { language: string };
   const homeUrl = `https://synvert.net/${language}/home`;
-  const nodePlaygroundUrl = "https://node-playground.synvert.net";
+  const nodePlaygroundUrl = `https://node-playground.synvert.net/${language}`;
 
   return (
     <>
@@ -37,6 +37,7 @@ const Header: React.FC = () => {
                 text="Generate AST"
               ></NavTab>
             </div>
+            <a href={nodePlaygroundUrl} target="_blank" rel="noreferrer">Node Playground</a>
             <LanguageSelect />
           </div>
         </div>
