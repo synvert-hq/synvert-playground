@@ -5,16 +5,14 @@ import { CodeEditor } from "../shared/CodeEditor";
 import { Button } from "../shared/Button";
 import { ExtensionSelect } from "../shared/ExtensionSelect";
 import { getFileName, getScriptKind, requestUrl } from "../utils";
-import useFileType from "../shared/useFileType";
 import useAppContext from "../shared/useAppContext";
 import { createSourceFile, ScriptTarget } from "typescript";
 
 function GenerateAst() {
   const { language } = useParams() as { language: string };
 
-  const { setAlert, astSourceCode, setAstSourceCode, astNode, setAstNode } =
+  const { setAlert, extension, astSourceCode, setAstSourceCode, astNode, setAstNode } =
     useAppContext();
-  const [extension, setExtension] = useFileType(language);
   const [generating, setGenerating] = useState<boolean>(false);
 
   const generateAst = useCallback(async () => {
@@ -60,10 +58,7 @@ function GenerateAst() {
 
   return (
     <>
-      <ExtensionSelect
-        extension={extension}
-        handleExtensionChanged={setExtension}
-      />
+      <ExtensionSelect />
       <div className="flex">
         <div className="w-5/12 flex flex-col px-4">
           <div className="font-bold">Source Code:</div>

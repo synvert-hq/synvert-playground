@@ -5,7 +5,6 @@ import { Button } from "../shared/Button";
 import { SnippetSelect } from "./SnippetSelect";
 import { requestUrl } from "../utils";
 import { ExtensionSelect } from "../shared/ExtensionSelect";
-import useFileType from "../shared/useFileType";
 import useAppContext from "../shared/useAppContext";
 import { Snippet } from "../types";
 
@@ -13,6 +12,7 @@ function ParseSnippet() {
   const { language } = useParams() as { language: string };
   const {
     setAlert,
+    extension,
     sourceCode,
     setSourceCode,
     snippetCode,
@@ -20,7 +20,6 @@ function ParseSnippet() {
     output,
     setOutput,
   } = useAppContext();
-  const [extension, setExtension] = useFileType(language);
   const [parseSynvertSnippetDisabled, setParseSynvertSnippetDisabled] =
     useState<boolean>(false);
 
@@ -62,10 +61,7 @@ function ParseSnippet() {
     <>
       <div className="flex justify-between px-4">
         <SnippetSelect handleSnippetChanged={handleSnippetChanged} />
-        <ExtensionSelect
-          extension={extension}
-          handleExtensionChanged={setExtension}
-        />
+        <ExtensionSelect />
       </div>
       <div className="px-4">
         <div className="font-bold">Input Source Code:</div>

@@ -4,14 +4,12 @@ import { requestUrl } from "../utils";
 import { Button } from "../shared/Button";
 import { CodeEditor } from "../shared/CodeEditor";
 import { ExtensionSelect } from "../shared/ExtensionSelect";
-import useFileType from "../shared/useFileType";
 import useAppContext from "../shared/useAppContext";
 import { TextField } from "../shared/TextField";
 import { RadioField } from "../shared/RadioField";
 
 function GenerateSnippet() {
   const { language } = useParams() as { language: string };
-  const [extension, setExtension] = useFileType(language);
   const [filePattern, setFilePattern] = useState<string>("");
   const [rubyVersion, setRubyVersion] = useState<string>("");
   const [gemVersion, setGemVersion] = useState<string>("");
@@ -23,7 +21,7 @@ function GenerateSnippet() {
   const [generating, setGenerating] = useState<boolean>(false);
   const [generatedSnippet, setGeneratedSnippet] = useState<string>("");
   const [snippet, setSnippet] = useState<string>("");
-  const { setAlert } = useAppContext();
+  const { setAlert, extension } = useAppContext();
 
   const setInputSourceCode = (code: string, index: number) => {
     inputs[index] = code;
@@ -140,10 +138,7 @@ function GenerateSnippet() {
 
   return (
     <>
-      <ExtensionSelect
-        extension={extension}
-        handleExtensionChanged={setExtension}
-      />
+      <ExtensionSelect />
       <div className="px-4 pb-4">
         <div className="font-bold">File Pattern:</div>
         <TextField value={filePattern} handleValueChanged={setFilePattern} />

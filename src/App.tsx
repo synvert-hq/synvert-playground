@@ -7,6 +7,7 @@ import Footer from "./Footer";
 
 const App = () => {
   const [alert, setAlert] = useState("");
+  const [extension, setExtension] = useState("");
   const [astSourceCode, setAstSourceCode] = useState("");
   const [astNode, setAstNode] = useState({});
   const [sourceCode, setSourceCode] = useState("");
@@ -17,6 +18,8 @@ const App = () => {
       value={{
         alert,
         setAlert,
+        extension,
+        setExtension,
         astSourceCode,
         setAstSourceCode,
         astNode,
