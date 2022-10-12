@@ -11,8 +11,14 @@ import { createSourceFile, ScriptTarget } from "typescript";
 function GenerateAst() {
   const { language } = useParams() as { language: string };
 
-  const { setAlert, extension, astSourceCode, setAstSourceCode, astNode, setAstNode } =
-    useAppContext();
+  const {
+    setAlert,
+    extension,
+    astSourceCode,
+    setAstSourceCode,
+    astNode,
+    setAstNode,
+  } = useAppContext();
   const [generating, setGenerating] = useState<boolean>(false);
 
   const generateAst = useCallback(async () => {

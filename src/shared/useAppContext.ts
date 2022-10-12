@@ -3,7 +3,7 @@ import { createContext, useContext } from "react";
 export type AppContent = {
   alert: string;
   setAlert: (alert: string) => void;
-  extension: string,
+  extension: string;
   setExtension: (extension: string) => void;
   astSourceCode: string;
   setAstSourceCode: (code: string) => void;

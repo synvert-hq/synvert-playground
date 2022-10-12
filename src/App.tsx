@@ -9,7 +9,9 @@ import { CODE_EXTENSIONS } from "./constants";
 const App = () => {
   const { language } = useParams() as { language: string };
   const [alert, setAlert] = useState("");
-  const [extension, setExtension] = useState(Object.keys(CODE_EXTENSIONS[language])[0]);
+  const [extension, setExtension] = useState(
+    Object.keys(CODE_EXTENSIONS[language])[0]
+  );
   const [astSourceCode, setAstSourceCode] = useState("");
   const [astNode, setAstNode] = useState({});
   const [sourceCode, setSourceCode] = useState("");
