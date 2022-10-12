@@ -18,6 +18,18 @@ ReactDOM.render(
           <Route path="generate-ast" element={<GenerateAst />} />
         </Route>
         <Route
+          path="/ruby"
+          element={<Navigate to="/ruby/parse-snippet" replace />}
+        />
+        <Route
+          path="/javascript"
+          element={<Navigate to="/javascript/parse-snippet" replace />}
+        />
+        <Route
+          path="/typescript"
+          element={<Navigate to="/typescript/parse-snippet" replace />}
+        />
+        <Route
           path="*"
           element={<Navigate to="/typescript/parse-snippet" replace />}
         />
