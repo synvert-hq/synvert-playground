@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import { AppContext } from "./shared/useAppContext";
 import Header from "./Header";
 import Alert from "./Alert";
 import Footer from "./Footer";
+import { CODE_EXTENSIONS } from "./constants";
 
 const App = () => {
+  const { language } = useParams() as { language: string };
   const [alert, setAlert] = useState("");
-  const [extension, setExtension] = useState("");
+  const [extension, setExtension] = useState(Object.keys(CODE_EXTENSIONS[language])[0]);
   const [astSourceCode, setAstSourceCode] = useState("");
   const [astNode, setAstNode] = useState({});
   const [sourceCode, setSourceCode] = useState("");
