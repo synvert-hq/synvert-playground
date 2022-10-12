@@ -7,7 +7,7 @@ import { LanguageSelect } from "./LanguageSelect";
 const Header: React.FC = () => {
   const { language } = useParams() as { language: string };
   const homeUrl = `https://synvert.net/${language}/home`;
-  const nodePlaygroundUrl = `https://node-playground.synvert.net/${language}`;
+  const nodePlaygroundUrl = `https://node-playground.synvert.net/${language}/node-query`;
 
   return (
     <>
