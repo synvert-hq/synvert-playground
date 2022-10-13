@@ -11,7 +11,7 @@ interface ParseSnippets {
     input: string;
     output: string;
     snippet: string;
-  }
+  };
 }
 
 export const LANGUAGES = ["typescript", "javascript", "ruby"];
