@@ -21,12 +21,25 @@ export const SnippetSelect: React.FC<SnippetSelectProps> = ({
   const { language } = useParams() as { language: string };
   const offliceSnippetsUrl = `https://synvert.net/${language}/official_snippets/`;
 
+  let controller: AbortController;
+  let signal: AbortSignal;
+
   const promiseOptions = (query: string): Promise<Option[]> => {
+    if (query.length === 0) {
+      return Promise.resolve([]);
+    }
+
+    if (controller) {
+      controller.abort();
+    }
+    controller = new AbortController();
+    signal = controller.signal;
     const url = requestUrl(language, "query-snippets");
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query }),
+      signal,
     };
     return fetch(url, options)
       .then((response) => response.json())
