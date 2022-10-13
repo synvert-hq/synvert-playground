@@ -37,7 +37,9 @@ const Header: React.FC = () => {
                 text="Generate AST"
               ></NavTab>
             </div>
-            <a href={nodePlaygroundUrl} target="_blank" rel="noreferrer">Node Playground</a>
+            <a href={nodePlaygroundUrl} target="_blank" rel="noreferrer">
+              Node Playground
+            </a>
             <LanguageSelect />
           </div>
         </div>
