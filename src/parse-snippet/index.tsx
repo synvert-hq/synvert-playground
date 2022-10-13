@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CodeEditor } from "../shared/CodeEditor";
 import { Button } from "../shared/Button";

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import useAppContext from "./useAppContext";
 import { CODE_EXTENSIONS } from "../constants";
@@ -7,11 +7,6 @@ export const ExtensionSelect: React.FC = () => {
   const { language } = useParams() as { language: string };
   const { extension, setExtension } = useAppContext();
   const codeExtensions = CODE_EXTENSIONS[language];
-
-  useEffect(() => {
-    const extension = Object.keys(CODE_EXTENSIONS[language])[0];
-    setExtension(extension);
-  }, [language]);
 
   const handleExtensionChange = (
     event: React.ChangeEvent<HTMLSelectElement>
