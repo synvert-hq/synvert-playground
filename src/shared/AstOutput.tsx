@@ -60,7 +60,7 @@ const getNodeObject = (node: Node): any => {
   return result;
 };
 
-export const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
+const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
   const { language } = useParams() as { language: string };
   const src = node ? getRootObject(language, node) : {};
   return (
@@ -75,3 +75,5 @@ export const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
     </>
   );
 };
+
+export default AstOutput;

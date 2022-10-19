@@ -7,7 +7,7 @@ interface RadioFieldProps {
   handleValueChanged: (value: string) => void;
 }
 
-export const RadioField: React.FC<RadioFieldProps> = ({
+const RadioField: React.FC<RadioFieldProps> = ({
   value,
   values,
   labels,
@@ -41,3 +41,5 @@ export const RadioField: React.FC<RadioFieldProps> = ({
     </>
   );
 };
+
+export default RadioField;

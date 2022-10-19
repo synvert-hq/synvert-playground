@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { requestUrl } from "../utils";
-import { Button } from "../shared/Button";
-import { CodeEditor } from "../shared/CodeEditor";
-import { ExtensionSelect } from "../shared/ExtensionSelect";
+import Button from "../shared/Button";
+import CodeEditor from "../shared/CodeEditor";
+import ExtensionSelect from "../shared/ExtensionSelect";
 import useAppContext from "../shared/useAppContext";
-import { TextField } from "../shared/TextField";
-import { RadioField } from "../shared/RadioField";
+import TextField from "../shared/TextField";
+import RadioField from "../shared/RadioField";
 
 function GenerateSnippet() {
   const { language } = useParams() as { language: string };

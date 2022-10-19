@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import useAppContext from "./useAppContext";
 import { CODE_EXTENSIONS } from "../constants";
 
-export const ExtensionSelect: React.FC = () => {
+const ExtensionSelect: React.FC = () => {
   const { language } = useParams() as { language: string };
   const { extension, setExtension } = useAppContext();
   const codeExtensions = CODE_EXTENSIONS[language];
@@ -34,3 +34,5 @@ export const ExtensionSelect: React.FC = () => {
     </div>
   );
 };
+
+export default ExtensionSelect;

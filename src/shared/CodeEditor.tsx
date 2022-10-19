@@ -12,7 +12,7 @@ interface CodeEditorProps {
   height: string;
 }
 
-export const CodeEditor: React.FC<CodeEditorProps> = ({
+const CodeEditor: React.FC<CodeEditorProps> = ({
   language,
   code,
   setCode,
@@ -41,3 +41,5 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
   return <div ref={editor} />;
 };
+
+export default CodeEditor;

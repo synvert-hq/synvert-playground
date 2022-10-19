@@ -5,7 +5,7 @@ interface NavTabProps {
   link: string;
 }
 
-export const NavTab: React.FC<NavTabProps> = ({ text, link }) => {
+const NavTab: React.FC<NavTabProps> = ({ text, link }) => {
   return (
     <NavLink
       className={({ isActive }) =>

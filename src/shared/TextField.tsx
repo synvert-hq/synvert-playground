@@ -6,7 +6,7 @@ interface TextFieldProps {
   handleValueChanged: (value: string) => void;
 }
 
-export const TextField: React.FC<TextFieldProps> = ({
+const TextField: React.FC<TextFieldProps> = ({
   value,
   placeholder,
   handleValueChanged,
@@ -27,3 +27,5 @@ export const TextField: React.FC<TextFieldProps> = ({
     />
   );
 };
+
+export default TextField;
