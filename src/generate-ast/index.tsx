@@ -1,9 +1,9 @@
 import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
-import { AstOutput } from "../shared/AstOutput";
-import { CodeEditor } from "../shared/CodeEditor";
-import { Button } from "../shared/Button";
-import { ExtensionSelect } from "../shared/ExtensionSelect";
+import AstOutput from "../shared/AstOutput";
+import CodeEditor from "../shared/CodeEditor";
+import Button from "../shared/Button";
+import ExtensionSelect from "../shared/ExtensionSelect";
 import { getFileName, getScriptKind, requestUrl } from "../utils";
 import useAppContext from "../shared/useAppContext";
 import { createSourceFile, ScriptTarget } from "typescript";

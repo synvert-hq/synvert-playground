@@ -15,7 +15,7 @@ interface Option {
   readonly label: string;
 }
 
-export const SnippetSelect: React.FC<SnippetSelectProps> = ({
+const SnippetSelect: React.FC<SnippetSelectProps> = ({
   handleSnippetChanged,
 }) => {
   const { language } = useParams() as { language: string };
@@ -83,3 +83,5 @@ export const SnippetSelect: React.FC<SnippetSelectProps> = ({
     </div>
   );
 };
+
+export default SnippetSelect;

@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { LANGUAGES } from "./constants";
 
-export const LanguageSelect: React.FC = () => {
+const LanguageSelect: React.FC = () => {
   const { language } = useParams() as { language: string };
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -31,3 +31,5 @@ export const LanguageSelect: React.FC = () => {
     </div>
   );
 };
+
+export default LanguageSelect;

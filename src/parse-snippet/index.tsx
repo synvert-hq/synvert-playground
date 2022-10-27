@@ -1,10 +1,10 @@
 import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
-import { CodeEditor } from "../shared/CodeEditor";
-import { Button } from "../shared/Button";
-import { SnippetSelect } from "./SnippetSelect";
+import CodeEditor from "../shared/CodeEditor";
+import Button from "../shared/Button";
+import SnippetSelect from "./SnippetSelect";
 import { requestUrl } from "../utils";
-import { ExtensionSelect } from "../shared/ExtensionSelect";
+import ExtensionSelect from "../shared/ExtensionSelect";
 import useAppContext from "../shared/useAppContext";
 import { Snippet } from "../types";
 

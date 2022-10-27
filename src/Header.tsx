@@ -2,7 +2,7 @@ import React from "react";
 import logo from "./logo.png";
 import { useParams } from "react-router-dom";
 import NavTab from "./shared/NavTab";
-import { LanguageSelect } from "./LanguageSelect";
+import LanguageSelect from "./LanguageSelect";
 
 const Header: React.FC = () => {
   const { language } = useParams() as { language: string };
