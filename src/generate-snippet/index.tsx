@@ -184,7 +184,14 @@ function GenerateSnippet() {
         </div>
       )}
       <div className="flex px-4 flex-row-reverse">
-        <a href="https://synvert.net/how_to_write_inputs_outputs" className="text-sky-500" target="_blank" rel="noreferrer">How to write inputs / outputs?</a>
+        <a
+          href="https://synvert.net/how_to_write_inputs_outputs"
+          className="text-sky-500"
+          target="_blank"
+          rel="noreferrer"
+        >
+          How to write inputs / outputs?
+        </a>
       </div>
       <div className="flex">
         <div className="w-1/2 px-4">
