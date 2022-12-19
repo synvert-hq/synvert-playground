@@ -4,9 +4,8 @@ import CodeEditor from '@uiw/react-textarea-code-editor';
 import AstOutput from "../shared/AstOutput";
 import Button from "../shared/Button";
 import ExtensionSelect from "../shared/ExtensionSelect";
-import { getFileName, getScriptKind, requestUrl } from "../utils";
+import { requestUrl } from "../utils";
 import useAppContext from "../shared/useAppContext";
-import { createSourceFile, ScriptTarget } from "typescript";
 import { codeEditorStyle } from "../constants";
 
 function GenerateAst() {
@@ -28,38 +27,24 @@ function GenerateAst() {
     }
 
     setGenerating(true);
-    if (["typescript", "javascript"].includes(language)) {
-      const fileName = getFileName(extension);
-      const scriptKind = getScriptKind(extension);
-      const node = createSourceFile(
-        fileName,
-        astSourceCode,
-        ScriptTarget.Latest,
-        false,
-        scriptKind
-      );
-      setAstNode(node);
-      setGenerating(false);
-    } else {
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: astSourceCode }),
-      };
-      try {
-        const url = requestUrl(language, "generate-ast");
-        const response = await fetch(url, requestOptions);
-        const data = await response.json();
-        if (data.error) {
-          setAlert(data.error);
-          setAstNode({});
-        } else {
-          setAlert("");
-          setAstNode(data.node);
-        }
-      } finally {
-        setGenerating(false);
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code: astSourceCode }),
+    };
+    try {
+      const url = requestUrl(language, "generate-ast");
+      const response = await fetch(url, requestOptions);
+      const data = await response.json();
+      if (data.error) {
+        setAlert(data.error);
+        setAstNode({});
+      } else {
+        setAlert("");
+        setAstNode(data.node);
       }
+    } finally {
+      setGenerating(false);
     }
   }, [language, extension, astSourceCode]);
 
