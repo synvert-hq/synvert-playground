@@ -30,7 +30,7 @@ function GenerateAst() {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ code: astSourceCode }),
+      body: JSON.stringify({ code: astSourceCode, extension }),
     };
     try {
       const url = requestUrl(language, "generate-ast");
