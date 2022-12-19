@@ -1,12 +1,13 @@
 import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
-import CodeEditor from "../shared/CodeEditor";
+import CodeEditor from '@uiw/react-textarea-code-editor';
 import Button from "../shared/Button";
 import SnippetSelect from "./SnippetSelect";
 import { requestUrl } from "../utils";
 import ExtensionSelect from "../shared/ExtensionSelect";
 import useAppContext from "../shared/useAppContext";
 import { Snippet } from "../types";
+import { codeEditorStyle } from "../constants";
 
 function ParseSnippet() {
   const { language } = useParams() as { language: string };
@@ -67,18 +68,21 @@ function ParseSnippet() {
         <div className="font-bold">Input Source Code:</div>
         <CodeEditor
           language={language}
-          code={sourceCode}
-          setCode={setSourceCode}
-          height="200px"
+          value={sourceCode}
+          onChange={(event) => setSourceCode(event.target.value)}
+          minHeight={200}
+          padding={15}
+          style={codeEditorStyle}
         />
       </div>
       <div className="px-4">
         <div className="font-bold">Synvert Snippet:</div>
         <CodeEditor
           language={language}
-          code={snippetCode}
-          setCode={setSnippetCode}
-          height="400px"
+          value={snippetCode}
+          onChange={(event) => setSnippetCode(event.target.value)}
+          minHeight={400}
+          style={codeEditorStyle}
         />
       </div>
       <div className="flex justify-center py-4">
@@ -90,7 +94,13 @@ function ParseSnippet() {
       </div>
       <div className="px-4">
         <div className="font-bold">Output Source Code:</div>
-        <CodeEditor language={language} code={output} readOnly height="200px" />
+        <CodeEditor
+          language={language}
+          value={output}
+          readOnly
+          minHeight={200}
+          style={codeEditorStyle}
+        />
       </div>
     </>
   );

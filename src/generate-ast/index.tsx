@@ -1,12 +1,13 @@
 import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
+import CodeEditor from '@uiw/react-textarea-code-editor';
 import AstOutput from "../shared/AstOutput";
-import CodeEditor from "../shared/CodeEditor";
 import Button from "../shared/Button";
 import ExtensionSelect from "../shared/ExtensionSelect";
 import { getFileName, getScriptKind, requestUrl } from "../utils";
 import useAppContext from "../shared/useAppContext";
 import { createSourceFile, ScriptTarget } from "typescript";
+import { codeEditorStyle } from "../constants";
 
 function GenerateAst() {
   const { language } = useParams() as { language: string };
@@ -70,9 +71,10 @@ function GenerateAst() {
           <div className="font-bold">Source Code:</div>
           <CodeEditor
             language={language}
-            code={astSourceCode}
-            setCode={setAstSourceCode}
-            height="800px"
+            value={astSourceCode}
+            onChange={(event) => setAstSourceCode(event.target.value)}
+            minHeight={800}
+            style={codeEditorStyle}
           />
         </div>
         <div className="w-2/12 px-2 py-14">

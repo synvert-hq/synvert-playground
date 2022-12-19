@@ -169,3 +169,8 @@ export const DEFAULT_PARSE_SNIPPETS: ParseSnippets = {
     `,
   },
 };
+
+export const codeEditorStyle = {
+  fontSize: 14,
+  fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+}

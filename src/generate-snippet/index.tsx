@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import CodeEditor from '@uiw/react-textarea-code-editor';
 import { requestUrl } from "../utils";
 import Button from "../shared/Button";
-import CodeEditor from "../shared/CodeEditor";
 import ExtensionSelect from "../shared/ExtensionSelect";
 import useAppContext from "../shared/useAppContext";
 import TextField from "../shared/TextField";
 import RadioField from "../shared/RadioField";
+import { codeEditorStyle } from "../constants";
 
 function GenerateSnippet() {
   const { language } = useParams() as { language: string };
@@ -199,12 +200,11 @@ function GenerateSnippet() {
           {inputs.map((input, index) => (
             <div className="mb-2" key={index}>
               <CodeEditor
+                value={input}
                 language={language}
-                code={input}
-                setCode={(code) => {
-                  setInputSourceCode(code, index);
-                }}
-                height="200px"
+                onChange={(event) => setInputSourceCode(event.target.value, index)}
+                minHeight={200}
+                style={codeEditorStyle}
               />
             </div>
           ))}
@@ -214,12 +214,11 @@ function GenerateSnippet() {
           {outputs.map((output, index) => (
             <div className="mb-2" key={index}>
               <CodeEditor
+                value={output}
                 language={language}
-                code={output}
-                setCode={(code) => {
-                  setOutputSourceCode(code, index);
-                }}
-                height="200px"
+                onChange={(event) => setOutputSourceCode(event.target.value, index)}
+                minHeight={200}
+                style={codeEditorStyle}
               />
             </div>
           ))}
@@ -252,7 +251,13 @@ function GenerateSnippet() {
         </div>
       </div>
       <div className="px-4">
-        <CodeEditor language={language} code={snippet} height="400px" />
+        <CodeEditor
+          value={snippet}
+          language={language}
+          readOnly
+          minHeight={400}
+          style={codeEditorStyle}
+        />
       </div>
     </>
   );
