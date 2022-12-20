@@ -1,6 +1,6 @@
-import React from "react";
-import { SingleValue } from "react-select";
-import AsyncSelect from "react-select/async";
+import React, { useEffect, useState } from "react";
+import Select, { SingleValue } from "react-select";
+import { FilterOptionOption } from "react-select/dist/declarations/src/filters";
 import { useParams } from "react-router-dom";
 import { requestUrl } from "../utils";
 import { Snippet } from "../types";
@@ -19,40 +19,34 @@ const SnippetSelect: React.FC<SnippetSelectProps> = ({
   handleSnippetChanged,
 }) => {
   const { language } = useParams() as { language: string };
+  const [snippets, setSnippets] = useState<Snippet[]>([]);
   const offliceSnippetsUrl = `https://synvert.net/${language}/official_snippets/`;
 
-  let controller: AbortController;
-  let signal: AbortSignal;
-
-  const promiseOptions = (query: string): Promise<Option[]> => {
-    if (query.length === 0) {
-      return Promise.resolve([]);
+  useEffect(() => {
+    const fetchSnippets = async () => {
+      const url = requestUrl(language, "snippets");
+      const response = await fetch(url);
+      const data = await response.json();
+      setSnippets(data.snippets);
     }
+    fetchSnippets();
+  }, [language]);
 
-    if (controller) {
-      controller.abort();
+  const options = snippets.map((snippet) => (
+    {
+      value: snippet,
+      label: `${snippet.group}/${snippet.name}`,
     }
-    controller = new AbortController();
-    signal = controller.signal;
-    const url = requestUrl(language, "query-snippets");
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query }),
-      signal,
-    };
-    return fetch(url, options)
-      .then((response) => response.json())
-      .then((data: { snippets: Snippet[] }) =>
-        data.snippets.map(
-          (snippet) =>
-            ({
-              value: snippet,
-              label: `${snippet["group"]}/${snippet["name"]}`,
-            } as Option)
-        )
-      );
+  ) as Option);
+
+  const filterOption = (option: FilterOptionOption<Option>, inputValue: string): boolean => {
+    if (inputValue.length === 0) return true;
+    const snippet = option.data.value;
+    return snippet.group.toLowerCase().includes(inputValue.toLowerCase()) ||
+      snippet.name.toLowerCase().includes(inputValue.toLowerCase()) ||
+      (!!snippet.description && snippet.description.toLowerCase().includes(inputValue.toLowerCase()));
   };
+
   const onChange = (option: SingleValue<Option>) => {
     if (option) {
       handleSnippetChanged(option.value);
@@ -63,12 +57,11 @@ const SnippetSelect: React.FC<SnippetSelectProps> = ({
     <div className="flex items-center justify-end h-12 mr-6">
       <span className="font-bold mr-2">Snippet:</span>
       <div>
-        <AsyncSelect<Option>
-          cacheOptions
-          defaultOptions
+        <Select<Option>
           placeholder="Search a Snippet"
           classNamePrefix="react-select"
-          loadOptions={promiseOptions}
+          options={options}
+          filterOption={filterOption}
           onChange={onChange}
         />
       </div>
