@@ -1,12 +1,12 @@
 import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Snippet } from "synvert-ui-common";
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import Button from "../shared/Button";
 import SnippetSelect from "./SnippetSelect";
 import { requestUrl } from "../utils";
 import ExtensionSelect from "../shared/ExtensionSelect";
 import useAppContext from "../shared/useAppContext";
-import { Snippet } from "../types";
 import { codeEditorStyle } from "../constants";
 
 function ParseSnippet() {
