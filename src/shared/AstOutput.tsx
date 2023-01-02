@@ -39,7 +39,9 @@ const IGNORE_KEYS = [
 
 const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
   const { language } = useParams() as { language: string };
-  const [syntaxKinds, setSyntaxKinds] = useState<{[kind: string]: string}>({});
+  const [syntaxKinds, setSyntaxKinds] = useState<{ [kind: string]: string }>(
+    {}
+  );
   const fetchSyntaxKinds = useCallback(async () => {
     if (!["javascript", "typescript"].includes(language)) {
       setSyntaxKinds({});
@@ -56,10 +58,13 @@ const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
     setSyntaxKinds(data.syntax_kinds);
   }, [language, node]);
   useEffect(() => {
-    fetchSyntaxKinds()
+    fetchSyntaxKinds();
   }, [fetchSyntaxKinds]);
 
-  const getNewKeyValue = (node: Node, key: string): [key: string, value: any] => {
+  const getNewKeyValue = (
+    node: Node,
+    key: string
+  ): [key: string, value: any] => {
     const value = (node as any)[key];
     if (typeof value === "object") {
       return [key, getNodeObject(value)];

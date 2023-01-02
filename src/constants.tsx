@@ -23,9 +23,9 @@ export const REQUEST_BASE_URL: { [language: string]: string } = {
 };
 
 export const CODE_EXTENSIONS: Extensions = {
-  typescript: 'ts',
-  javascript: 'js',
-  ruby: 'rb',
+  typescript: "ts",
+  javascript: "js",
+  ruby: "rb",
 };
 
 export const DEFAULT_PARSE_SNIPPETS: ParseSnippets = {
@@ -161,5 +161,6 @@ export const DEFAULT_PARSE_SNIPPETS: ParseSnippets = {
 
 export const codeEditorStyle = {
   fontSize: 14,
-  fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
-}
+  fontFamily:
+    "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
+};
