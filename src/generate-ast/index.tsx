@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
-import CodeEditor from '@uiw/react-textarea-code-editor';
+import CodeEditor from "@uiw/react-textarea-code-editor";
 import AstOutput from "../shared/AstOutput";
 import Button from "../shared/Button";
 import { requestUrl } from "../utils";
@@ -10,13 +10,8 @@ import { codeEditorStyle } from "../constants";
 function GenerateAst() {
   const { language } = useParams() as { language: string };
 
-  const {
-    setAlert,
-    astSourceCode,
-    setAstSourceCode,
-    astNode,
-    setAstNode,
-  } = useAppContext();
+  const { setAlert, astSourceCode, setAstSourceCode, astNode, setAstNode } =
+    useAppContext();
   const [generating, setGenerating] = useState<boolean>(false);
 
   const generateAst = useCallback(async () => {

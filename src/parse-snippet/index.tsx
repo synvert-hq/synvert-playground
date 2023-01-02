@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Snippet } from "synvert-ui-common";
-import CodeEditor from '@uiw/react-textarea-code-editor';
+import CodeEditor from "@uiw/react-textarea-code-editor";
 import Button from "../shared/Button";
 import SnippetSelect from "./SnippetSelect";
 import { requestUrl } from "../utils";

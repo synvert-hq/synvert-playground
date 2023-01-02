@@ -26,7 +26,7 @@ const SnippetSelect: React.FC<SnippetSelectProps> = ({
   const convertSnippetToOption = (snippet: Snippet) => ({
     value: snippet,
     label: `${snippet.group}/${snippet.name}`,
-  })
+  });
 
   useEffect(() => {
     setSnippets([]);
@@ -35,7 +35,7 @@ const SnippetSelect: React.FC<SnippetSelectProps> = ({
       const response = await fetch(url);
       const data = await response.json();
       setSnippets(data.snippets);
-    }
+    };
     fetchSnippets();
   }, [language]);
 
@@ -43,8 +43,12 @@ const SnippetSelect: React.FC<SnippetSelectProps> = ({
     if (inputValue) {
       setOptions(snippets.map(convertSnippetToOption));
     }
-    setOptions(sortSnippets(filterSnippets(snippets, inputValue), inputValue).map(convertSnippetToOption));
-  }, [snippets, inputValue])
+    setOptions(
+      sortSnippets(filterSnippets(snippets, inputValue), inputValue).map(
+        convertSnippetToOption
+      )
+    );
+  }, [snippets, inputValue]);
 
   const onInputChange = (newValue: string) => {
     setInputValue(newValue);
