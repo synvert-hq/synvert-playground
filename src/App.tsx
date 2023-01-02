@@ -4,14 +4,11 @@ import { AppContext } from "./shared/useAppContext";
 import Header from "./Header";
 import Alert from "./Alert";
 import Footer from "./Footer";
-import { CODE_EXTENSIONS, DEFAULT_PARSE_SNIPPETS } from "./constants";
+import { DEFAULT_PARSE_SNIPPETS } from "./constants";
 
 const App = () => {
   const { language } = useParams() as { language: string };
   const [alert, setAlert] = useState("");
-  const [extension, setExtension] = useState(
-    Object.keys(CODE_EXTENSIONS[language])[0]
-  );
   const [astSourceCode, setAstSourceCode] = useState("");
   const [astNode, setAstNode] = useState({});
   const [sourceCode, setSourceCode] = useState("");
@@ -24,18 +21,11 @@ const App = () => {
     setSnippetCode(DEFAULT_PARSE_SNIPPETS[language].snippet);
   }, [language]);
 
-  useEffect(() => {
-    const extension = Object.keys(CODE_EXTENSIONS[language])[0];
-    setExtension(extension);
-  }, [language]);
-
   return (
     <AppContext.Provider
       value={{
         alert,
         setAlert,
-        extension,
-        setExtension,
         astSourceCode,
         setAstSourceCode,
         astNode,

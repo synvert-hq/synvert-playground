@@ -3,11 +3,10 @@ import { useParams } from "react-router-dom";
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import { requestUrl } from "../utils";
 import Button from "../shared/Button";
-import ExtensionSelect from "../shared/ExtensionSelect";
 import useAppContext from "../shared/useAppContext";
 import TextField from "../shared/TextField";
 import RadioField from "../shared/RadioField";
-import { codeEditorStyle } from "../constants";
+import { codeEditorStyle, CODE_EXTENSIONS } from "../constants";
 
 function GenerateSnippet() {
   const { language } = useParams() as { language: string };
@@ -22,7 +21,7 @@ function GenerateSnippet() {
   const [generating, setGenerating] = useState<boolean>(false);
   const [generatedSnippet, setGeneratedSnippet] = useState<string>("");
   const [snippet, setSnippet] = useState<string>("");
-  const { setAlert, extension } = useAppContext();
+  const { setAlert } = useAppContext();
 
   const setInputSourceCode = (code: string, index: number) => {
     inputs[index] = code;
@@ -50,7 +49,7 @@ function GenerateSnippet() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        extension,
+        language,
         inputs,
         outputs,
         nql_or_rules: nqlOrRules,
@@ -70,13 +69,13 @@ function GenerateSnippet() {
     } finally {
       setGenerating(false);
     }
-  }, [language, extension, inputs, outputs, nqlOrRules]);
+  }, [language, inputs, outputs, nqlOrRules]);
 
   useEffect(() => {
-    setFilePattern(`**/*.${extension}`);
+    setFilePattern(`**/*.${CODE_EXTENSIONS[language]}`);
     setGeneratedSnippet("");
     setSnippet("");
-  }, [language, extension]);
+  }, [language]);
 
   useEffect(() => {
     if (generatedSnippet.length === 0) {
@@ -139,8 +138,7 @@ function GenerateSnippet() {
 
   return (
     <>
-      <ExtensionSelect />
-      <div className="px-4 pb-4">
+      <div className="p-4">
         <div className="font-bold">File Pattern:</div>
         <TextField value={filePattern} handleValueChanged={setFilePattern} />
       </div>

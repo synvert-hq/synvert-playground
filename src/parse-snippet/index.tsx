@@ -5,7 +5,6 @@ import CodeEditor from '@uiw/react-textarea-code-editor';
 import Button from "../shared/Button";
 import SnippetSelect from "./SnippetSelect";
 import { requestUrl } from "../utils";
-import ExtensionSelect from "../shared/ExtensionSelect";
 import useAppContext from "../shared/useAppContext";
 import { codeEditorStyle } from "../constants";
 
@@ -13,7 +12,6 @@ function ParseSnippet() {
   const { language } = useParams() as { language: string };
   const {
     setAlert,
-    extension,
     sourceCode,
     setSourceCode,
     snippetCode,
@@ -36,7 +34,7 @@ function ParseSnippet() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          extension,
+          language,
           code: sourceCode,
           snippet: snippetCode,
         }),
@@ -56,14 +54,11 @@ function ParseSnippet() {
         setParseSynvertSnippetDisabled(false);
       }
     }
-  }, [language, extension, sourceCode, snippetCode]);
+  }, [language, sourceCode, snippetCode]);
 
   return (
     <>
-      <div className="flex justify-between px-4">
-        <SnippetSelect handleSnippetChanged={handleSnippetChanged} />
-        <ExtensionSelect />
-      </div>
+      <SnippetSelect handleSnippetChanged={handleSnippetChanged} />
       <div className="px-4">
         <div className="font-bold">Input Source Code:</div>
         <CodeEditor

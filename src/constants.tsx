@@ -1,9 +1,7 @@
 import dedent from "dedent";
 
 interface Extensions {
-  [language: string]: {
-    [name: string]: string;
-  };
+  [language: string]: string;
 }
 
 interface ParseSnippets {
@@ -25,18 +23,9 @@ export const REQUEST_BASE_URL: { [language: string]: string } = {
 };
 
 export const CODE_EXTENSIONS: Extensions = {
-  typescript: {
-    ts: "Typescript",
-    tsx: "Typescript + JSX",
-  },
-  javascript: {
-    js: "Javascript",
-    jsx: "Javascript + JSX",
-  },
-  ruby: {
-    rb: "Ruby",
-    erb: "Ruby + ERB",
-  },
+  typescript: 'ts',
+  javascript: 'js',
+  ruby: 'rb',
 };
 
 export const DEFAULT_PARSE_SNIPPETS: ParseSnippets = {

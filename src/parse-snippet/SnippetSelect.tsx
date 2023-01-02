@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Select, { SingleValue } from "react-select";
-import { FilterOptionOption } from "react-select/dist/declarations/src/filters";
 import { useParams } from "react-router-dom";
 import { filterSnippets, sortSnippets, Snippet } from "synvert-ui-common";
 import { requestUrl } from "../utils";
@@ -58,7 +57,7 @@ const SnippetSelect: React.FC<SnippetSelectProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-end h-12 mr-6">
+    <div className="flex items-center h-12 ml-4">
       <span className="font-bold mr-2">Snippet:</span>
       <div>
         <Select<Option>
