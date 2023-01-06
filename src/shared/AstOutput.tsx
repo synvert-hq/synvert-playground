@@ -32,7 +32,6 @@ const IGNORE_KEYS = [
   "pragmas",
   "referencedFiles",
   // "symbol",
-  "text",
   "transformFlags",
   "typeReferenceDirectives",
 ];
