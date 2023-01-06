@@ -55,7 +55,7 @@ const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
     const response = await fetch(url, requestOptions);
     const data = await response.json();
     setSyntaxKinds(data.syntax_kinds);
-  }, [language, node]);
+  }, [language]);
   useEffect(() => {
     fetchSyntaxKinds();
   }, [fetchSyntaxKinds]);
