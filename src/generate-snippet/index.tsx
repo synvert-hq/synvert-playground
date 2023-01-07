@@ -62,6 +62,9 @@ function GenerateSnippet() {
       if (data.error) {
         setAlert(data.error);
         setGeneratedSnippet("");
+      } else if (!data.snippet) {
+        setAlert("Failed to generate snippet!");
+        setGeneratedSnippet("");
       } else {
         setAlert("");
         setGeneratedSnippet(data.snippet);
