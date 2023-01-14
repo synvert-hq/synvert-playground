@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CodeEditor from "@uiw/react-textarea-code-editor";
+import { composeRubyGeneratedSnippet, composeJavascriptGeneratedSnippet } from "synvert-ui-common";
 import { requestUrl } from "../utils";
 import Button from "../shared/Button";
 import useAppContext from "../shared/useAppContext";
@@ -19,7 +20,6 @@ function GenerateSnippet() {
   const [inputs, setInputs] = useState<string[]>([""]);
   const [outputs, setOutputs] = useState<string[]>([""]);
   const [generating, setGenerating] = useState<boolean>(false);
-  const [generatedSnippet, setGeneratedSnippet] = useState<string>("");
   const [snippet, setSnippet] = useState<string>("");
   const { setAlert } = useAppContext();
 
@@ -61,14 +61,23 @@ function GenerateSnippet() {
       const data = await response.json();
       if (data.error) {
         setAlert(data.error);
-        setGeneratedSnippet("");
+        setSnippet("");
       } else if (!data.snippet) {
         setAlert("Failed to generate snippet!");
-        setGeneratedSnippet("");
+        setSnippet("");
       } else {
         setAlert("");
-        setGeneratedSnippet(data.snippet);
+        let snippet = "";
+        if (language === "ruby") {
+          snippet = composeRubyGeneratedSnippet({ filePattern, rubyVersion, gemVersion, snippet: data.snippet });
+        } else {
+          snippet = composeJavascriptGeneratedSnippet({ filePattern, nodeVersion, npmVersion, snippet: data.snippet });
+        }
+        setSnippet(snippet);
       }
+    } catch (e) {
+      setAlert("Failed to send request, please check your network setting.")
+      setSnippet("");
     } finally {
       setGenerating(false);
     }
@@ -76,68 +85,9 @@ function GenerateSnippet() {
 
   useEffect(() => {
     setFilePattern(`**/*.${CODE_EXTENSIONS[language]}`);
-    setGeneratedSnippet("");
+    setSnippet("");
     setSnippet("");
   }, [language]);
-
-  useEffect(() => {
-    if (generatedSnippet.length === 0) {
-      setSnippet("");
-      return;
-    }
-    if (["typescript", "javascript"].includes(language)) {
-      let snippet = `const Synvert = require("synvert-core");\n\n`;
-      snippet += `new Synvert.Rewriter("group", "name", () => {\n`;
-      snippet += `  configure({ parser: "typescript" });\n`;
-      if (nodeVersion) {
-        snippet += `  ifNode("${nodeVersion}");\n`;
-      }
-      if (npmVersion) {
-        const index = npmVersion.indexOf(" ");
-        const name = npmVersion.substring(0, index);
-        const version = npmVersion.substring(index + 1);
-        snippet += `  ifNpm("${name}", "${version}");\n`;
-      }
-      snippet += `  withinFiles('${filePattern}', () => {\n`;
-      if (generatedSnippet) {
-        snippet += "    ";
-        snippet += generatedSnippet.replace(/\n/g, "\n    ");
-        snippet += "\n";
-      }
-      snippet += "  });\n";
-      snippet += "});";
-      setSnippet(snippet);
-    }
-    if (language === "ruby") {
-      let snippet = "Synvert::Rewriter.new 'group', 'name' do\n";
-      if (rubyVersion) {
-        snippet += `  if_ruby '${rubyVersion}'\n`;
-      }
-      if (gemVersion) {
-        const index = gemVersion.indexOf(" ");
-        const name = gemVersion.substring(0, index);
-        const version = gemVersion.substring(index + 1);
-        snippet += `  if_gem '${name}', '${version}'\n`;
-      }
-      snippet += `  within_files '${filePattern}' do\n`;
-      if (generatedSnippet) {
-        snippet += "    ";
-        snippet += generatedSnippet.replace(/\n/g, "\n    ");
-        snippet += "\n";
-      }
-      snippet += "  end\n";
-      snippet += "end";
-      setSnippet(snippet);
-    }
-  }, [
-    language,
-    filePattern,
-    rubyVersion,
-    gemVersion,
-    nodeVersion,
-    npmVersion,
-    generatedSnippet,
-  ]);
 
   return (
     <>
