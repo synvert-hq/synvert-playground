@@ -94,7 +94,7 @@ function GenerateSnippet() {
     } finally {
       setGenerating(false);
     }
-  }, [language, inputs, outputs, nqlOrRules]);
+  }, [language, filePattern, rubyVersion, gemVersion, nodeVersion, npmVersion, inputs, outputs, nqlOrRules, setAlert]);
 
   useEffect(() => {
     setFilePattern(`**/*.${CODE_EXTENSIONS[language]}`);
