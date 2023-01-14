@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CodeEditor from "@uiw/react-textarea-code-editor";
-import { composeRubyGeneratedSnippet, composeJavascriptGeneratedSnippet } from "synvert-ui-common";
+import {
+  composeRubyGeneratedSnippet,
+  composeJavascriptGeneratedSnippet,
+} from "synvert-ui-common";
 import { requestUrl } from "../utils";
 import Button from "../shared/Button";
 import useAppContext from "../shared/useAppContext";
@@ -69,14 +72,24 @@ function GenerateSnippet() {
         setAlert("");
         let snippet = "";
         if (language === "ruby") {
-          snippet = composeRubyGeneratedSnippet({ filePattern, rubyVersion, gemVersion, snippet: data.snippet });
+          snippet = composeRubyGeneratedSnippet({
+            filePattern,
+            rubyVersion,
+            gemVersion,
+            snippet: data.snippet,
+          });
         } else {
-          snippet = composeJavascriptGeneratedSnippet({ filePattern, nodeVersion, npmVersion, snippet: data.snippet });
+          snippet = composeJavascriptGeneratedSnippet({
+            filePattern,
+            nodeVersion,
+            npmVersion,
+            snippet: data.snippet,
+          });
         }
         setSnippet(snippet);
       }
     } catch (e) {
-      setAlert("Failed to send request, please check your network setting.")
+      setAlert("Failed to send request, please check your network setting.");
       setSnippet("");
     } finally {
       setGenerating(false);
