@@ -71,7 +71,7 @@ const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
 
     return () => {
       mql.removeEventListener("change", handleMediaChanged);
-    }
+    };
   });
 
   const getNewKeyValue = (
@@ -124,7 +124,12 @@ const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
         src={src}
         theme={theme}
         displayDataTypes={false}
-        style={{ width: "100%", height: "800px", overflowY: "scroll", backgroundColor: backgroundColor }}
+        style={{
+          width: "100%",
+          height: "800px",
+          overflowY: "scroll",
+          backgroundColor: backgroundColor,
+        }}
       />
     </>
   );
