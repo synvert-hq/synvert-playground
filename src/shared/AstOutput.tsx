@@ -38,6 +38,8 @@ const IGNORE_KEYS = [
 
 const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
   const { language } = useParams() as { language: string };
+  const mql = matchMedia("(prefers-color-scheme: dark)");
+  const [darkMode, setDarkMode] = useState<boolean>(mql.matches);
   const [syntaxKinds, setSyntaxKinds] = useState<{ [kind: string]: string }>(
     {}
   );
@@ -59,6 +61,18 @@ const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
   useEffect(() => {
     fetchSyntaxKinds();
   }, [fetchSyntaxKinds]);
+
+  const handleMediaChanged = () => {
+    setDarkMode(mql.matches);
+  };
+
+  useEffect(() => {
+    mql.addEventListener("change", handleMediaChanged);
+
+    return () => {
+      mql.removeEventListener("change", handleMediaChanged);
+    }
+  });
 
   const getNewKeyValue = (
     node: Node,
@@ -101,14 +115,16 @@ const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
   };
 
   const src = node ? getRootObject(language, node) : {};
+  const theme = darkMode ? "twilight" : "summerfruit:inverted";
+  const backgroundColor = darkMode ? "#161b22" : "#f6f8fa";
   return (
     <>
       <div className="font-bold">AST Node:</div>
       <ReactJson
         src={src}
-        theme="twilight"
+        theme={theme}
         displayDataTypes={false}
-        style={{ width: "100%", height: "800px", overflowY: "scroll" }}
+        style={{ width: "100%", height: "800px", overflowY: "scroll", backgroundColor: backgroundColor }}
       />
     </>
   );
