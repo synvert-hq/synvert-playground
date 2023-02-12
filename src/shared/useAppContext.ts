@@ -5,8 +5,6 @@ export type AppContent = {
   setAlert: (alert: string) => void;
   astSourceCode: string;
   setAstSourceCode: (code: string) => void;
-  astNode: any;
-  setAstNode: (node: any) => void;
   sourceCode: string;
   setSourceCode: (code: string) => void;
   snippetCode: string;
@@ -20,8 +18,6 @@ export const AppContext = createContext<AppContent>({
   setAlert: () => {},
   astSourceCode: "",
   setAstSourceCode: () => {},
-  astNode: {},
-  setAstNode: () => {},
   sourceCode: "",
   setSourceCode: () => {},
   snippetCode: "",

@@ -4,7 +4,7 @@ import { requestUrl } from "../utils";
 import ReactJson from "react-json-view";
 
 interface AstOutputProps {
-  node?: Node;
+  node: any;
 }
 
 const IGNORE_KEYS = [
@@ -79,7 +79,7 @@ const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
     key: string
   ): [key: string, value: any] => {
     const value = (node as any)[key];
-    if (typeof value === "object") {
+    if (value && typeof value === "object") {
       return [key, getNodeObject(value)];
     } else {
       return [key, value];

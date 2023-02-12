@@ -10,7 +10,6 @@ const App = () => {
   const { language } = useParams() as { language: string };
   const [alert, setAlert] = useState("");
   const [astSourceCode, setAstSourceCode] = useState("");
-  const [astNode, setAstNode] = useState({});
   const [sourceCode, setSourceCode] = useState("");
   const [snippetCode, setSnippetCode] = useState("");
   const [output, setOutput] = useState("");
@@ -28,8 +27,6 @@ const App = () => {
         setAlert,
         astSourceCode,
         setAstSourceCode,
-        astNode,
-        setAstNode,
         sourceCode,
         setSourceCode,
         snippetCode,
