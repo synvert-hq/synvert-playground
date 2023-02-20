@@ -31,7 +31,7 @@ const SnippetSelect: React.FC<SnippetSelectProps> = ({
   useEffect(() => {
     setSnippets([]);
     const fetchSnippets = async () => {
-      const url = requestUrl(language, "snippets");
+      const url = requestUrl(language, `snippets?language=${language}`);
       const response = await fetch(url);
       const data = await response.json();
       setSnippets(data.snippets);
