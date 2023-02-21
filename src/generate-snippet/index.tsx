@@ -23,7 +23,8 @@ function GenerateSnippet() {
   const [inputs, setInputs] = useState<string[]>([""]);
   const [outputs, setOutputs] = useState<string[]>([""]);
   const [generating, setGenerating] = useState<boolean>(false);
-  const [snippet, setSnippet] = useState<string>("");
+  const [snippets, setSnippets] = useState<string[]>([]);
+  const [snippetIndex, setSnippetIndex] = useState<number>(0);
   const { setAlert } = useAppContext();
 
   const setInputSourceCode = (code: string, index: number) => {
@@ -64,33 +65,36 @@ function GenerateSnippet() {
       const data = await response.json();
       if (data.error) {
         setAlert(data.error);
-        setSnippet("");
-      } else if (!data.snippet) {
+        setSnippets([]);
+      } else if (data.snippets.length === 0) {
         setAlert("Failed to generate snippet!");
-        setSnippet("");
+        setSnippets([]);
       } else {
         setAlert("");
-        let snippet = "";
+        setSnippetIndex(0);
         if (language === "ruby") {
-          snippet = composeRubyGeneratedSnippet({
-            filePattern,
-            rubyVersion,
-            gemVersion,
-            snippet: data.snippet,
-          });
+          setSnippets(data.snippets.map((snippet: string) => (
+            composeRubyGeneratedSnippet({
+              filePattern,
+              rubyVersion,
+              gemVersion,
+              snippet,
+            })
+          )));
         } else {
-          snippet = composeJavascriptGeneratedSnippet({
-            filePattern,
-            nodeVersion,
-            npmVersion,
-            snippet: data.snippet,
-          });
+          setSnippets(data.snippets.map((snippet: string) => (
+            composeJavascriptGeneratedSnippet({
+              filePattern,
+              nodeVersion,
+              npmVersion,
+              snippet,
+            })
+          )));
         }
-        setSnippet(snippet);
       }
     } catch (e) {
       setAlert("Failed to send request, please check your network setting.");
-      setSnippet("");
+      setSnippets([]);
     } finally {
       setGenerating(false);
     }
@@ -109,8 +113,8 @@ function GenerateSnippet() {
 
   useEffect(() => {
     setFilePattern(`**/*.${CODE_EXTENSIONS[language]}`);
-    setSnippet("");
-    setSnippet("");
+    setSnippetIndex(0);
+    setSnippets([]);
   }, [language]);
 
   return (
@@ -162,7 +166,7 @@ function GenerateSnippet() {
       <div className="flex px-4 flex-row-reverse">
         <a
           href="https://synvert.net/how_to_write_inputs_outputs"
-          className="text-sky-500"
+          className="text-blue-600"
           target="_blank"
           rel="noreferrer"
         >
@@ -208,10 +212,7 @@ function GenerateSnippet() {
           <Button onClick={addMoreInputOutput} text="Add More Input/Output" />
           {inputs.length > 1 && (
             <div className="ml-4">
-              <Button
-                onClick={removeLastInputOutput}
-                text="Remove Last Input/Output"
-              />
+              <button className="text-blue-600" onClick={removeLastInputOutput}>Remove Last Input/Output</button>
             </div>
           )}
         </div>
@@ -230,8 +231,16 @@ function GenerateSnippet() {
         </div>
       </div>
       <div className="px-4">
+        <div className="flex justify-end py-1">
+          {snippets.length > 1 && snippetIndex > 0 && (
+            <button className="text-blue-600" onClick={() => { setSnippetIndex(snippetIndex - 1)}}>&lt;&nbsp;Prev</button>
+          )}
+          {snippets.length > 1 && (snippetIndex < snippets.length - 1) && (
+            <button className="text-blue-600" onClick={() => { setSnippetIndex(snippetIndex + 1)}}>Next&nbsp;&gt;</button>
+          )}
+        </div>
         <CodeEditor
-          value={snippet}
+          value={snippets[snippetIndex] || ""}
           language={language}
           readOnly
           minHeight={400}
