@@ -10,7 +10,9 @@ import RadioField from "../shared/RadioField";
 import { codeEditorStyle, CODE_EXTENSIONS } from "../constants";
 
 function GenerateSnippet() {
-  const { language } = useParams() as { language: "ruby" | "javascript" | "typescript" };
+  const { language } = useParams() as {
+    language: "ruby" | "javascript" | "typescript";
+  };
   const [filePattern, setFilePattern] = useState<string>("");
   const [rubyVersion, setRubyVersion] = useState<string>("");
   const [gemVersion, setGemVersion] = useState<string>("");
@@ -70,9 +72,21 @@ function GenerateSnippet() {
         setAlert("");
         setSnippetIndex(0);
         const snippets = composeGeneratedSnippets(
-          language === "ruby" ?
-          { language, filePattern, rubyVersion, gemVersion, snippets: data.snippets } :
-          { language, filePattern, nodeVersion, npmVersion, snippets: data.snippets }
+          language === "ruby"
+            ? {
+                language,
+                filePattern,
+                rubyVersion,
+                gemVersion,
+                snippets: data.snippets,
+              }
+            : {
+                language,
+                filePattern,
+                nodeVersion,
+                npmVersion,
+                snippets: data.snippets,
+              }
         );
         setSnippets(snippets);
       }
@@ -196,7 +210,9 @@ function GenerateSnippet() {
           <Button onClick={addMoreInputOutput} text="Add More Input/Output" />
           {inputs.length > 1 && (
             <div className="ml-4">
-              <button className="text-blue-600" onClick={removeLastInputOutput}>Remove Last Input/Output</button>
+              <button className="text-blue-600" onClick={removeLastInputOutput}>
+                Remove Last Input/Output
+              </button>
             </div>
           )}
         </div>
@@ -217,10 +233,24 @@ function GenerateSnippet() {
       <div className="px-4">
         <div className="flex justify-end py-1">
           {snippets.length > 1 && snippetIndex > 0 && (
-            <button className="text-blue-600" onClick={() => { setSnippetIndex(snippetIndex - 1)}}>&lt;&nbsp;Prev</button>
+            <button
+              className="text-blue-600"
+              onClick={() => {
+                setSnippetIndex(snippetIndex - 1);
+              }}
+            >
+              &lt;&nbsp;Prev
+            </button>
           )}
-          {snippets.length > 1 && (snippetIndex < snippets.length - 1) && (
-            <button className="text-blue-600" onClick={() => { setSnippetIndex(snippetIndex + 1)}}>Next&nbsp;&gt;</button>
+          {snippets.length > 1 && snippetIndex < snippets.length - 1 && (
+            <button
+              className="text-blue-600"
+              onClick={() => {
+                setSnippetIndex(snippetIndex + 1);
+              }}
+            >
+              Next&nbsp;&gt;
+            </button>
           )}
         </div>
         <CodeEditor
