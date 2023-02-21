@@ -1,10 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CodeEditor from "@uiw/react-textarea-code-editor";
-import {
-  composeRubyGeneratedSnippet,
-  composeJavascriptGeneratedSnippet,
-} from "synvert-ui-common";
+import { composeGeneratedSnippets } from "synvert-ui-common";
 import { requestUrl } from "../utils";
 import Button from "../shared/Button";
 import useAppContext from "../shared/useAppContext";
@@ -13,7 +10,7 @@ import RadioField from "../shared/RadioField";
 import { codeEditorStyle, CODE_EXTENSIONS } from "../constants";
 
 function GenerateSnippet() {
-  const { language } = useParams() as { language: string };
+  const { language } = useParams() as { language: "ruby" | "javascript" | "typescript" };
   const [filePattern, setFilePattern] = useState<string>("");
   const [rubyVersion, setRubyVersion] = useState<string>("");
   const [gemVersion, setGemVersion] = useState<string>("");
@@ -72,25 +69,12 @@ function GenerateSnippet() {
       } else {
         setAlert("");
         setSnippetIndex(0);
-        if (language === "ruby") {
-          setSnippets(data.snippets.map((snippet: string) => (
-            composeRubyGeneratedSnippet({
-              filePattern,
-              rubyVersion,
-              gemVersion,
-              snippet,
-            })
-          )));
-        } else {
-          setSnippets(data.snippets.map((snippet: string) => (
-            composeJavascriptGeneratedSnippet({
-              filePattern,
-              nodeVersion,
-              npmVersion,
-              snippet,
-            })
-          )));
-        }
+        const snippets = composeGeneratedSnippets(
+          language === "ruby" ?
+          { language, filePattern, rubyVersion, gemVersion, snippets: data.snippets } :
+          { language, filePattern, nodeVersion, npmVersion, snippets: data.snippets }
+        );
+        setSnippets(snippets);
       }
     } catch (e) {
       setAlert("Failed to send request, please check your network setting.");
