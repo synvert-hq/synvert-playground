@@ -234,7 +234,7 @@ function GenerateSnippet() {
         <div className="flex justify-end py-1">
           {snippets.length > 1 && snippetIndex > 0 && (
             <button
-              className="text-blue-600"
+              className="text-blue-600 pl-2"
               onClick={() => {
                 setSnippetIndex(snippetIndex - 1);
               }}
@@ -244,7 +244,7 @@ function GenerateSnippet() {
           )}
           {snippets.length > 1 && snippetIndex < snippets.length - 1 && (
             <button
-              className="text-blue-600"
+              className="text-blue-600 pl-2"
               onClick={() => {
                 setSnippetIndex(snippetIndex + 1);
               }}
