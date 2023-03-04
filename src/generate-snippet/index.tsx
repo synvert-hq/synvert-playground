@@ -48,6 +48,9 @@ function GenerateSnippet() {
 
   const generateSnippet = useCallback(async () => {
     setGenerating(true);
+    setAlert("");
+    setSnippets([]);
+    setSnippetIndex(0);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -64,13 +67,10 @@ function GenerateSnippet() {
       const data = await response.json();
       if (data.error) {
         setAlert(data.error);
-        setSnippets([]);
       } else if (data.snippets.length === 0) {
         setAlert("Failed to generate snippet!");
-        setSnippets([]);
       } else {
         setAlert("");
-        setSnippetIndex(0);
         const snippets = composeGeneratedSnippets(
           language === "ruby"
             ? {
@@ -92,7 +92,6 @@ function GenerateSnippet() {
       }
     } catch (e) {
       setAlert("Failed to send request, please check your network setting.");
-      setSnippets([]);
     } finally {
       setGenerating(false);
     }
