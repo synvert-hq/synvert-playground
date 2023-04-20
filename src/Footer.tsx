@@ -5,7 +5,7 @@ const Footer = () => (
       <a href="https://xinminlabs.com" target="_blank" rel="noreferrer">
         Xinmin Labs
       </a>{" "}
-      2022. All rights reserved.
+      2023. All rights reserved.
     </p>
   </footer>
 );
