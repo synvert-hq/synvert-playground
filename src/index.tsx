@@ -31,7 +31,7 @@ ReactDOM.render(
         />
         <Route
           path="*"
-          element={<Navigate to="/typescript/parse-snippet" replace />}
+          element={<Navigate to="/ruby/parse-snippet" replace />}
         />
       </Routes>
     </BrowserRouter>
