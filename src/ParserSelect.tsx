@@ -7,9 +7,7 @@ const ParserSelect: React.FC = () => {
   const { language } = useParams() as { language: string };
   const { parser, setParser } = useAppContext();
 
-  const handleParserChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleParserChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const parser = event.target.value;
     setParser(parser);
   };
