@@ -9,6 +9,7 @@ import { DEFAULT_PARSE_SNIPPETS } from "./constants";
 const App = () => {
   const { language } = useParams() as { language: string };
   const [alert, setAlert] = useState("");
+  const [parser, setParser] = useState("parser");
   const [astSourceCode, setAstSourceCode] = useState("");
   const [sourceCode, setSourceCode] = useState("");
   const [snippetCode, setSnippetCode] = useState("");
@@ -33,6 +34,8 @@ const App = () => {
         setSnippetCode,
         output,
         setOutput,
+        parser,
+        setParser,
       }}
     >
       <Header />

@@ -11,7 +11,7 @@ function GenerateAst() {
   const { language } = useParams() as { language: string };
   const [astNode, setAstNode] = useState({});
 
-  const { setAlert, astSourceCode, setAstSourceCode } = useAppContext();
+  const { setAlert, parser, astSourceCode, setAstSourceCode } = useAppContext();
   const [generating, setGenerating] = useState<boolean>(false);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ function GenerateAst() {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ code: astSourceCode, language }),
+      body: JSON.stringify({ code: astSourceCode, language, parser }),
     };
     try {
       const url = requestUrl(language, "generate-ast");
@@ -43,7 +43,7 @@ function GenerateAst() {
     } finally {
       setGenerating(false);
     }
-  }, [language, astSourceCode]);
+  }, [setAlert, language, astSourceCode, parser]);
 
   return (
     <div className="flex p-4">

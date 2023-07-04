@@ -24,7 +24,7 @@ function GenerateSnippet() {
   const [generating, setGenerating] = useState<boolean>(false);
   const [snippets, setSnippets] = useState<string[]>([]);
   const [snippetIndex, setSnippetIndex] = useState<number>(0);
-  const { setAlert } = useAppContext();
+  const { setAlert, parser } = useAppContext();
 
   const setInputSourceCode = (code: string, index: number) => {
     inputs[index] = code;
@@ -59,6 +59,7 @@ function GenerateSnippet() {
         inputs,
         outputs,
         nql_or_rules: nqlOrRules,
+        parser,
       }),
     };
     try {
@@ -75,6 +76,7 @@ function GenerateSnippet() {
           language === "ruby"
             ? {
                 language,
+                parser,
                 filePattern,
                 rubyVersion,
                 gemVersion,
@@ -82,6 +84,7 @@ function GenerateSnippet() {
               }
             : {
                 language,
+                parser,
                 filePattern,
                 nodeVersion,
                 npmVersion,
@@ -106,6 +109,7 @@ function GenerateSnippet() {
     outputs,
     nqlOrRules,
     setAlert,
+    parser,
   ]);
 
   useEffect(() => {

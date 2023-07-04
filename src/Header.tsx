@@ -3,6 +3,7 @@ import logo from "./logo.png";
 import { useParams } from "react-router-dom";
 import NavTab from "./shared/NavTab";
 import LanguageSelect from "./LanguageSelect";
+import ParserSelect from "./ParserSelect";
 
 const Header: React.FC = () => {
   const { language } = useParams() as { language: string };
@@ -36,7 +37,10 @@ const Header: React.FC = () => {
                 text="Generate AST"
               ></NavTab>
             </div>
-            <LanguageSelect />
+            <div className="flex justify-end">
+              <LanguageSelect />
+              <ParserSelect />
+            </div>
           </div>
         </div>
       </nav>

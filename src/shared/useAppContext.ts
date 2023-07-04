@@ -11,6 +11,8 @@ export type AppContent = {
   setSnippetCode: (code: string) => void;
   output: string;
   setOutput: (code: string) => void;
+  parser: string;
+  setParser: (parser: string) => void;
 };
 
 export const AppContext = createContext<AppContent>({
@@ -24,6 +26,8 @@ export const AppContext = createContext<AppContent>({
   setSnippetCode: () => {},
   output: "",
   setOutput: () => {},
+  parser: "",
+  setParser: () => {},
 });
 
 const useAppContext = () => useContext(AppContext);

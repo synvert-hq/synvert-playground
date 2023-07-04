@@ -12,6 +12,7 @@ function ParseSnippet() {
   const { language } = useParams() as { language: string };
   const {
     setAlert,
+    parser,
     sourceCode,
     setSourceCode,
     snippetCode,
@@ -37,6 +38,7 @@ function ParseSnippet() {
           language,
           code: sourceCode,
           snippet: snippetCode,
+          parser,
         }),
       };
       try {
@@ -54,7 +56,7 @@ function ParseSnippet() {
         setParseSynvertSnippetDisabled(false);
       }
     }
-  }, [language, sourceCode, snippetCode]);
+  }, [setAlert, setOutput, language, sourceCode, snippetCode, parser]);
 
   return (
     <>

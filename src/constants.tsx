@@ -14,6 +14,12 @@ interface ParseSnippets {
 
 export const LANGUAGES = ["typescript", "javascript", "ruby"];
 
+export const PARSERS: { [language: string]: string[] } = {
+  ruby: ["parser", "syntax_tree"],
+  javascript: ["typescript"],
+  typescript: ["typescript"],
+};
+
 export const REQUEST_BASE_URL: { [language: string]: string } = {
   typescript:
     process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
