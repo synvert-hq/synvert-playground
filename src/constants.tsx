@@ -12,7 +12,15 @@ interface ParseSnippets {
   };
 }
 
-export const LANGUAGES = ["ruby", "typescript", "javascript", "css", "less", "sass", "scss"];
+export const LANGUAGES = [
+  "ruby",
+  "typescript",
+  "javascript",
+  "css",
+  "less",
+  "sass",
+  "scss",
+];
 
 export const PARSERS: { [language: string]: string[] } = {
   ruby: ["parser", "syntax_tree"],
@@ -30,14 +38,10 @@ export const REQUEST_BASE_URL: { [language: string]: string } = {
     process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
   javascript:
     process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
-  css:
-    process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
-  less:
-    process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
-  sass:
-    process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
-  scss:
-    process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
+  css: process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
+  less: process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
+  sass: process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
+  scss: process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
 };
 
 export const CODE_EXTENSIONS: Extensions = {
