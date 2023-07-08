@@ -4,12 +4,12 @@ import { AppContext } from "./shared/useAppContext";
 import Header from "./Header";
 import Alert from "./Alert";
 import Footer from "./Footer";
-import { DEFAULT_PARSE_SNIPPETS } from "./constants";
+import { DEFAULT_PARSE_SNIPPETS, PARSERS } from "./constants";
 
 const App = () => {
   const { language } = useParams() as { language: string };
   const [alert, setAlert] = useState("");
-  const [parser, setParser] = useState("parser");
+  const [parser, setParser] = useState(PARSERS[language][0]);
   const [astSourceCode, setAstSourceCode] = useState("");
   const [sourceCode, setSourceCode] = useState("");
   const [snippetCode, setSnippetCode] = useState("");
