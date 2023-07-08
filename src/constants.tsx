@@ -12,26 +12,42 @@ interface ParseSnippets {
   };
 }
 
-export const LANGUAGES = ["typescript", "javascript", "ruby"];
+export const LANGUAGES = ["ruby", "typescript", "javascript", "css", "less", "sass", "scss"];
 
 export const PARSERS: { [language: string]: string[] } = {
   ruby: ["parser", "syntax_tree"],
-  javascript: ["typescript"],
   typescript: ["typescript"],
+  javascript: ["typescript", "espree"],
+  css: ["gonzales-pe"],
+  less: ["gonzales-pe"],
+  sass: ["gonzales-pe"],
+  scss: ["gonzales-pe"],
 };
 
 export const REQUEST_BASE_URL: { [language: string]: string } = {
+  ruby: process.env.REACT_APP_RUBY_BASE_URL || "http://localhost:9292",
   typescript:
     process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
   javascript:
     process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
-  ruby: process.env.REACT_APP_RUBY_BASE_URL || "http://localhost:9292",
+  css:
+    process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
+  less:
+    process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
+  sass:
+    process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
+  scss:
+    process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
 };
 
 export const CODE_EXTENSIONS: Extensions = {
+  ruby: "rb",
   typescript: "ts",
   javascript: "js",
-  ruby: "rb",
+  css: "css",
+  less: "less",
+  sass: "sass",
+  scss: "scss",
 };
 
 export const DEFAULT_PARSE_SNIPPETS: ParseSnippets = {
@@ -161,6 +177,201 @@ export const DEFAULT_PARSE_SNIPPETS: ParseSnippets = {
           end
         end
       end
+    `,
+  },
+  css: {
+    input: "",
+    output: "",
+    snippet: "",
+  },
+  less: {
+    input: "",
+    output: "",
+    snippet: "",
+  },
+  sass: {
+    input: dedent`
+      @import "../styles/imports"
+      $col-primary: #f39900
+      =center_horizontal()
+        display: flex
+        justify-content: center
+      .container
+        +center_horizontal()
+        border: 1px solid darken($col-background, 10)
+        .item
+          color: $col-primary
+    `,
+    output: dedent`
+      @import "../styles/imports";
+      $col-primary: #f39900;
+      @mixin center_horizontal() {
+        display: flex;
+        justify-content: center;
+      }
+      .container {
+        @include center_horizontal();
+        border: 1px solid darken($col-background, 10);
+        .item {
+          color: $col-primary;
+        }
+      }
+    `,
+    snippet: dedent`
+      new Synvert.Rewriter("sass", "convert-to-scss", () => {
+        configure({ parser: Synvert.Parser.GONZALES_PE });
+
+        description(\`
+          Convert sass to scss
+
+          @import "../styles/imports"
+          $col-primary: #f39900
+          =center_horizontal()
+            display: flex
+            justify-content: center
+          .container
+            +center_horizontal()
+            border: 1px solid darken($col-background, 10)
+            .item
+              color: $col-primary
+
+          =>
+
+          @import "../styles/imports";
+          $col-primary: #f39900;
+          @mixin center_horizontal() {
+            display: flex;
+            justify-content: center;
+          }
+          .container {
+            @include center_horizontal();
+            border: 1px solid darken($col-background, 10);
+            .item {
+              color: $col-primary;
+            }
+          }
+        \`);
+
+        withinFiles(Synvert.ALL_SASS_FILES, function () {
+          findNode(".atrule .string", () => {
+            insert(";", { at: "end" });
+          });
+
+          findNode(".declaration, .include", () => {
+            insert(";", { at: "end", conflictPosition: -99 });
+          });
+
+          findNode(".mixin .operator", () => {
+            replaceWith("@mixin ");
+          });
+
+          findNode(".include .operator", () => {
+            replaceWith("@include ");
+          });
+
+          findNode(".mixin", () => {
+            const conflictPosition = -this.currentNode.start.column;
+            insert(" {", { at: "end", to: "arguments" });
+            insertAfter("}", {
+              to: "block",
+              newLinePosition: "after",
+              conflictPosition,
+            });
+          });
+
+          findNode(".ruleset", () => {
+            const conflictPosition = -this.currentNode.start.column;
+            insert(" {", { at: "end", to: "selector" });
+            insertAfter("}", {
+              to: "block",
+              newLinePosition: "before",
+              conflictPosition,
+            });
+          });
+        });
+      });
+    `,
+  },
+  scss: {
+    input: dedent`
+      @import "../styles/imports";
+      $col-primary: #f39900;
+      @mixin center_horizontal() {
+        display: flex;
+        justify-content: center;
+      }
+      .container {
+        @include center_horizontal();
+        border: 1px solid darken($col-background, 10);
+        .item {
+          color: $col-primary;
+        }
+      }
+    `,
+    output: dedent`
+      @import "../styles/imports"
+      $col-primary: #f39900
+      =center_horizontal()
+        display: flex
+        justify-content: center
+      .container
+        +center_horizontal()
+        border: 1px solid darken($col-background, 10)
+        .item
+          color: $col-primary
+    `,
+    snippet: dedent`
+      new Synvert.Rewriter("scss", "convert-to-sass", () => {
+        configure({ parser: Synvert.Parser.GONZALES_PE });
+
+        description(\`
+          Convert scss to sass
+
+          @import "../styles/imports";
+          $col-primary: #f39900;
+          @mixin center_horizontal() {
+            display: flex;
+            justify-content: center;
+          }
+
+          .container {
+            @include center_horizontal();
+            border: 1px solid darken($col-background, 10);
+
+            .item {
+              color: $col-primary;
+            }
+          }
+
+          =>
+
+          @import "../styles/imports"
+          $col-primary: #f39900
+          @mixin center_horizontal()
+            display: flex
+            justify-content: center
+
+          .container
+            @include center_horizontal()
+            border: 1px solid darken($col-background, 10)
+
+            .item
+              color: $col-primary
+        \`);
+
+        withinFiles(Synvert.ALL_SCSS_FILES, function () {
+          findNode(".declarationDelimiter", () => {
+            remove();
+          });
+
+          findNode(".block", () => {
+            // prettier-ignore
+            delete("leftCurlyBracket");
+            // prettier-ignore
+            delete("rightCurlyBracket", { wholeLine: true });
+          });
+        });
+      });
     `,
   },
 };
