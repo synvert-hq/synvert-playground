@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { PARSERS } from "./constants";
 import useAppContext from "./shared/useAppContext";
@@ -6,6 +6,10 @@ import useAppContext from "./shared/useAppContext";
 const ParserSelect: React.FC = () => {
   const { language } = useParams() as { language: string };
   const { parser, setParser } = useAppContext();
+
+  useEffect(() => {
+    setParser(PARSERS[language][0]);
+  }, [language, setParser]);
 
   const handleParserChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const parser = event.target.value;
