@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { PARSERS } from "./constants";
+import { parsersByLanguage } from "synvert-ui-common";
 import useAppContext from "./shared/useAppContext";
 
 const ParserSelect: React.FC = () => {
@@ -8,7 +8,7 @@ const ParserSelect: React.FC = () => {
   const { parser, setParser } = useAppContext();
 
   useEffect(() => {
-    setParser(PARSERS[language][0]);
+    setParser(parsersByLanguage(language)[0]);
   }, [language, setParser]);
 
   const handleParserChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -24,7 +24,7 @@ const ParserSelect: React.FC = () => {
         className="px-3 py-1.5 text-gray-700 border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:border-blue-600 focus:outline-none"
         onChange={handleParserChange}
       >
-        {PARSERS[language].map((parser) => (
+        {parsersByLanguage(language).map((parser) => (
           <option key={parser} value={parser}>
             {parser}
           </option>

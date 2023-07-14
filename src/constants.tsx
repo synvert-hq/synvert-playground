@@ -22,16 +22,6 @@ export const LANGUAGES = [
   "scss",
 ];
 
-export const PARSERS: { [language: string]: string[] } = {
-  ruby: ["parser", "syntax_tree"],
-  typescript: ["typescript"],
-  javascript: ["typescript", "espree"],
-  css: ["gonzales-pe"],
-  less: ["gonzales-pe"],
-  sass: ["gonzales-pe"],
-  scss: ["gonzales-pe"],
-};
-
 export const REQUEST_BASE_URL: { [language: string]: string } = {
   ruby: process.env.REACT_APP_RUBY_BASE_URL || "http://localhost:9292",
   typescript:

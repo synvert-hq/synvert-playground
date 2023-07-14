@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
+import { parsersByLanguage } from "synvert-ui-common";
 import { AppContext } from "./shared/useAppContext";
 import Header from "./Header";
 import Alert from "./Alert";
 import Footer from "./Footer";
-import { DEFAULT_PARSE_SNIPPETS, PARSERS } from "./constants";
+import { DEFAULT_PARSE_SNIPPETS } from "./constants";
 
 const App = () => {
   const { language } = useParams() as { language: string };
   const [alert, setAlert] = useState("");
-  const [parser, setParser] = useState(PARSERS[language][0]);
+  const [parser, setParser] = useState(parsersByLanguage(language)[0]);
   const [astSourceCode, setAstSourceCode] = useState("");
   const [sourceCode, setSourceCode] = useState("");
   const [snippetCode, setSnippetCode] = useState("");
