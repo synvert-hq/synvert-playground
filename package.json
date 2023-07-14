@@ -19,7 +19,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
     "react-select": "^5.4.0",
-    "synvert-ui-common": "^1.6.3",
+    "synvert-ui-common": "^1.7.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
