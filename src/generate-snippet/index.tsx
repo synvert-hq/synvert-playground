@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CodeEditor from "@uiw/react-textarea-code-editor";
-import { composeGeneratedSnippets, placeholderByLanguage } from "synvert-ui-common";
+import {
+  composeGeneratedSnippets,
+  placeholderByLanguage,
+} from "synvert-ui-common";
 import { requestUrl } from "../utils";
 import Button from "../shared/Button";
 import useAppContext from "../shared/useAppContext";
