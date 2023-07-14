@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CodeEditor from "@uiw/react-textarea-code-editor";
-import { composeGeneratedSnippets } from "synvert-ui-common";
+import { composeGeneratedSnippets, placeholderByLanguage } from "synvert-ui-common";
 import { requestUrl } from "../utils";
 import Button from "../shared/Button";
 import useAppContext from "../shared/useAppContext";
@@ -181,6 +181,7 @@ function GenerateSnippet() {
             <div className="mb-2" key={index}>
               <CodeEditor
                 value={input}
+                placeholder={placeholderByLanguage(language)["input"]}
                 language={language}
                 onChange={(event) =>
                   setInputSourceCode(event.target.value, index)
@@ -197,6 +198,7 @@ function GenerateSnippet() {
             <div className="mb-2" key={index}>
               <CodeEditor
                 value={output}
+                placeholder={placeholderByLanguage(language)["output"]}
                 language={language}
                 onChange={(event) =>
                   setOutputSourceCode(event.target.value, index)
