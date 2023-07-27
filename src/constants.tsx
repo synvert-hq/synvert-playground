@@ -34,16 +34,6 @@ export const REQUEST_BASE_URL: { [language: string]: string } = {
   scss: process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
 };
 
-export const CODE_EXTENSIONS: Extensions = {
-  ruby: "rb",
-  typescript: "ts",
-  javascript: "js",
-  css: "css",
-  less: "less",
-  sass: "sass",
-  scss: "scss",
-};
-
 export const DEFAULT_PARSE_SNIPPETS: ParseSnippets = {
   javascript: {
     input: dedent`
