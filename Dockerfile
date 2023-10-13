@@ -1,4 +1,4 @@
-FROM node:18.17.1 as build-deps
+FROM node:18.18.1 as build-deps
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
