@@ -21,7 +21,7 @@ const SnippetSelect: React.FC<SnippetSelectProps> = ({
   const [snippets, setSnippets] = useState<Snippet[]>([]);
   const [options, setOptions] = useState<Option[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
-  const offliceSnippetsUrl = `https://synvert.net/${language}/official_snippets/`;
+  const officeSnippetsUrl = `https://synvert.net/${language}/official_snippets/`;
 
   const convertSnippetToOption = (snippet: Snippet) => ({
     value: snippet,
@@ -75,11 +75,11 @@ const SnippetSelect: React.FC<SnippetSelectProps> = ({
       </div>
       <a
         className="ml-5"
-        href={offliceSnippetsUrl}
+        href={officeSnippetsUrl}
         target="_blank"
         rel="noreferrer"
       >
-        Official Snippts
+        Official Snippets
       </a>
     </div>
   );
