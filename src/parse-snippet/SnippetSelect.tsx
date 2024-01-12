@@ -45,8 +45,8 @@ const SnippetSelect: React.FC<SnippetSelectProps> = ({
     }
     setOptions(
       sortSnippets(filterSnippets(snippets, inputValue), inputValue).map(
-        convertSnippetToOption
-      )
+        convertSnippetToOption,
+      ),
     );
   }, [snippets, inputValue]);
 

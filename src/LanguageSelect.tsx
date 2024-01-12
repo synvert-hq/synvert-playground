@@ -8,7 +8,7 @@ const LanguageSelect: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLanguageChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const newLanguage = event.target.value;
     navigate(pathname.replace(language, newLanguage));
