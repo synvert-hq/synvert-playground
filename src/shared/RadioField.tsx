@@ -4,7 +4,7 @@ interface RadioFieldProps {
   value: string;
   values: string[];
   labels: string[];
-  handleValueChanged: (value: string) => void;
+  handleValueChanged: (value: "nql" | "rules") => void;
 }
 
 const RadioField: React.FC<RadioFieldProps> = ({
@@ -14,7 +14,7 @@ const RadioField: React.FC<RadioFieldProps> = ({
   handleValueChanged,
 }) => {
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
+    const value = event.target.value as "nql" | "rules";
     handleValueChanged(value);
   };
 
