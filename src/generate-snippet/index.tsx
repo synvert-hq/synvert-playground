@@ -1,7 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CodeEditor from "@uiw/react-textarea-code-editor";
-import { generateSnippets, filePatternByLanguage, placeholderByLanguage, GenerateSnippetsParams, LANGUAGE } from "synvert-ui-common";
+import {
+  generateSnippets,
+  filePatternByLanguage,
+  placeholderByLanguage,
+  GenerateSnippetsParams,
+  LANGUAGE,
+} from "synvert-ui-common";
 import Button from "../shared/Button";
 import useAppContext from "../shared/useAppContext";
 import TextField from "../shared/TextField";
@@ -9,8 +15,8 @@ import RadioField from "../shared/RadioField";
 import { codeEditorStyle } from "../constants";
 
 function GenerateSnippet() {
-  const token = 'fake';
-  const platform = 'playground';
+  const token = "fake";
+  const platform = "playground";
   const { language } = useParams() as {
     language: LANGUAGE;
   };
@@ -52,9 +58,28 @@ function GenerateSnippet() {
     setAlert("");
     setSnippets([]);
     setSnippetIndex(0);
-    const params: GenerateSnippetsParams = language === "ruby" ?
-      { language, parser, filePattern, inputs, outputs, nqlOrRules, rubyVersion, gemVersion } :
-      { language, parser, filePattern, inputs, outputs, nqlOrRules, nodeVersion, npmVersion };
+    const params: GenerateSnippetsParams =
+      language === "ruby"
+        ? {
+            language,
+            parser,
+            filePattern,
+            inputs,
+            outputs,
+            nqlOrRules,
+            rubyVersion,
+            gemVersion,
+          }
+        : {
+            language,
+            parser,
+            filePattern,
+            inputs,
+            outputs,
+            nqlOrRules,
+            nodeVersion,
+            npmVersion,
+          };
     try {
       const result = await generateSnippets(token, platform, params);
       if (result.errorMessage) {

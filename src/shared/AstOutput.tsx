@@ -41,7 +41,7 @@ const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
   const mql = matchMedia("(prefers-color-scheme: dark)");
   const [darkMode, setDarkMode] = useState<boolean>(mql.matches);
   const [syntaxKinds, setSyntaxKinds] = useState<{ [kind: string]: string }>(
-    {}
+    {},
   );
   const fetchSyntaxKinds = useCallback(async () => {
     if (!["javascript", "typescript"].includes(language)) {
@@ -76,7 +76,7 @@ const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
 
   const getNewKeyValue = (
     node: Node,
-    key: string
+    key: string,
   ): [key: string, value: any] => {
     const value = (node as any)[key];
     if (value && typeof value === "object") {
