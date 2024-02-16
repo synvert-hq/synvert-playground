@@ -1,7 +1,13 @@
 import React, { useEffect, useState, useCallback } from "react";
 import Select, { SingleValue } from "react-select";
 import { useParams } from "react-router-dom";
-import { fetchSnippets, filterSnippets, sortSnippets, Snippet, LANGUAGE } from "synvert-ui-common";
+import {
+  fetchSnippets,
+  filterSnippets,
+  sortSnippets,
+  Snippet,
+  LANGUAGE,
+} from "synvert-ui-common";
 import "./snippet-select.css";
 
 interface SnippetSelectProps {
@@ -16,7 +22,7 @@ interface Option {
 const SnippetSelect: React.FC<SnippetSelectProps> = ({
   handleSnippetChanged,
 }) => {
-  const token = 'fake';
+  const token = "fake";
   const platform = "playground";
   const { language } = useParams() as { language: LANGUAGE };
   const [snippets, setSnippets] = useState<Snippet[]>([]);
@@ -45,8 +51,8 @@ const SnippetSelect: React.FC<SnippetSelectProps> = ({
     }
     setOptions(
       sortSnippets(filterSnippets(snippets, inputValue), inputValue).map(
-        convertSnippetToOption
-      )
+        convertSnippetToOption,
+      ),
     );
   }, [snippets, inputValue]);
 

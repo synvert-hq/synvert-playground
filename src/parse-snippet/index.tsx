@@ -25,7 +25,7 @@ function ParseSnippet() {
 
   const handleSnippetChanged = useCallback(
     (snippet: Snippet) => setSnippetCode(snippet.source_code),
-    [setSnippetCode]
+    [setSnippetCode],
   );
 
   const parseSynvertSnippet = useCallback(async () => {
