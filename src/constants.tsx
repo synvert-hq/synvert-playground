@@ -1,9 +1,5 @@
 import dedent from "dedent";
 
-interface Extensions {
-  [language: string]: string;
-}
-
 interface ParseSnippets {
   [language: string]: {
     input: string;
@@ -122,9 +118,9 @@ export const DEFAULT_PARSE_SNIPPETS: ParseSnippets = {
     input: "[1, 2, 3, 4].map { |e| [e, e] }.flatten",
     output: "[1, 2, 3, 4].flat_map { |e| [e, e] }",
     snippet: dedent`
-      # frozen_string_literal: true
-
       Synvert::Rewriter.new 'ruby', 'map_and_flatten_to_flat_map' do
+        configure(parser: Synvert::PRISM_PARSER)
+
         description <<~EOS
           It converts \`map\` and \`flatten\` to \`flat_map\`
 
@@ -151,13 +147,13 @@ export const DEFAULT_PARSE_SNIPPETS: ParseSnippets = {
           # enum.flat_map do
           #   # do something
           # end
-          find_node '.send
-                      [receiver=.block
-                        [caller=.send[message=map]]]
-                      [message=flatten]
-                      [arguments.size=0]' do
-            delete :message, :dot
-            replace 'receiver.caller.message', with: 'flat_map'
+          with_node node_type: 'call_node', receiver: { node_type: 'call_node', receiver: { node_type: 'call_node', receiver: nil }, name: 'map', block: { node_type: 'block_node' } }, name: 'flatten' do
+            group do
+              delete :call_operator, :name
+              goto_node :receiver do
+                replace :name, with: 'flat_map'
+              end
+            end
           end
         end
       end
