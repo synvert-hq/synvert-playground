@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Select, { SingleValue } from "react-select";
 import { useParams } from "react-router-dom";
-import { filterSnippets, sortSnippets, Snippet } from "synvert-ui-common";
-import { requestUrl } from "../utils";
+import { fetchSnippets, filterSnippets, sortSnippets, Snippet, LANGUAGE } from "synvert-ui-common";
 import "./snippet-select.css";
 
 interface SnippetSelectProps {
@@ -17,7 +16,9 @@ interface Option {
 const SnippetSelect: React.FC<SnippetSelectProps> = ({
   handleSnippetChanged,
 }) => {
-  const { language } = useParams() as { language: string };
+  const token = 'fake';
+  const platform = "playground";
+  const { language } = useParams() as { language: LANGUAGE };
   const [snippets, setSnippets] = useState<Snippet[]>([]);
   const [options, setOptions] = useState<Option[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
@@ -28,16 +29,15 @@ const SnippetSelect: React.FC<SnippetSelectProps> = ({
     label: `${snippet.group}/${snippet.name}`,
   });
 
-  useEffect(() => {
+  const loadSnippets = useCallback(async () => {
     setSnippets([]);
-    const fetchSnippets = async () => {
-      const url = requestUrl(language, `snippets?language=${language}`);
-      const response = await fetch(url);
-      const data = await response.json();
-      setSnippets(data.snippets);
-    };
-    fetchSnippets();
-  }, [language]);
+    const result = await fetchSnippets(language, token, platform);
+    setSnippets(result.snippets);
+  }, [token, language]);
+
+  useEffect(() => {
+    loadSnippets();
+  }, [loadSnippets]);
 
   useEffect(() => {
     if (inputValue) {
