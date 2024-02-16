@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CodeEditor from "@uiw/react-textarea-code-editor";
-import { composeGeneratedSnippets, filePatternByLanguage, placeholderByLanguage } from "synvert-ui-common";
-import { requestUrl } from "../utils";
+import { generateSnippets, filePatternByLanguage, placeholderByLanguage, GenerateSnippetsParams, LANGUAGE } from "synvert-ui-common";
 import Button from "../shared/Button";
 import useAppContext from "../shared/useAppContext";
 import TextField from "../shared/TextField";
@@ -10,15 +9,17 @@ import RadioField from "../shared/RadioField";
 import { codeEditorStyle } from "../constants";
 
 function GenerateSnippet() {
+  const token = 'fake';
+  const platform = 'playground';
   const { language } = useParams() as {
-    language: "ruby" | "javascript" | "typescript";
+    language: LANGUAGE;
   };
   const [filePattern, setFilePattern] = useState<string>("");
   const [rubyVersion, setRubyVersion] = useState<string>("");
   const [gemVersion, setGemVersion] = useState<string>("");
   const [nodeVersion, setNodeVersion] = useState<string>("");
   const [npmVersion, setNpmVersion] = useState<string>("");
-  const [nqlOrRules, setNqlOrRules] = useState<string>("nql");
+  const [nqlOrRules, setNqlOrRules] = useState<"nql" | "rules">("nql");
   const [inputs, setInputs] = useState<string[]>([""]);
   const [outputs, setOutputs] = useState<string[]>([""]);
   const [generating, setGenerating] = useState<boolean>(false);
@@ -51,47 +52,17 @@ function GenerateSnippet() {
     setAlert("");
     setSnippets([]);
     setSnippetIndex(0);
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        language,
-        inputs,
-        outputs,
-        nql_or_rules: nqlOrRules,
-        parser,
-      }),
-    };
+    const params: GenerateSnippetsParams = language === "ruby" ?
+      { language, parser, filePattern, inputs, outputs, nqlOrRules, rubyVersion, gemVersion } :
+      { language, parser, filePattern, inputs, outputs, nqlOrRules, nodeVersion, npmVersion };
     try {
-      const url = requestUrl(language, "generate-snippet");
-      const response = await fetch(url, requestOptions);
-      const data = await response.json();
-      if (data.error) {
-        setAlert(data.error);
-      } else if (data.snippets.length === 0) {
+      const result = await generateSnippets(token, platform, params);
+      if (result.errorMessage) {
+        setAlert(result.errorMessage);
+      } else if (result.generatedSnippets!.length === 0) {
         setAlert("Failed to generate snippet!");
       } else {
-        setAlert("");
-        const snippets = composeGeneratedSnippets(
-          language === "ruby"
-            ? {
-                language,
-                parser,
-                filePattern,
-                rubyVersion,
-                gemVersion,
-                snippets: data.snippets,
-              }
-            : {
-                language,
-                parser,
-                filePattern,
-                nodeVersion,
-                npmVersion,
-                snippets: data.snippets,
-              }
-        );
-        setSnippets(snippets);
+        setSnippets(result.generatedSnippets!);
       }
     } catch (e) {
       setAlert("Failed to send request, please check your network setting.");
@@ -99,6 +70,7 @@ function GenerateSnippet() {
       setGenerating(false);
     }
   }, [
+    token,
     language,
     filePattern,
     rubyVersion,
