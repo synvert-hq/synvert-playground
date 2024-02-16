@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { parsersByLanguage } from "synvert-ui-common";
+import { parsersByLanguage, LANGUAGE } from "synvert-ui-common";
 import useAppContext from "./shared/useAppContext";
 
 const ParserSelect: React.FC = () => {
-  const { language } = useParams() as { language: string };
+  const { language } = useParams() as { language: LANGUAGE };
   const { parser, setParser } = useAppContext();
 
   useEffect(() => {
