@@ -7,7 +7,7 @@ import {
   placeholderByLanguage,
   GenerateSnippetsParams,
   LANGUAGE,
-} from "synvert-ui-common";
+} from "@synvert-hq/synvert-ui-common";
 import Button from "../shared/Button";
 import useAppContext from "../shared/useAppContext";
 import TextField from "../shared/TextField";

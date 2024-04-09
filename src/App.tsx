@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
-import { LANGUAGE, parsersByLanguage } from "synvert-ui-common";
+import { LANGUAGE, parsersByLanguage } from "@synvert-hq/synvert-ui-common";
 import { AppContext } from "./shared/useAppContext";
 import Header from "./Header";
 import Alert from "./Alert";

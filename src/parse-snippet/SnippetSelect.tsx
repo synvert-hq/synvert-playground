@@ -7,7 +7,7 @@ import {
   sortSnippets,
   Snippet,
   LANGUAGE,
-} from "synvert-ui-common";
+} from "@synvert-hq/synvert-ui-common";
 import "./snippet-select.css";
 
 interface SnippetSelectProps {
