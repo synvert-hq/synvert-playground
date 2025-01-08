@@ -1,4 +1,4 @@
-FROM node:20.15.0 as build-deps
+FROM node:22.13.0 as build-deps
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
