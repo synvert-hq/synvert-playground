@@ -5,7 +5,7 @@ const Footer = () => (
       <a href="https://synvert.net" target="_blank" rel="noreferrer">
         synvert.net
       </a>{" "}
-      2024. All rights reserved.
+      2025. All rights reserved.
     </p>
   </footer>
 );
