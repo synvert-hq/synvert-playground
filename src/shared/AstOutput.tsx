@@ -95,6 +95,9 @@ const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
       if (!IGNORE_KEYS.includes(key)) {
         const [newKey, value] = getNewKeyValue(node, key);
         result[newKey] = value;
+        if (key === "kind") {
+          result["nodeType"] = syntaxKinds[value.toString()];
+        }
       }
     });
     return result;
